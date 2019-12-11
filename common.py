@@ -96,7 +96,7 @@ def recordTheOrderId(Id):
 
 def tsToTime(ts):
     ts = int(ts)
-    ts /= 1000
+    # ts /= 1000
     t = time.localtime(ts)
     docketDate = time.strftime("%Y-%m-%d %H:%M:%S", t)
     # docketDate += ".000"

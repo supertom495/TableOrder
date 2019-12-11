@@ -64,9 +64,17 @@ def getExtra():
 def findCategoryEnglish(categoryName):
     return db_get("select cat_name2 from Category where cat_name = '{}';".format(categoryName))
 
+def getCategoryId(categoryName):
+    return db_get("select cat_id from Category where cat_name = '{}';".format(categoryName))
 
 def getTaste():
     return db_get("select * from TasteStock")
+
+def getKbIdFromKeyboardItem(stockId):
+    return db_get("select kb_id from KeyboardItem where stock_Id = {};".format(stockId)) 
+
+def getKbIdFromKeyboardCat(catId):
+    return db_get("select kb_id from KeyboardCat where cat_Id = {};".format(catId)) 
 
 
 def getStockDateModified():
@@ -177,13 +185,20 @@ def insertSalesorderLine(records):
 
 
 def activateTable(tableId):
-    pass
+    return db_put("update [Tables] set table_status = 2, start_time = '{}' where table_id = {};".format(common.tsToTime(common.getCurrentTs()), tableId))
 
 def getStockPrint(stockId):
     return db_get("select * from StockPrint where stock_id = {};".format(stockId))
 
+def getCatPrint(catId):
+    return db_get("select * from CatPrint where cat_id = {};".format(catId))
+
+def getKeyboardPrint(kbId):
+    return db_get("select * from KeyboardPrint where kb_id = {};".format(kbId))
+
 def getSalesorderLine(lineId):
     return db_get("select * from SalesOrderLine where line_id = '{}';".format(lineId)) 
+
 
 def findPrinter(lineId):
     #get stock Id from salesorderLine
@@ -198,8 +213,28 @@ def findPrinter(lineId):
     stockPrint = getStockPrint(stockId)
     if(stockPrint):
         goToKitchen(stockPrint, salesorderLine, salesOrder, stock)
+        return 
 
-    pass
+
+    # check cat print
+    catName = stock[0][13]
+    catId = getCategoryId(catName)[0][0]
+    catPrint = getCatPrint(catId)
+    if(catPrint):
+        goToKitchen(catPrint, salesorderLine, salesOrder, stock)
+        return
+
+
+    # check keyboard print
+    kbId = getKbIdFromKeyboardItem(stockId)
+    # 如果不在keyboard item 里面， 就去keyboard 里面找
+    if (not kbId): 
+        kbId = getKbIdFromKeyboardCat(catId)
+    kbId = kbId[0][0]
+    keyboardPrint = getKeyboardPrint(kbId)
+    if(keyboardPrint):
+        goToKitchen(keyboardPrint, salesorderLine, salesOrder, stock)
+        return
 
 def goToKitchen(printers, salesorderLine, salesOrder, stock):
     query = ""

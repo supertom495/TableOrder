@@ -4,4 +4,12 @@ import posOperation
 
 common.setVar()
 
-res = posOperation.findPrinter(987740)
+def testPrinter(lineId):
+    res = posOperation.findPrinter(lineId)
+
+
+def testActivateTable(tableId):
+    res = posOperation.activateTable(tableId)
+
+
+testActivateTable(21)
