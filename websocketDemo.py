@@ -1,35 +1,30 @@
-import websocket
-try:
-    import thread
-except ImportError:
-    import _thread as thread
+import pysher
+import sys
+# Add a logging handler so we can see the raw communication data
+import logging
 import time
 
-def on_message(ws, message):
-    print(message)
+root = logging.getLogger()
+root.setLevel(logging.INFO)
+ch = logging.StreamHandler(sys.stdout)
+root.addHandler(ch)
 
-def on_error(ws, error):
-    print(error)
-
-def on_close(ws):
-    print("### closed ###")
-
-def on_open(ws):
-    def run(*args):
-        for i in range(3):
-            time.sleep(1)
-            ws.send("Hello %d" % i)
-        time.sleep(1)
-        ws.close()
-        print("thread terminating...")
-    thread.start_new_thread(run, ())
+pusher = pysher.Pusher("d422ef617a70042aa6b2", cluster="ap1", secure=True, secret="41e0bf31ef4a3b19b849")
 
 
-if __name__ == "__main__":
-    websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://echo.websocket.org/",
-                              on_message = on_message,
-                              on_error = on_error,
-                              on_close = on_close)
-    ws.on_open = on_open
-    ws.run_forever()
+def  my_func(*args, **kwargs):
+    print("processing Args:", args)
+    print("processing Kwargs:", kwargs)
+
+# We can't subscribe until we've connected, so we use a callback handler
+# to subscribe when able
+def connect_handler(data):
+    channel = pusher.subscribe('posts.10')
+    channel.bind('ChangTableStatus', my_func)
+
+pusher.connection.bind('pusher:connection_established', connect_handler)
+pusher.connect()
+
+while True:
+    # Do other things in the meantime here...
+    time.sleep(1)
