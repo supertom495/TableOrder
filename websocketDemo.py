@@ -25,6 +25,8 @@ def connect_handler(data):
 pusher.connection.bind('pusher:connection_established', connect_handler)
 pusher.connect()
 
+
+
 while True:
     # Do other things in the meantime here...
     time.sleep(1)

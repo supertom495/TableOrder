@@ -16,8 +16,8 @@ def getToken():
 # get all the table from db and update it to api
 
 
-def findTable():
-    tables = posOperation.getTable()
+def addTable(tables):
+    
     for item in tables:
         data = {
             "tableToken": getToken(),
@@ -119,7 +119,8 @@ def retriveSalesorderLine(salesOrderIds):
 
 def MyRun():
     while True:
-        findTable()  # TODO update table when needed
+        tables = posOperation.getTable()
+        addTable(tables)  # TODO update table when needed
         salesOrderIds = findSalesOrder()
         findSalesorderLine(salesOrderIds)       # post loacl order to server
         retriveSalesorderLine(salesOrderIds)    # download remote orderline

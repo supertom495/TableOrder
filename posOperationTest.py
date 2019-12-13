@@ -12,4 +12,5 @@ def testActivateTable(tableId):
     res = posOperation.activateTable(tableId)
 
 
-testActivateTable(21)
+
+print( posOperation.activateTable('22'))

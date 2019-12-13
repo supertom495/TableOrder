@@ -105,6 +105,8 @@ def getKeyboardCat():
 def getTable():
     return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time from [Tables]")
 
+def getTableByTableCode(tableCode):
+    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time from [Tables] where table_code = '{}';".format(tableCode))
 
 def getActiveTable():
     return db_get("select * from [Tables] where table_status = 2;")
@@ -184,8 +186,8 @@ def insertSalesorderLine(records):
     return (salesorder_id, line_id, records["line_id"])
 
 
-def activateTable(tableId):
-    return db_put("update [Tables] set table_status = 2, start_time = '{}' where table_id = {};".format(common.tsToTime(common.getCurrentTs()), tableId))
+def activateTable(tableCode):
+    return db_put("update [Tables] set table_status = 2, start_time = '{}' where table_code = '{}';".format(common.tsToTime(common.getCurrentTs()), tableCode))
 
 def getStockPrint(stockId):
     return db_get("select * from StockPrint where stock_id = {};".format(stockId))
