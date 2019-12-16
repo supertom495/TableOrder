@@ -14,8 +14,8 @@ root.setLevel(logging.INFO)
 ch = logging.StreamHandler(sys.stdout)
 root.addHandler(ch)
 
-receiver = pysher.Pusher(key="d422ef617a70042aa6b2", cluster="ap1", secure=True, secret="41e0bf31ef4a3b19b849")
-sender = pusher.Pusher(app_id=u'623887', key=u'd422ef617a70042aa6b2', secret=u'41e0bf31ef4a3b19b849', cluster=u'ap1')
+receiver = pysher.Pusher(key="ABCDEF", secure=False, custom_host="192.168.1.26", port="6001")
+# sender = pusher.Pusher(app_id=u'623887', key=u'd422ef617a70042aa6b2', secret=u'41e0bf31ef4a3b19b849', cluster=u'ap1')
 
 def open_table(data, *args, **kwargs):
     print("processing Args:", args)
@@ -28,8 +28,8 @@ def open_table(data, *args, **kwargs):
     posOperation.activateTable(tableCode)
     table = posOperation.getTableByTableCode(tableCode)
     tableOrder.addTable(table)
-    sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'tableCode': tableCode,
-        'code': '0', 'message':'giao'})
+    # sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'tableCode': tableCode,
+    #     'code': '0', 'message':'giao'})
     # tableOrder.addTable(table)
 
 # We can't subscribe until we've connected, so we use a callback handler
