@@ -1,4 +1,4 @@
 import pusher
-pusher_client = pusher.Pusher(app_id=u'623887', key=u'd422ef617a70042aa6b2', secret=u'41e0bf31ef4a3b19b849', cluster=u'ap1')
+pusher_client = pusher.Pusher(app_id='12345', key='ABCDEF', secret='HIJKLMNOP', ssl=False, host='192.168.1.26', port=6001)
 
 pusher_client.trigger(u'posts.10', u'AddDish', {u'some': u'data'})
