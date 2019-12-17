@@ -106,7 +106,7 @@ def getTable():
     return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time from [Tables]")
 
 def getTableByTableCode(tableCode):
-    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time from [Tables] where table_code = '{}';".format(tableCode))
+    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats from [Tables] where table_code = '{}';".format(tableCode))
 
 def getActiveTable():
     return db_get("select * from [Tables] where table_status = 2;")
@@ -191,7 +191,8 @@ def insertSalesorderLine(item, salesorderId):
 
     db_put(query)
 
-    return (salesorder_id, orderline_id)
+    
+    return (salesorder_id, orderline_id, line_id)
 
 
 def activateTable(tableCode):
@@ -206,34 +207,25 @@ def getCatPrint(catId):
 def getKeyboardPrint(kbId):
     return db_get("select * from KeyboardPrint where kb_id = {};".format(kbId))
 
-def getSalesorderLine(lineId):
+def getSalesorderLineByLineId(lineId):
     return db_get("select * from SalesOrderLine where line_id = '{}';".format(lineId)) 
 
+def getSalesorderLineByOrderlineId(orderlineId):
+    return db_get("select * from SalesOrderLine where orderline_id = '{}';".format(orderlineId)) 
 
-def findPrinter(lineId):
+
+def goToKitchen(lineId, comments):
     #get stock Id from salesorderLine
-    salesorderLine = getSalesorderLine(lineId)
+    salesorderLine = getSalesorderLineByLineId(lineId)
     
     stockId = salesorderLine[0][2]
     salesorderId = salesorderLine[0][1]
     salesOrder = getSalesOrder(salesorderId)
     stock = getStockByStockId(stockId)
-
-    # check stock print
-    stockPrint = getStockPrint(stockId)
-    if(stockPrint):
-        goToKitchen(stockPrint, salesorderLine, salesOrder, stock)
-        return 
-
-
-    # check cat print
     catName = stock[0][13]
     catId = getCategoryId(catName)[0][0]
-    catPrint = getCatPrint(catId)
-    if(catPrint):
-        goToKitchen(catPrint, salesorderLine, salesOrder, stock)
-        return
 
+        
 
     # check keyboard print
     kbId = getKbIdFromKeyboardItem(stockId)
@@ -243,24 +235,54 @@ def findPrinter(lineId):
     kbId = kbId[0][0]
     keyboardPrint = getKeyboardPrint(kbId)
     if(keyboardPrint):
-        goToKitchen(keyboardPrint, salesorderLine, salesOrder, stock)
-        return
+        printer = keyboardPrint
+        
+         
+    # check cat print
+    catPrint = getCatPrint(catId)
+    if(catPrint):
+        printer = catPrint
 
-def goToKitchen(printers, salesorderLine, salesOrder, stock):
+
+    # check stock print
+    stockPrint = getStockPrint(stockId)
+    if(stockPrint):
+        printer = stockPrint
+
+    insertKitchen(printer, salesorderLine, salesOrder, stock, comments)
+
+def insertKitchen(printers, salesorderLine, salesOrder, stock, comments):
+    # salesorderLine is the original food
+    # salesorderLines including the extra and taste, but all them need to go to kitchen
     query = ""
+    orderline_id = salesorderLine[0][15]
+    salesorderLines = getSalesorderLineByOrderlineId(orderline_id)
+
     for printer in printers:
         lineId = salesorderLine[0][0]
+        orderline_id = salesorderLine[0][15]
         salesorderId = salesorderLine[0][1]
         tableCode = salesOrder[0][7]
         cat1 = stock[0][13]
         description = stock[0][11]
         description2 = stock[0][35]
         quantity = salesorderLine[0][11]
-        order_time = salesorderLine[0][18]
+        orderTime = salesorderLine[0][18]
         cat2 = stock[0][14]
         printerName = printer[2]
-        comments = "some comments"
+        comments = comments
+        stockType = salesorderLine[0][12]
 
-        query += "INSERT INTO [RPOS1].[dbo].[Kitchen] ([line_id], [orderline_id], [table_code], [staff_name],[cat1],[description],[description2],[unit],[quantity],[printer],[printer2],[order_time],[handwritting],[comments],[stock_type],[out_order],[customer_name],[cat2],[salesorder_id],[status],[original_line_id])VALUES('{}','{}','{}','oneline','{}','{}','{}','1', {},'{}','{}','{}',0, '{}', '0','0','{}','{}', {},null,null);".format(lineId, lineId, tableCode, cat1, description, description2, quantity, printerName, printerName, order_time, comments, tableCode, cat2, salesorderId)
+        for line in salesorderLines:
+            lineId = line[0]
+            stockType = line[12]
 
-    db_put(query)
+            stockId = line[2]
+            stock = getStockByStockId(stockId)
+            description = stock[0][11]
+            description2 = stock[0][35]
+            if stockType != 0: comments = ""
+
+            query += "INSERT INTO Kitchen ([line_id], [orderline_id], [table_code], [staff_name],[cat1],[description],[description2],[unit],[quantity],[printer],[printer2],[order_time],[handwritting],[comments],[stock_type],[out_order],[customer_name],[cat2],[salesorder_id],[status],[original_line_id])VALUES('{}','{}','{}','oneline','{}','{}','{}','1', {},'{}','{}','{}',0, '{}', {},'0','{}','{}', {},null,null);".format(lineId, orderline_id, tableCode, cat1, description, description2, quantity, printerName, printerName, orderTime, comments, stockType, tableCode, cat2, salesorderId)
+
+    return db_put(query)

@@ -166,3 +166,23 @@ Reason: <!DOCTYPE html>
     </body>
 </html>
 
+2019-12-17 17:36:07.144876	Fail to add table
+Reason: <html>
+<head><title>405 Not Allowed</title></head>
+<body bgcolor="white">
+<center><h1>405 Not Allowed</h1></center>
+<hr><center>nginx/1.14.1</center>
+</body>
+</html>
+
+
+2019-12-17 17:36:07.648451	Fail to add table
+Reason: <html>
+<head><title>405 Not Allowed</title></head>
+<body bgcolor="white">
+<center><h1>405 Not Allowed</h1></center>
+<hr><center>nginx/1.14.1</center>
+</body>
+</html>
+
+

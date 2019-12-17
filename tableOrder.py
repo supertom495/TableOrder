@@ -17,12 +17,39 @@ from deprecated import deprecated
 def getToken():
     pass
 
+
+@deprecated(version='0.1', reason="You should use add_dish, which is the callback of websockets")
+def processOnlineSalesorderLine(lines):
+    # try to insert into salesorderline first,
+    # if success, write it to SalesorderLineOnline
+    # then tell server this operation is succeed
+    # is not success, the orderline will be found in the next round
+    successList = []
+    for item in lines["salesorderlines"]:
+        result = posOperation.insertSalesorderLine(item)
+        posOperation.insertSalesorderLineOnlineSingle(
+            result[0], result[1], result[2])  # salesorder_id, pos_line_id, online_line_id
+        successList.append([result[2], result[1]])
+        print("DISH: \n" + 
+        "salesorder_id, pos_line_id, online_line_id\n {} added\n".format(result))
+
+    api.updateSalesorderLine({"rows": successList})
+
+
+# retrive online orderline, and write it to POS
+@deprecated(version='0.1', reason="You should use websocket instead")
+def retriveSalesorderLine(salesOrderIds):
+    response = api.getSalesorderLine(salesOrderIds)
+    result = json.loads(response.text)
+    # for item in result:
+    processOnlineSalesorderLine(result)
+
+
 # get all the table from db and update it to api
-
-
 def addTable(tables):
     
     for item in tables:
+        startTime = None if not item[6] else common.roundSeconds(item[6]).strftime('%Y-%m-%d %H:%M:%S')
         data = {
             "tableToken": getToken(),
             "tableId": item[0],
@@ -30,7 +57,8 @@ def addTable(tables):
             "tableCode": item[2],
             "tableStatus": item[3],
             "inactive": item[4],
-            "startTime": common.roundSeconds(item[6]).strftime('%Y-%m-%d %H:%M:%S')
+            "startTime": startTime,
+            "seats": item[7]
         }
 
         api.addTable(data)
@@ -61,64 +89,44 @@ def findSalesOrder():
 
 
 # find the need line for the required order, and upload it to api
-def postSalesorderLine(salesOrderIds):
-    ids = str(tuple(salesOrderIds))
-    if len(salesOrderIds) == 1:
-        ids = ids.replace(",", "")
-    lines = posOperation.getSalesOrderIdLinesBySalesOrderId(ids)
-    lst = []
+def postSalesorderLine(salesOrderIds, comments=None):
+    # 这里要加锁因为这个轮询可能和websocket的请求冲突
+    lock = threading.Lock()
+    with lock:
+        ids = str(tuple(salesOrderIds))
+        if len(salesOrderIds) == 1:
+            ids = ids.replace(",", "")
+        lines = posOperation.getSalesOrderIdLinesBySalesOrderId(ids)
+        lst = []
 
-    for item in lines:
-        if item[6] == 0:
-            lineType = "DISH"
-        if item[6] == 1:
-            lineType = "TASTE"
-        if item[6] == 2:
-            lineType = "EXTRA"
+        for item in lines:
+            if item[6] == 0:
+                lineType = "DISH"
+            if item[6] == 1:
+                lineType = "TASTE"
+            if item[6] == 2:
+                lineType = "EXTRA"
 
-        data = {
-            "posLineId": item[0],
-            "salesorderId": item[1],
-            "stockId": item[2],
-            "price": float(item[3]),
-            "quantity": item[4],
-            "parentLineId": item[5],
-            "lineType": lineType
-        }
+            data = {
+                "posLineId": item[0],
+                "salesorderId": item[1],
+                "stockId": item[2],
+                "price": float(item[3]),
+                "quantity": item[4],
+                "parentLineId": item[5],
+                "lineType": lineType,
+                "comments": comments
+            }
 
-        lst.append(data)
+            lst.append(data)
 
-    print(lst)
-    if lst != []:
-        api.addSalesorderLine({"rows": lst})
-    # if success ->
-    posOperation.insertSalesorderLineOnline(lines)
-
-@deprecated(version='0.1', reason="You should use add_dish, which is the callback of websockets")
-def processOnlineSalesorderLine(lines):
-    # try to insert into salesorderline first,
-    # if success, write it to SalesorderLineOnline
-    # then tell server this operation is succeed
-    # is not success, the orderline will be found in the next round
-    successList = []
-    for item in lines["salesorderlines"]:
-        result = posOperation.insertSalesorderLine(item)
-        posOperation.insertSalesorderLineOnlineSingle(
-            result[0], result[1], result[2])  # salesorder_id, pos_line_id, online_line_id
-        successList.append([result[2], result[1]])
-        print("DISH: \n" + 
-        "salesorder_id, pos_line_id, online_line_id\n {} added\n".format(result))
-
-    api.updateSalesorderLine({"rows": successList})
+        print(lst)
+        if lst != []:
+            api.addSalesorderLine({"rows": lst})
+        # if success ->
+        posOperation.insertSalesorderLineOnline(lines)
 
 
-# retrive online orderline, and write it to POS
-@deprecated(version='0.1', reason="You should use websocket instead")
-def retriveSalesorderLine(salesOrderIds):
-    response = api.getSalesorderLine(salesOrderIds)
-    result = json.loads(response.text)
-    # for item in result:
-    processOnlineSalesorderLine(result)
 
 
 def checkStock(button, buttontext):
@@ -223,10 +231,10 @@ def updateKeyboard():
 
 
 def open_table(data, *args, **kwargs):
-    print("processing Args:", args)
-    print("processing Kwargs:", kwargs)
+    # print("processing Args:", args)
+    # print("processing Kwargs:", kwargs)
     print("Channel Callback: %s" % data)
-    print("Table Opened")
+    print("Opening Table")
     data = json.loads(data)
     tableCode = data["tableCode"]
     common.setVar()
@@ -234,40 +242,33 @@ def open_table(data, *args, **kwargs):
     table = posOperation.getTableByTableCode(tableCode)
     addTable(table)
     sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'tableCode': tableCode,
-        'code': '0', 'message':'giao', 'salesorderId':1234})
+        'code': '0', 'message':'success', 'salesorderId':1234})
 
 
 def add_dish(data, *args, **kwargs):
-    print("processing Args:", args)
-    print("processing Kwargs:", kwargs)
+    # print("processing Args:", args)
+    # print("processing Kwargs:", kwargs)
     print("Channel Callback: %s" % data)
-    print("Table Opened")
+    print("Adding dishs")
 
     data = json.loads(data)
 
     salesorderId = data["salesorderId"]
     salesorderLines = data["salesorderLines"]
     for item in salesorderLines:
-        result = posOperation.insertSalesorderLine(item, salesorderId, dishType=0)
-
+        result = posOperation.insertSalesorderLine(item, salesorderId)
+    
         comments = item["comments"]
         print("DISH: \n" + 
-        "line_id\n {} added\n".format(result))
+        "salesorderId, line_id, last_line_id\n {} added\n".format(result)) # FIXME wrong range
 
-    # successList = []
-    # for item in lines["salesorderlines"]:
-    #     result = posOperation.insertSalesorderLine(item)
-    #     posOperation.insertSalesorderLineOnlineSingle(
-    #         result[0], result[1], result[2])  # salesorder_id, pos_line_id, online_line_id
-    #     successList.append([result[2], result[1]])
-    #     print("DISH: \n" + 
-    #     "salesorder_id, pos_line_id, online_line_id\n {} added\n".format(result))
+        # find printer and insert into kitchen
+        posOperation.goToKitchen(result[1], comments)
 
-    # api.updateSalesorderLine({"rows": successList})
-
+    postSalesorderLine([salesorderId], comments)
     
-    sender.trigger('littlenanjing', 'App\\Events\\AddDishResult', {'salesorderId': 1234,
-        'code': '0', 'message':'success'})
+    
+    sender.trigger('littlenanjing', 'App\\Events\\AddDishResult', {'code': '0', 'message':'success'})
 
 
 # We can't subscribe until we've connected, so we use a callback handler

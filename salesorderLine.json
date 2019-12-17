@@ -1,20 +1,20 @@
 {
-    "salesorderId": 9075,
+    "salesorderId": 1716,
     "salesorderLines" : [
         {
-            "stockId": 14,
+            "stockId": 109,
             "quantity": 1,
-            "stockTaste": [],
-            "stockExtra": [109],
-            "comments": "haha"
+            "stockTaste": [101,102],
+            "stockExtra": [],
+            "comments": "yazi"
         } 
         ,
         {
-            "stockId": 14,
+            "stockId": 56,
             "quantity": 2,
-            "stockTaste": [],
-            "stockExtra": [109],
-            "comments": "haha"
+            "stockTaste": [103,104],
+            "stockExtra": [],
+            "comments": "ciba"
         } 
     ]
 }
