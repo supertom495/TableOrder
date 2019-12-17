@@ -9,6 +9,7 @@ import api
 import common
 import tableOrder
 import json
+
 root = logging.getLogger()
 root.setLevel(logging.INFO)
 ch = logging.StreamHandler(sys.stdout)

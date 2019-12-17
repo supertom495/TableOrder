@@ -153,10 +153,10 @@ def getSalesOrder(salesOrderId):
     return db_get("select * from SalesOrder where salesorder_id = '{}'".format(salesOrderId))
 
 
-def insertSalesorderLine(records):
+def insertSalesorderLine(item, salesorderId):
     line_id = db_get("select max(line_id) from SalesOrderLine")[0][0] + 1
-    salesorder_id = records["salesorder_id"]
-    stock_id = records["stock_id"]
+    salesorder_id = salesorderId
+    stock_id = item["stockId"]
     # get the first item from the list
     stockInfo = getStockByStockId(stock_id)[0]
 
@@ -165,25 +165,33 @@ def insertSalesorderLine(records):
     sell_inc = float(sell_ex)*1.1
     print_ex = sell_ex
     print_inc = sell_inc
-    quantity = records["quantity"]
-    parentline_id = records["line_type"]        # this just indicate the option
-    orderline_id = records["parent_line_id"]    # this is the parentline
+    quantity = item["quantity"]
+    # 2-extra 1-taste 0-dish
+    parentline_id = 0        # this just indicate the option  
+    orderline_id = line_id    # this is the parentline
+    currentTime = common.tsToTime(common.getCurrentTs())
 
-    if parentline_id == "DISH":
-        parentline_id = 0
-        orderline_id = line_id
-    else:
-        if parentline_id == "EXTRA": # TODO FIX BUG
-            parentline_id = 1
-        if parentline_id == "TASTE":
-            parentline_id = 2
+    query = ""
+    query += "insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', {}, {}, 0, {}, {}, {}, {}, 0, 1, {}, 0, 0, 0, 0, '{}');".format(
+        line_id, salesorder_id, stock_id, sell_ex, sell_inc, print_ex, print_inc, quantity, parentline_id, orderline_id, currentTime)
 
-        orderline_id = getLineIdByOnlineId(orderline_id)[0][0]
+    stockTaste = item["stockTaste"]
+    stockExtra = item["stockExtra"]
+    for stock_id in stockTaste:
+        line_id += 1
+        taste = 1
+        query += "insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', 0, 0, 0, 0, 0, 1, {}, 0, 1, {}, 0, 0, 0, 0, '{}');".format(
+        line_id, salesorder_id, stock_id, taste, orderline_id, currentTime)
+    
+    for stock_id in stockExtra:
+        line_id += 1
+        extra = 2
+        query += "insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', 0, 0, 0, 0, 0, 1, {}, 0, 1, {}, 0, 0, 0, 0, '{}');".format(
+        line_id, salesorder_id, stock_id, extra, orderline_id, currentTime)
 
-    db_put("insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', {}, {}, 0, {}, {}, {}, {}, 0, 1, {}, 0, 0, 0, 0, '{}')".format(
-        line_id, salesorder_id, stock_id, sell_ex, sell_inc, print_ex, print_inc, quantity, parentline_id, orderline_id, common.tsToTime(common.getCurrentTs())))
+    db_put(query)
 
-    return (salesorder_id, line_id, records["line_id"])
+    return (salesorder_id, orderline_id)
 
 
 def activateTable(tableCode):
