@@ -201,3 +201,201 @@ Reason: {"errors":"Undefined property: stdClass::$pos_line_id"}
 2019-12-19 11:32:57.058696	Fail to add salesorder line
 Reason: {"errors":"Undefined property: stdClass::$pos_line_id"}
 
+2019-12-19 17:33:39.172847	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:39.260462	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:41.127061	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:42.915724	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:44.897157	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:46.861714	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:48.527535	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:50.249541	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:51.900825	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:53.484678	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:55.285246	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:56.927241	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:33:58.591620	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:00.396334	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:02.039023	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:03.884042	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:05.813297	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:07.502053	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:09.177892	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:10.778776	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:12.413583	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:14.086364	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:15.790792	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:17.397213	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:19.069378	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:20.727077	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:22.379000	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:24.049180	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:25.670855	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:27.295701	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:28.965998	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTime' not found"}
+
+2019-12-19 17:34:30.715744	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:32.369779	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:34.037112	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:35.646421	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:37.328779	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:38.930781	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:41.520094	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:43.097734	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:44.759158	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:46.413221	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:48.023105	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:49.753271	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:51.437793	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:53.124210	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:54.876510	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:56.577960	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:58.221962	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:34:59.901130	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:01.598403	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:03.290352	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:04.964247	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:06.613794	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:08.339687	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:10.017260	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:11.814706	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:13.400321	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:15.048014	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:16.680045	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:18.259931	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:19.914673	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:21.498356	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:23.112237	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:24.756642	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:35:26.398082	Fail to add salesorder line
+Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
+
+2019-12-19 17:41:00.152724	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6193' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6193, 1756, 43, 6.18, 1, 6193, DISH, 1, , 2019-12-19 17:40:59))"}
+
