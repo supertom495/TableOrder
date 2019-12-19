@@ -1,6 +1,6 @@
 import pymssql
 import common
-import datetime
+
 
 
 def db_get(query):

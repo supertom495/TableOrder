@@ -6,7 +6,6 @@ import common
 import json
 import posOperation
 import TableOrder
-import time
 
 class PusherWebsocket:
     def __init__(self):

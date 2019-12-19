@@ -1,17 +1,11 @@
-import json
-import pymssql
-import time
 import common
-import posOperation
 import updateStock
 import threading
 import tkinter as tk
 import tkinter.font as tkFont
-import api
-import websocket
 import pusherWebsocket
 import pollingDatabase
-from datetime import datetime
+
 
 
 def thread_it(button, buttontext):
