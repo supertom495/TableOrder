@@ -76,10 +76,7 @@ def updateStock():
 
 
 
-def checkStock(button, buttontext):
-    buttontext.set("Updating")
-    button.config(state="disabled")
-    button.update()
+def updateProducts():
 
     # upload Stock
     updateStock()
@@ -101,6 +98,4 @@ def checkStock(button, buttontext):
     updateKeyboard()
 
     time.sleep(2)
-    buttontext.set("update stock")
-    button.config(state="active")
-    button.update()
+

@@ -1,5 +1,5 @@
 import common
-import updateStock
+import updateProducts
 import threading
 import tkinter as tk
 import tkinter.font as tkFont
@@ -16,6 +16,18 @@ def thread_it(button, buttontext):
     t = threading.Thread(target=pollingDatabase.MyRun)
     t.setDaemon(True)
     t.start()
+
+
+def checkStock(button, buttontext):
+    buttontext.set("Updating")
+    button.config(state="disabled")
+    button.update()
+
+    updateProducts.updateProducts()
+
+    buttontext.set("update stock")
+    button.config(state="active")
+    button.update()
 
 
 if __name__ == "__main__":
@@ -37,11 +49,11 @@ if __name__ == "__main__":
 
     # need a button to sync stock
     syncStockButtonText = tk.StringVar()
-    syncStockButtonText.set("update stock")
+    syncStockButtonText.set("update products")
 
     syncStockButton = tk.Button(
         window, textvariable=syncStockButtonText, font=(
-            'Arial', 12), width=10, height=1, command=lambda: updateStock.checkStock(syncStockButton, syncStockButtonText))
+            'Arial', 12), width=12, height=1, command=lambda: checkStock(syncStockButton, syncStockButtonText))
     syncStockButton.place(x=150, y=330)
 
     print("function initialization successful")
