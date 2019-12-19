@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../src")
 import pysher
 import sys
 # Add a logging handler so we can see the raw communication data
@@ -7,7 +10,7 @@ import pusher
 import posOperation
 import api
 import common
-import tableOrder
+import TableOrder
 import json
 
 root = logging.getLogger()

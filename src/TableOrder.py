@@ -17,7 +17,6 @@ from deprecated import deprecated
 def getToken():
     pass
 
-
 @deprecated(version='0.1', reason="You should use add_dish, which is the callback of websockets")
 def processOnlineSalesorderLine(lines):
     # try to insert into salesorderline first,
@@ -185,7 +184,8 @@ def postSalesorderLine(salesOrderIds, comments=None):
                 "quantity": item[4],
                 "parentLineId": item[5],
                 "lineType": lineType,
-                "comments": comments
+                "comments": comments,
+                "timeOrder": item[7].strftime('%Y-%m-%d %H:%M:%S')
             }
 
             lst.append(data)

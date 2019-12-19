@@ -1,5 +1,7 @@
-import pysher
 import sys
+import os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../src")
+import pysher
 # Add a logging handler so we can see the raw communication data
 import logging
 import time
@@ -7,7 +9,7 @@ import pusher
 import posOperation
 import api
 import common
-import tableOrder
+import TableOrder
 import json
 root = logging.getLogger()
 root.setLevel(logging.INFO)
@@ -40,7 +42,7 @@ def add_dish(data, *args, **kwargs):
 
     common.setVar()
 
-    tableOrder.addTable()
+    TableOrder.addTable()
     
     sender.trigger('littlenanjing', 'App\\Events\\AddDishResult', {'salesorderId': 1234,
         'code': '0', 'message':'success'})

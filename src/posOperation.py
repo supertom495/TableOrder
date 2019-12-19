@@ -135,7 +135,7 @@ def getOrderDetailBySalesorderId(salesorderId):
 
 
 def getSalesOrderIdLinesBySalesOrderId(ids):
-    return db_get("select line_id, salesorder_id, stock_id, print_ex, quantity, orderline_id, parentline_id, [status] from SalesOrderLine where salesorder_id in {} and line_id not in (select pos_line_id from SalesOrderLineOnline) and [status] = 1;".format(ids))
+    return db_get("select line_id, salesorder_id, stock_id, print_ex, quantity, orderline_id, parentline_id, time_ordered from SalesOrderLine where salesorder_id in {} and line_id not in (select pos_line_id from SalesOrderLineOnline) and [status] = 1;".format(ids))
 
 
 # use upload
