@@ -124,12 +124,18 @@ def getActiveTable():
 #     return db_get("select * from SalesOrder where salesorder_id = {};".format(orderId))
 
 
-def getOrderDetail(tableCode):
+def getOrderDetailByTableCode(tableCode):
     # get latest 2 orders from this table
     return db_get("select top 1 salesorder_id, salesorder_date, custom, subtotal, [status], guest_no from SalesOrder where custom='{}' order by salesorder_date desc;".format(tableCode))
 
+
+def getOrderDetailBySalesorderId(salesorderId):
+    # get latest 2 orders from this table
+    return db_get("select top 1 salesorder_id, salesorder_date, custom, subtotal, [status], guest_no from SalesOrder where salesorder_id={} order by salesorder_date desc;".format(salesorderId))
+
+
 def getSalesOrderIdLinesBySalesOrderId(ids):
-    return db_get("select line_id, salesorder_id, stock_id, print_ex, quantity, orderline_id, parentline_id from SalesOrderLine where salesorder_id in {} and line_id not in (select pos_line_id from SalesOrderLineOnline);".format(ids))
+    return db_get("select line_id, salesorder_id, stock_id, print_ex, quantity, orderline_id, parentline_id, [status] from SalesOrderLine where salesorder_id in {} and line_id not in (select pos_line_id from SalesOrderLineOnline) and [status] = 1;".format(ids))
 
 
 # use upload

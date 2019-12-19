@@ -92,6 +92,18 @@ def addSalesOrder(data):
 
     return response
 
+def deleteSalesOrder(salesorderId):
+    url = "{}/salesorder/{}".format(common.URLPREFIX, salesorderId)
+    header = {
+        "Content-Type": "application/json",
+    }
+    response = requests.delete(url,
+                             headers=header)
+
+    testResponse(response, "delete salesorder by salesorderId{}".format(salesorderId))
+
+    return response
+
 
 def addSalesorderLine(data):
     url = "{}/salesorderline".format(common.URLPREFIX)
