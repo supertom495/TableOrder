@@ -103,26 +103,30 @@ def getKeyboardCat():
 
 
 def getTable():
-    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time from [Tables]")
+    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats from [Tables]")
 
 def getTableByTableCode(tableCode):
     return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats from [Tables] where table_code = '{}';".format(tableCode))
 
+
 def getActiveTable():
-    return db_get("select * from [Tables] where table_status = 2;")
+    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats from [Tables] where table_status = 2;")
 
 
-def getActiveSaleOrders():
-    return db_get("select custom as table_code, MAX(salesorder_date) as salesorder_date from SalesOrder where custom in (select table_code COLLATE database_default from [Tables] where table_status = 2) group by custom order by custom;")
+# def getActiveSaleOrders():
+#     return db_get("select custom as table_code, MAX(salesorder_date) as salesorder_date from SalesOrder where custom in (select table_code COLLATE database_default from [Tables] where table_status = 2) group by custom order by custom;")
+
+# def getActiveSaleOrdersByTableCode(tableCode): 
+#     return db_get("select custom as table_code, MAX(salesorder_date) as salesorder_date from SalesOrder where custom in (select table_code COLLATE database_default from [Tables] where table_status = 2) and custom = '{}' group by custom order by custom;".format(tableCode))
 
 
-def getOrderByOrderId(orderId):
-    return db_get("select * from SalesOrder where salesorder_id = {};".format(orderId))
+# def getOrderByOrderId(orderId):
+#     return db_get("select * from SalesOrder where salesorder_id = {};".format(orderId))
 
 
-def getOrderDetail(tableCode, date):
-    return db_get("select salesorder_id, salesorder_date, custom, subtotal, [status] from SalesOrder where custom='{}' and salesorder_date='{}'".format(tableCode, date))
-
+def getOrderDetail(tableCode):
+    # get latest 2 orders from this table
+    return db_get("select top 1 salesorder_id, salesorder_date, custom, subtotal, [status], guest_no from SalesOrder where custom='{}' order by salesorder_date desc;".format(tableCode))
 
 def getSalesOrderIdLinesBySalesOrderId(ids):
     return db_get("select line_id, salesorder_id, stock_id, print_ex, quantity, orderline_id, parentline_id from SalesOrderLine where salesorder_id in {} and line_id not in (select pos_line_id from SalesOrderLineOnline);".format(ids))
@@ -197,6 +201,21 @@ def insertSalesorderLine(item, salesorderId):
 
 def activateTable(tableCode):
     return db_put("update [Tables] set table_status = 2, start_time = '{}' where table_code = '{}';".format(common.tsToTime(common.getCurrentTs()), tableCode))
+
+
+def insertSalesorder(tableCode, guestNo):
+    time = common.tsToTime(common.getCurrentTs())
+    salesorder_id = db_get("select max(salesorder_id) from SalesOrder")[0][0] + 1
+
+    query = "INSERT INTO [SalesOrder] ([salesorder_id], [salesorder_date], [expiry_date], [staff_id],[customer_id],[transaction],[original_id],[custom],[comments],[subtotal],[discount],[rounding],[total_ex],[total_inc],[status],[exported],[guest_no], customer_name) VALUES ({},'{}','{}', 1, 0,'DI',0,'{}','',0,0,0,0,0,0,0,{}, '{}')".format(salesorder_id, time, time, tableCode,guestNo, tableCode)
+
+    db_put(query)
+
+    return salesorder_id
+
+
+def updateSalesorderGuestNo(salesorderId, guestNo):
+    return db_put("update SalesOrder set guest_no = {} where salesorder_id = {};".format(salesorderId, guestNo))
 
 def getStockPrint(stockId):
     return db_get("select * from StockPrint where stock_id = {};".format(stockId))

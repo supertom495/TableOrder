@@ -13,4 +13,4 @@ def testActivateTable(tableId):
 
 
 
-print( posOperation.activateTable('22'))
+print( posOperation.getActiveSaleOrdersByTableCode("02"))

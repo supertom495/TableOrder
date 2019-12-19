@@ -48,49 +48,59 @@ def retriveSalesorderLine(salesOrderIds):
 # get all the table from db and update it to api
 def addTable(tables):
     
-    for item in tables:
-        startTime = None if not item[6] else common.roundSeconds(item[6]).strftime('%Y-%m-%d %H:%M:%S')
+    for table in tables:
+        startTime = None if not table[6] else common.roundSeconds(table[6]).strftime('%Y-%m-%d %H:%M:%S')
         data = {
             "tableToken": getToken(),
-            "tableId": item[0],
-            "siteId": item[1],
-            "tableCode": item[2],
-            "tableStatus": item[3],
-            "inactive": item[4],
+            "tableId": table[0],
+            "siteId": table[1],
+            "tableCode": table[2],
+            "tableStatus": table[3],
+            "inactive": table[4],
             "startTime": startTime,
-            "seats": item[7]
+            "seats": table[7]
         }
 
         api.addTable(data)
-        print("table {} has been updated".format(item[0]))
+        print("table {} has been updated".format(table[0]))
         # print(data)
 
 
 # get the newest sales order for active table, and update it to api
-def findSalesOrder():
-    activeOrders = posOperation.getActiveSaleOrders()
+def findSalesOrder(tableCode=None):
+    
     activeOrderIds = []
-    for item in activeOrders:
-        orderDetails = posOperation.getOrderDetail(item[0], item[1])[0]
-        data = {
-            "salesorderId": orderDetails[0],
-            "salesorderDate": orderDetails[1].strftime('%Y-%m-%d %H:%M:%S'),
-            "tableCode": orderDetails[2],
-            "subtotal": float(orderDetails[3]),
-            "status": orderDetails[4]
-        }
-        api.addSalesOrder(data)
-        print("salesorder {} has been updated".format(orderDetails[0]))
-        activeOrderIds.append(orderDetails[0])
+
+    # get activate table
+    if tableCode:
+        activeTables = posOperation.getTableByTableCode(tableCode)
+    else:
+        activeTables = posOperation.getActiveTable()
+
+    for table in activeTables:
+        ordersDetails = posOperation.getOrderDetail(table[2])
+        for orderDetails in ordersDetails:
+            data = {
+                "salesorderId": orderDetails[0],
+                "salesorderDate": orderDetails[1].strftime('%Y-%m-%d %H:%M:%S'),
+                "tableCode": orderDetails[2],
+                "subtotal": float(orderDetails[3]),
+                "status": orderDetails[4],
+                "guestNo": orderDetails[5]
+            }
+            api.addSalesOrder(data)
+            print("salesorder {} has been updated".format(orderDetails[0]))
+            activeOrderIds.append(orderDetails[0])
 
     return activeOrderIds
-
-    # print(orderDetails)
 
 
 # find the need line for the required order, and upload it to api
 def postSalesorderLine(salesOrderIds, comments=None):
     # 这里要加锁因为这个轮询可能和websocket的请求冲突
+    if len(salesOrderIds) == 0:
+        return
+
     lock = threading.Lock()
     with lock:
         ids = str(tuple(salesOrderIds))
@@ -122,9 +132,11 @@ def postSalesorderLine(salesOrderIds, comments=None):
 
         print(lst)
         if lst != []:
-            api.addSalesorderLine({"rows": lst})
-        # if success ->
-        posOperation.insertSalesorderLineOnline(lines)
+            response = api.addSalesorderLine({"rows": lst})
+            
+            # if success ->
+            if response.status_code < 400:
+                posOperation.insertSalesorderLineOnline(lines)
 
 
 
@@ -237,12 +249,18 @@ def open_table(data, *args, **kwargs):
     print("Opening Table")
     data = json.loads(data)
     tableCode = data["tableCode"]
-    common.setVar()
+    guestNo = data["guestNo"]
     posOperation.activateTable(tableCode)
+    salesorderId = posOperation.insertSalesorder(tableCode, guestNo)
+    
     table = posOperation.getTableByTableCode(tableCode)
     addTable(table)
+
+    # send salesorder to api
+    findSalesOrder(tableCode=tableCode)
+
     sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'tableCode': tableCode,
-        'code': '0', 'message':'success', 'salesorderId':1234})
+        'code': '0', 'message':'success', 'salesorderId':salesorderId})
 
 
 def add_dish(data, *args, **kwargs):
@@ -260,15 +278,14 @@ def add_dish(data, *args, **kwargs):
     
         comments = item["comments"]
         print("DISH: \n" + 
-        "salesorderId, line_id, last_line_id\n {} added\n".format(result)) # FIXME wrong range
+        "salesorderId, line_id, last_line_id\n {} added\n".format(result)) # from the dish_line_id -> option_line_id
 
         # find printer and insert into kitchen
         posOperation.goToKitchen(result[1], comments)
 
     postSalesorderLine([salesorderId], comments)
     
-    
-    sender.trigger('littlenanjing', 'App\\Events\\AddDishResult', {'code': '0', 'message':'success'})
+    sender.trigger('littlenanjing', 'App\\Events\\AddDishResult', {'salesorderId': salesorderId, 'code': '0', 'message':'success'})
 
 
 # We can't subscribe until we've connected, so we use a callback handler
@@ -303,19 +320,21 @@ def thread_it(button, buttontext):
 
 if __name__ == "__main__":
 
-
     root = logging.getLogger()
     root.setLevel(logging.INFO)
     ch = logging.StreamHandler(sys.stdout)
     root.addHandler(ch)
-    receiver = pysher.Pusher(key="ABCDEF", secure=False, custom_host="192.168.1.26", port="6001")
-    sender = pusher.Pusher(app_id='12345', key='ABCDEF', secret='HIJKLMNOP', ssl=False, host='192.168.1.26', port=6001)
+    
+    common.setVar()
+
+    receiver = pysher.Pusher(key=common.KEY, secure=common.SECURE, custom_host=common.HOST, port=common.PORT)
+    sender = pusher.Pusher(app_id=common.APPID, key=common.KEY, secret=common.SECRET, ssl=common.SECURE, host=common.HOST, port=common.PORT)
 
     receiver.connection.bind('pusher:connection_established', connect_handler)
     receiver.connect()
 
 
-    common.setVar()
+    
 
     window = tk.Tk()
     window.title("Table Order")

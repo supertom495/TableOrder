@@ -14,7 +14,12 @@ DB = ""
 SLEEPTIME = ""
 URLPREFIX = ""
 PICTUREPATH = ""
-
+APPID = ""
+KEY = ""
+SECRET = ""
+SECURE = False
+HOST = ""
+PORT = -1
 
 # this is the decorator
 def debug(method):
@@ -41,6 +46,13 @@ def setVar():
     global SLEEPTIME
     global URLPREFIX
     global PICTUREPATH
+    global APPID
+    global KEY
+    global SECRET
+    global SECURE
+    global HOST
+    global PORT
+    
     if not os.path.exists("./API_data/setting.json"):
         logging("setting file not found")
         sys.exit()
@@ -56,6 +68,12 @@ def setVar():
     UPLOADSTOCK = setting["uploadStock"]
     URLPREFIX = setting["urlPrefix"]
     PICTUREPATH = setting["picturePath"]
+    APPID = setting["app_id"]
+    KEY = setting["key"]
+    SECRET = setting["secret"]
+    SECURE = setting["secure"]
+    HOST = setting["host"]
+    PORT = setting["port"]
 
     with open(r"API_data\setting.json", 'w') as f:
         json.dump(setting, f)

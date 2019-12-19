@@ -186,3 +186,18 @@ Reason: <html>
 </html>
 
 
+2019-12-18 12:15:24.231365	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect string value: '\\xE4\\xB8\\x80\\xE4\\xBA\\x9B...' for column `dev_table_order_2019`.`salesorder_line`.`comments` at row 1 (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`) values (, 1718, 18, 3.45, 2, 6048, DISH, 1, \u4e00\u4e9b\u610f\u89c1))"}
+
+2019-12-18 12:49:38.325937	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect string value: '\\xE7\\x94\\x9C\\xE8\\xB1\\x86...' for column `dev_table_order_2019`.`salesorder_line`.`comments` at row 1 (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`) values (, 1718, 19, 4.36, 1, 6070, DISH, 1, \u751c\u8c46\u8150\u8111\u662f\u90aa\u6559))"}
+
+2019-12-19 11:26:11.202423	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect string value: '\\xE6\\x92\\x92\\xE7\\x9A\\x84...' for column `dev_table_order_2019`.`salesorder_line`.`comments` at row 1 (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`) values (, 1742, 3, 8, 1, 6103, DISH, 1, \u6492\u7684\u53d1\u751f))"}
+
+2019-12-19 11:30:24.047015	Fail to add salesorder line
+Reason: {"errors":"Undefined property: stdClass::$pos_line_id"}
+
+2019-12-19 11:32:57.058696	Fail to add salesorder line
+Reason: {"errors":"Undefined property: stdClass::$pos_line_id"}
+
