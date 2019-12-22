@@ -145,3 +145,27 @@ def updateSalesorderLine(data):
     testResponse(response, "update salesorder line")
 
     return response
+
+
+def getToken():
+    url = "{}/token".format(common.URLPREFIX)
+    header = {
+        "Content-Type": "application/json",
+    }
+    response = requests.get(url, headers=header)
+
+    testResponse(response, "get token")
+
+    return response
+
+
+def refreshToken():
+    url = "{}/token".format(common.URLPREFIX)
+    header = {
+        "Content-Type": "application/json",
+    }
+    response = requests.put(url, headers=header)
+
+    testResponse(response, "refresh token")
+
+    return response

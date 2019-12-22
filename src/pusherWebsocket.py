@@ -5,7 +5,7 @@ import pusher
 import common
 import json
 import posOperation
-import TableOrder
+import pollingDatabase
 
 class PusherWebsocket:
     def __init__(self):
@@ -34,10 +34,10 @@ class PusherWebsocket:
         salesorderId = posOperation.insertSalesorder(tableCode, guestNo)
         
         table = posOperation.getTableByTableCode(tableCode)
-        TableOrder.addTable(table)
+        pollingDatabase.addTable(table)
 
         # send salesorder to api
-        TableOrder.findSalesOrder(tableCode=tableCode)
+        pollingDatabase.findSalesOrder(tableCode=tableCode)
 
         self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'tableCode': tableCode,
             'code': '0', 'message':'success', 'salesorderId':salesorderId})
@@ -63,7 +63,7 @@ class PusherWebsocket:
             # find printer and insert into kitchen
             posOperation.goToKitchen(result[1], comments)
 
-        TableOrder.postSalesorderLine([salesorderId], comments)
+        pollingDatabase.postSalesorderLine([salesorderId], comments)
         
         self.sender.trigger('littlenanjing', 'App\\Events\\AddDishResult', {'salesorderId': salesorderId, 'code': '0', 'message':'success'})
 
