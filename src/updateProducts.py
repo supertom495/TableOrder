@@ -3,7 +3,8 @@ from datetime import datetime
 import common
 import api
 import time
-
+import ftplib
+import os
 
 def updateKeyboard():
     keyboard = posOperation.getKeyboard()
@@ -91,11 +92,70 @@ def updateProducts():
     response = api.addOption(castOption("stock_taste", result))
     print("Taste: " + response.text)
 
-    # upload image to api
-    common.uploadImage()
+    # upload image
+    uploadImageToAPI()
 
     # upload keyboard
     updateKeyboard()
 
     time.sleep(2)
+
+
+
+def uploadImageToFTP():
+    f = ftplib.FTP()
+
+    host = "ftp.kidsnparty.com.au"
+    port = 21
+    f.connect(host, port)
+    print(f.getwelcome())
+
+    userName = "​admin@ozwearugg.com.au".strip(u'\u200b')
+    password = "122333@Upos".strip(u'\u200b')
+
+    stockList = posOperation.getStockBarcode()
+    pictureList = []
+
+    for stock in stockList:
+        barcode = stock[0]
+        filePath = common.PICTUREPATH + barcode + ".jpg"
+
+        if os.path.exists(filePath):
+            pictureList.append(filePath)
+
+    with ftplib.FTP(host, userName, password) as ftp:
+        ftp.cwd("/kidsnpartycom/src/image/tableorder/bbqhot")
+
+        for picture in pictureList:
+            with open(picture, 'rb') as file:
+                ftp.storbinary("STOR %s" % picture.split("/")[-1], file)
+
+
+def uploadImageToApache():
+    from distutils.dir_util import copy_tree
+
+    # copy subdirectory example
+    fromDirectory = common.PICTUREPATH
+    toDirectory = "c:/xampp/htdocs/my_assets/images"
+    copy_tree(fromDirectory, toDirectory)
+
+
+def uploadImageToAPI():
+    stockList = posOperation.getStockBarcode()
+    pictureList = []
+
+    for stock in stockList:
+        barcode = stock[0]
+        filePath = common.PICTUREPATH + barcode + ".jpg"
+
+        if os.path.exists(filePath):
+            pictureList.append(filePath)
+
+
+    for picture in pictureList:
+        with open(picture, 'rb') as file:
+                data = {
+                    "fileName": picture.split("/")[-1]
+                }
+                api.uploadStockImage(data, file)
 

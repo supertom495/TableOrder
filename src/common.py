@@ -3,8 +3,8 @@ import sys
 import json
 import time
 import datetime
-import ftplib
 import posOperation
+import threading
 
 # variable that can be found in setting
 DB_HOST = ""
@@ -78,6 +78,26 @@ def setVar():
     with open(r"API_data\setting.json", 'w') as f:
         json.dump(setting, f)
 
+@debug
+def setUpTable():
+    posOperation.dropTableAndCreateSalesorderLineOnline()
+
+@debug
+def setUpWebsocketServer():
+    t = threading.Thread(target=runWebsocket)
+    t.setDaemon(True)
+    t.start()
+    print("wait...10s" + "setting up websocket connection")
+    time.sleep(10)
+
+
+def runWebsocket():
+    import subprocess
+    filepath=r"API_data\start_websockets.bat"
+    p = subprocess.Popen(filepath, shell=True, stdout = subprocess.PIPE)
+    stdout, stderr = p.communicate()
+    print (p.returncode) # is 0 if success
+
 
 # format match the api requirement
 def getCurrentTs():
@@ -119,35 +139,6 @@ def tsToTime(ts):
     docketDate = time.strftime("%Y-%m-%d %H:%M:%S", t)
     # docketDate += ".000"
     return docketDate
-
-
-def uploadImage():
-    f = ftplib.FTP()
-
-    host = "ftp.kidsnparty.com.au"
-    port = 21
-    f.connect(host, port)
-    print(f.getwelcome())
-
-    userName = "​admin@ozwearugg.com.au".strip(u'\u200b')
-    password = "122333@Upos".strip(u'\u200b')
-
-    stockList = posOperation.getStockBarcode()
-    pictureList = []
-
-    for stock in stockList:
-        barcode = stock[0]
-        filePath = PICTUREPATH + barcode + ".jpg"
-
-        if os.path.exists(filePath):
-            pictureList.append(filePath)
-
-    with ftplib.FTP(host, userName, password) as ftp:
-        ftp.cwd("/kidsnpartycom/src/image/tableorder/bbqhot")
-
-        for picture in pictureList:
-            with open(picture, 'rb') as file:
-                ftp.storbinary("STOR %s" % picture.split("/")[-1], file)
 
 
 def roundSeconds(dateTimeObject):

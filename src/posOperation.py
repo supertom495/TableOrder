@@ -113,6 +113,10 @@ def getActiveTable():
     return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats from [Tables] where table_status = 2;")
 
 
+def getTableStaffId(tableCode):
+    return db_get("select staff_id from [Tables] where table_code = '{}';".format(tableCode))
+
+
 # def getActiveSaleOrders():
 #     return db_get("select custom as table_code, MAX(salesorder_date) as salesorder_date from SalesOrder where custom in (select table_code COLLATE database_default from [Tables] where table_status = 2) group by custom order by custom;")
 
@@ -311,3 +315,10 @@ def insertKitchen(printers, salesorderLine, salesOrder, stock, comments):
             query += "INSERT INTO Kitchen ([line_id], [orderline_id], [table_code], [staff_name],[cat1],[description],[description2],[unit],[quantity],[printer],[printer2],[order_time],[handwritting],[comments],[stock_type],[out_order],[customer_name],[cat2],[salesorder_id],[status],[original_line_id])VALUES('{}','{}','{}','oneline','{}','{}','{}','1', {},'{}','{}','{}',0, '{}', {},'0','{}','{}', {},null,null);".format(lineId, orderline_id, tableCode, cat1, description, description2, quantity, printerName, printerName, orderTime, comments, stockType, tableCode, cat2, salesorderId)
 
     return db_put(query)
+
+
+def dropTableAndCreateSalesorderLineOnline():
+    query = ("SET ANSI_NULLS ON;SET QUOTED_IDENTIFIER ON;"+
+    "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SalesorderLineOnline]') AND type in (N'U'))"+
+    "CREATE TABLE [dbo].[SalesorderLineOnline]( [pos_line_id] [int] NULL, [online_line_id] [int] NULL, [salesorder_id] [int] NULL ) ON [PRIMARY] ;")
+    db_put(query)

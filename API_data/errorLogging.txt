@@ -399,3 +399,2647 @@ Reason: {"errors":"Class 'App\\Http\\Controllers\\DateTimeZone' not found"}
 2019-12-19 17:41:00.152724	Fail to add salesorder line
 Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6193' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6193, 1756, 43, 6.18, 1, 6193, DISH, 1, , 2019-12-19 17:40:59))"}
 
+2019-12-23 14:59:18.136249	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:18.301634	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:18.413326	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:18.536013	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:18.638915	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:18.736654	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:18.835146	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:18.932269	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:19.048307	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:19.148037	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:19.246951	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:19.365544	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:19.473072	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:19.603589	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:19.705746	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:19.838784	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:19.934258	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:20.037375	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:20.146315	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 14:59:20.251208	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-23 15:32:11.112146	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6215' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6215, 1766, 18, 3.45, 1, 6215, DISH, 1, , 2019-12-23 15:32:11))"}
+
+2019-12-24 10:08:48.804058	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:48.918174	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.016320	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.117807	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.216758	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.316626	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.422909	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.520533	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.618833	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.707546	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.818894	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:49.916213	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:50.012544	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:50.114437	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:50.235413	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:50.329631	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:50.422707	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:50.516427	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:50.604191	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:50.697289	Fail to add table
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:08:50.792480	Fail to add salesorder
+Reason: <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Page Not Found</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    Sorry, the page you are looking for could not be found.                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+2019-12-24 10:25:01.755614	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1770 limit 1)"}
+
+2019-12-24 10:27:11.979124	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6257' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6257, 1772, 20, 2.55, 1, 6257, DISH, 1, , 2019-12-24 10:27:11))"}
+
+2019-12-24 10:29:18.775282	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6287' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6287, 1773, 19, 4.36, 1, 6287, DISH, 1, , 2019-12-24 10:29:18))"}
+
+2019-12-24 10:34:35.140191	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1772 limit 1)"}
+
+2019-12-24 10:34:44.771994	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1768 limit 1)"}
+
+2019-12-24 10:41:47.627567	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6319' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6319, 1774, 65, 2.73, 1, 6319, DISH, 1, , 2019-12-24 10:41:46))"}
+
+2019-12-24 11:12:02.530689	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:05.381840	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:07.994813	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:10.609721	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:13.141315	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:15.525287	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:18.100606	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:20.639078	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:23.667850	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:26.186191	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:28.616678	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:31.056543	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:33.456299	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:36.005910	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:38.400431	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:40.989902	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:43.374083	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:45.703270	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:48.057235	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:50.913850	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:54.020539	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:56.688956	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:12:59.261552	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:02.451633	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:04.826954	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:07.141878	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:09.453963	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:11.773245	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:14.113422	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:16.581411	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:18.778420	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6213' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6213, 1763, 21, 3.45, 1, 6213, DISH, 1, , 2019-12-23 15:30:12))"}
+
+2019-12-24 11:13:20.941756	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6213' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6213, 1763, 21, 3.45, 1, 6213, DISH, 1, , 2019-12-23 15:30:12))"}
+
+2019-12-24 11:13:23.238839	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6213' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6213, 1763, 21, 3.45, 1, 6213, DISH, 1, , 2019-12-23 15:30:12))"}
+
+2019-12-24 11:13:25.580840	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:27.732901	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:29.819380	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:32.082746	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:34.232267	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:36.299386	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:38.610286	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6243' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6243, 1771, 18, 3.45, 5, 6243, DISH, 1, , 2019-12-24 10:20:29))"}
+
+2019-12-24 11:13:40.609244	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6246' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6246, 1771, 20, 2.55, 1, 6246, DISH, 1, , 2019-12-24 10:23:22))"}
+
+2019-12-24 11:13:42.568947	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6246' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6246, 1771, 20, 2.55, 1, 6246, DISH, 1, , 2019-12-24 10:23:22))"}
+
+2019-12-24 11:13:44.373630	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6246' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6246, 1771, 20, 2.55, 1, 6246, DISH, 1, , 2019-12-24 10:23:22))"}
+
+2019-12-24 11:13:46.373531	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6246' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6246, 1771, 20, 2.55, 1, 6246, DISH, 1, , 2019-12-24 10:23:22))"}
+
+2019-12-24 11:13:48.419458	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6257' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6257, 1772, 20, 2.55, 1, 6257, DISH, 1, , 2019-12-24 10:27:11))"}
+
+2019-12-24 11:13:50.156961	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6257' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6257, 1772, 20, 2.55, 1, 6257, DISH, 1, , 2019-12-24 10:27:11))"}
+
+2019-12-24 11:13:51.959225	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6257' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6257, 1772, 20, 2.55, 1, 6257, DISH, 1, , 2019-12-24 10:27:11))"}
+
+2019-12-24 11:13:53.743065	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6272' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6272, 1772, 20, 2.55, 1, 6272, DISH, 1, , 2019-12-24 10:28:08))"}
+
+2019-12-24 11:13:55.497964	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6272' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6272, 1772, 20, 2.55, 1, 6272, DISH, 1, , 2019-12-24 10:28:08))"}
+
+2019-12-24 11:13:57.305588	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6272' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6272, 1772, 20, 2.55, 1, 6272, DISH, 1, , 2019-12-24 10:28:08))"}
+
+2019-12-24 11:13:59.152198	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6272' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6272, 1772, 20, 2.55, 1, 6272, DISH, 1, , 2019-12-24 10:28:08))"}
+
+2019-12-24 11:14:01.094371	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6319' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6319, 1774, 65, 2.73, 1, 6319, DISH, 1, , 2019-12-24 10:41:46))"}
+
+2019-12-24 11:14:02.755010	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6319' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6319, 1774, 65, 2.73, 1, 6319, DISH, 1, , 2019-12-24 10:41:46))"}
+
+2019-12-24 11:14:04.348909	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6319' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6319, 1774, 65, 2.73, 1, 6319, DISH, 1, , 2019-12-24 10:41:46))"}
+
+2019-12-24 11:14:06.064512	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6319' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6319, 1774, 65, 2.73, 1, 6319, DISH, 1, , 2019-12-24 10:41:46))"}
+
+2019-12-24 11:14:07.827001	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:09.313377	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:10.772593	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:12.278480	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:13.753949	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:15.391360	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:16.790945	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:18.190273	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:19.674555	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:20.970756	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:22.236271	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:23.508972	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+
+2019-12-24 11:14:24.757052	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
+

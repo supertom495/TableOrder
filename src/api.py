@@ -169,3 +169,13 @@ def refreshToken():
     testResponse(response, "refresh token")
 
     return response
+
+
+def uploadStockImage(data, file):
+    url = "{}/image".format(common.URLPREFIX)
+
+    response = requests.post(url, data=data, files={'file': file})
+
+    testResponse(response, "upload image")
+
+    return response

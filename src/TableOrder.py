@@ -29,11 +29,25 @@ def checkStock(button, buttontext):
     button.config(state="active")
     button.update()
 
+def getQrCode():
+    #     global buttontext
+    # buttontext.set("Working")
+    # button.config(state="disabled")
+    # button.update()
+    t = threading.Thread(target=qrCode.getQrCode)
+    t.setDaemon(True)
+    t.start()
+
 
 
 if __name__ == "__main__":
     
     common.setVar()
+    common.setUpTable()
+    common.setUpWebsocketServer()
+
+    
+    
     pusherWebsocket.PusherWebsocket()
 
     window = tk.Tk()
@@ -61,13 +75,13 @@ if __name__ == "__main__":
     # button to print QR code
     printQRCodeButtonText = tk.StringVar()
     printQRCodeButtonText.set("get QRCode")
-    printQRCodeButton = tk.Button(window, textvariable=printQRCodeButtonText, font=('Arial', 12),width=10, height=1, command=lambda: qrCode.getQrCode())
+    printQRCodeButton = tk.Button(window, textvariable=printQRCodeButtonText, font=('Arial', 12),width=10, height=1, command=lambda: getQrCode())
     printQRCodeButton.place(x=50, y=330)
 
     # button to refresh QR code
     refreshQRCodeButtonText = tk.StringVar()
     refreshQRCodeButtonText.set("refresh QRCode")
-    refreshQRCodeButton = tk.Button(window, textvariable=refreshQRCodeButtonText, font=('Arial', 12),width=10, height=1, command=lambda: qrCode.refreshQrCode())
+    refreshQRCodeButton = tk.Button(window, textvariable=refreshQRCodeButtonText, font=('Arial', 12),width=13, height=1, command=lambda: qrCode.refreshQrCode())
     refreshQRCodeButton.place(x=250, y=330)
 
 

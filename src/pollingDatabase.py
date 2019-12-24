@@ -4,6 +4,8 @@ import json
 import common
 import time
 import threading
+import sys
+import requests
 from deprecated import deprecated
 
 tablesRecord = {}
@@ -194,10 +196,20 @@ def postSalesorderLine(salesOrderIds, comments=None):
 
 def MyRun():
     while True:
-        tables = posOperation.getTable()
-        addTable(tables)  # TODO update table when needed
-        checkSalesorderRecords(salesorderRecords)
-        salesOrderIds = findSalesOrder()
-        postSalesorderLine(salesOrderIds)       # post loacl order to server
-        print("RoundEnd!")
-        time.sleep(common.SLEEPTIME)
+        try:
+            tables = posOperation.getTable()
+            addTable(tables)  # TODO update table when needed
+            checkSalesorderRecords(salesorderRecords)
+            salesOrderIds = findSalesOrder()
+            postSalesorderLine(salesOrderIds)       # post loacl order to server
+            print("RoundEnd!")
+            time.sleep(common.SLEEPTIME)
+        except TimeoutError:
+            print("API service connection time out... retry in 10s")
+            # time.sleep(common.SLEEPTIME)
+        except requests.exceptions.ConnectionError:
+            print("API service not connected... retry in 10s")
+        except:
+            common.logging("Unexpected error:" + sys.exc_info()[0])
+            print("Unexpected error:", sys.exc_info()[0])
+            print("Something wrong with API service... retry in 10s")
