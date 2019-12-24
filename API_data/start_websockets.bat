@@ -1,2 +1,3 @@
 @echo off
-start  cmd /k "cd/d C:\_projects\_playground\self-host-websocks && php artisan websockets:serve"
+start  cmd /k "php artisan websockets:serve"
+echo dir

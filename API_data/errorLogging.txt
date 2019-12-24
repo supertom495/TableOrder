@@ -3043,3 +3043,63 @@ Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplica
 2019-12-24 11:14:24.757052	Fail to add salesorder line
 Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6293' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`) values (6293, 1777, 3, 8, 1, 6293, DISH, 1, , 2019-12-24 10:34:41))"}
 
+2019-12-24 14:21:36.297370	Fail to add staff
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'given_names' cannot be null (SQL: insert into `staff` (`staff_id`, `barcode`, `inactive`, `surname`, `given_names`) values (0, <dft>, 0, <Default>, ))"}
+
+2019-12-24 14:22:50.866913	Fail to add staff
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'given_names' cannot be null (SQL: insert into `staff` (`staff_id`, `barcode`, `inactive`, `surname`, `given_names`) values (0, <dft>, 0, <Default>, ))"}
+
+2019-12-24 15:27:10.911348	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6348' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6348, 1779, 20, 2.55, 1, 6348, DISH, 1, , 2019-12-24 15:27:11, 1))"}
+
+2019-12-24 15:33:36.031580	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6355' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6355, 1779, 45, 5.27, 1, 6355, DISH, 1, , 2019-12-24 15:33:36, 1))"}
+
+2019-12-24 15:33:52.260994	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6364' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6364, 1779, 21, 3.45, 1, 6364, DISH, 1, , 2019-12-24 15:33:52, 1))"}
+
+2019-12-24 15:58:46.671732	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1778 limit 1)"}
+
+2019-12-24 15:59:47.524641	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6440' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6440, 1770, 19, 4.36, 2, 6440, DISH, 1, , 2019-12-24 15:59:21, 1))"}
+
+2019-12-24 16:07:34.784206	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6445' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6445, 1770, 20, 2.55, 1, 6445, DISH, 1, , 2019-12-24 16:07:34, 1))"}
+
+2019-12-24 16:08:01.114558	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1778 limit 1)"}
+
+2019-12-24 16:08:37.724847	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1778 limit 1)"}
+
+2019-12-24 16:08:37.863237	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1770 limit 1)"}
+
+2019-12-24 16:17:54.744480	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1770 limit 1)"}
+
+2019-12-24 16:19:24.636257	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1770 limit 1)"}
+
+2019-12-24 16:19:39.119958	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6458' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6458, 1781, 19, 4.36, 1, 6458, DISH, 1, , 2019-12-24 16:19:39, 1))"}
+
+2019-12-24 16:23:29.729188	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1781 limit 1)"}
+
+2019-12-24 16:26:37.523054	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1778 limit 1)"}
+
+2019-12-24 16:28:44.604525	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1781 limit 1)"}
+
+2019-12-24 16:33:18.233915	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6475' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6475, 1782, 19, 4.36, 1, 6475, DISH, 1, , 2019-12-24 16:33:18, 1))"}
+
+2019-12-24 16:37:30.931616	Fail to add salesorder
+Reason: {"errors":"SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `salesorder` where `salesorder`.`salesorder_id` = 1778 limit 1)"}
+
+2019-12-24 17:06:24.748784	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6499' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6499, 1783, 19, 4.36, 1, 6499, DISH, 1, , 2019-12-24 17:06:24, 1))"}
+

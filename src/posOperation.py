@@ -130,16 +130,16 @@ def getTableStaffId(tableCode):
 
 def getOrderDetailByTableCode(tableCode):
     # get latest 2 orders from this table
-    return db_get("select top 1 salesorder_id, salesorder_date, custom, subtotal, [status], guest_no from SalesOrder where custom='{}' order by salesorder_date desc;".format(tableCode))
+    return db_get("select top 1 salesorder_id, salesorder_date, custom, subtotal, [status], guest_no, staff_id from SalesOrder where custom='{}' order by salesorder_date desc;".format(tableCode))
 
 
 def getOrderDetailBySalesorderId(salesorderId):
     # get latest 2 orders from this table
-    return db_get("select top 1 salesorder_id, salesorder_date, custom, subtotal, [status], guest_no from SalesOrder where salesorder_id={} order by salesorder_date desc;".format(salesorderId))
+    return db_get("select top 1 salesorder_id, salesorder_date, custom, subtotal, [status], guest_no, staff_id from SalesOrder where salesorder_id={} order by salesorder_date desc;".format(salesorderId))
 
 
 def getSalesOrderIdLinesBySalesOrderId(ids):
-    return db_get("select line_id, salesorder_id, stock_id, print_ex, quantity, orderline_id, parentline_id, time_ordered from SalesOrderLine where salesorder_id in {} and line_id not in (select pos_line_id from SalesOrderLineOnline) and [status] = 1;".format(ids))
+    return db_get("select line_id, salesorder_id, stock_id, print_ex, quantity, orderline_id, parentline_id, time_ordered, staff_id from SalesOrderLine where salesorder_id in {} and line_id not in (select pos_line_id from SalesOrderLineOnline) and [status] = 1;".format(ids))
 
 
 # use upload
@@ -152,22 +152,12 @@ def insertSalesorderLineOnline(lines):
     db_put(query)
 
 
-def insertSalesorderLineOnlineSingle(salesorder_id, pos_line_id, online_line_id):
-    query = "insert into SalesorderLineOnline (salesorder_id, pos_line_id, online_line_id) values ({}, {}, {});".format(
-        salesorder_id, pos_line_id, online_line_id)
-
-    db_put(query)
-
-
-def getLineIdByOnlineId(id):
-    return db_get("select pos_line_id from SalesorderLineOnline where online_line_id = {};".format(id))
-
 
 def getSalesOrder(salesOrderId):
     return db_get("select * from SalesOrder where salesorder_id = '{}'".format(salesOrderId))
 
 
-def insertSalesorderLine(item, salesorderId):
+def insertSalesorderLine(item, salesorderId, staffId):
     line_id = db_get("select max(line_id) from SalesOrderLine")[0][0] + 1
     salesorder_id = salesorderId
     stock_id = item["stockId"]
@@ -186,22 +176,22 @@ def insertSalesorderLine(item, salesorderId):
     currentTime = common.tsToTime(common.getCurrentTs())
 
     query = ""
-    query += "insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', {}, {}, 0, {}, {}, {}, {}, 0, 1, {}, 0, 0, 0, 0, '{}');".format(
-        line_id, salesorder_id, stock_id, sell_ex, sell_inc, print_ex, print_inc, quantity, parentline_id, orderline_id, currentTime)
+    query += "insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', {}, {}, 0, {}, {}, {}, {}, 0, 1, {}, {}, 0, 0, 0, '{}');".format(
+        line_id, salesorder_id, stock_id, sell_ex, sell_inc, print_ex, print_inc, quantity, parentline_id, orderline_id, staffId, currentTime)
 
     stockTaste = item["stockTaste"]
     stockExtra = item["stockExtra"]
     for stock_id in stockTaste:
         line_id += 1
         taste = 1
-        query += "insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', 0, 0, 0, 0, 0, 1, {}, 0, 1, {}, 0, 0, 0, 0, '{}');".format(
-        line_id, salesorder_id, stock_id, taste, orderline_id, currentTime)
+        query += "insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', 0, 0, 0, 0, 0, 1, {}, 0, 1, {}, {}, 0, 0, 0, '{}');".format(
+        line_id, salesorder_id, stock_id, taste, orderline_id, staffId, currentTime)
     
     for stock_id in stockExtra:
         line_id += 1
         extra = 2
-        query += "insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', 0, 0, 0, 0, 0, 1, {}, 0, 1, {}, 0, 0, 0, 0, '{}');".format(
-        line_id, salesorder_id, stock_id, extra, orderline_id, currentTime)
+        query += "insert into SalesOrderLine(line_id, salesorder_id, stock_id, cost_ex, cost_inc, sales_tax, sell_ex, sell_inc, rrp, print_ex, print_inc, quantity, parentline_id, package, [status], orderline_id, staff_id, out_order, hand_writting, size_level, time_ordered) values({}, {}, {}, 0, 0, 'GST', 0, 0, 0, 0, 0, 1, {}, 0, 1, {}, {}, 0, 0, 0, '{}');".format(
+        line_id, salesorder_id, stock_id, extra, orderline_id, staffId, currentTime)
 
     db_put(query)
 
@@ -213,11 +203,11 @@ def activateTable(tableCode):
     return db_put("update [Tables] set table_status = 2, start_time = '{}' where table_code = '{}';".format(common.tsToTime(common.getCurrentTs()), tableCode))
 
 
-def insertSalesorder(tableCode, guestNo):
+def insertSalesorder(tableCode, guestNo, staffId):
     time = common.tsToTime(common.getCurrentTs())
     salesorder_id = db_get("select max(salesorder_id) from SalesOrder")[0][0] + 1
 
-    query = "INSERT INTO [SalesOrder] ([salesorder_id], [salesorder_date], [expiry_date], [staff_id],[customer_id],[transaction],[original_id],[custom],[comments],[subtotal],[discount],[rounding],[total_ex],[total_inc],[status],[exported],[guest_no], customer_name) VALUES ({},'{}','{}', 1, 0,'DI',0,'{}','',0,0,0,0,0,0,0,{}, '{}')".format(salesorder_id, time, time, tableCode,guestNo, tableCode)
+    query = "INSERT INTO [SalesOrder] ([salesorder_id], [salesorder_date], [expiry_date], [staff_id],[customer_id],[transaction],[original_id],[custom],[comments],[subtotal],[discount],[rounding],[total_ex],[total_inc],[status],[exported],[guest_no], customer_name) VALUES ({},'{}','{}', {}, 0,'DI',0,'{}','',0,0,0,0,0,0,0,{}, '{}')".format(salesorder_id, time, time, staffId, tableCode,guestNo, tableCode)
 
     db_put(query)
 
@@ -253,8 +243,11 @@ def goToKitchen(lineId, comments):
     stock = getStockByStockId(stockId)
     catName = stock[0][13]
     catId = getCategoryId(catName)[0][0]
-
-        
+    staff = getStaffByStaffId(salesorderLine[0][17])
+    if len(staff) > 0:
+        staffName = staff[0][4] + staff[0][3]
+    else:
+        staffName = "online"
 
     # check keyboard print
     kbId = getKbIdFromKeyboardItem(stockId)
@@ -278,9 +271,9 @@ def goToKitchen(lineId, comments):
     if(stockPrint):
         printer = stockPrint
 
-    insertKitchen(printer, salesorderLine, salesOrder, stock, comments)
+    insertKitchen(printer, salesorderLine, salesOrder, stock, comments, staffName)
 
-def insertKitchen(printers, salesorderLine, salesOrder, stock, comments):
+def insertKitchen(printers, salesorderLine, salesOrder, stock, comments, staffName):
     # salesorderLine is the original food
     # salesorderLines including the extra and taste, but all them need to go to kitchen
     query = ""
@@ -312,9 +305,19 @@ def insertKitchen(printers, salesorderLine, salesOrder, stock, comments):
             description2 = stock[0][35]
             if stockType != 0: comments = ""
 
-            query += "INSERT INTO Kitchen ([line_id], [orderline_id], [table_code], [staff_name],[cat1],[description],[description2],[unit],[quantity],[printer],[printer2],[order_time],[handwritting],[comments],[stock_type],[out_order],[customer_name],[cat2],[salesorder_id],[status],[original_line_id])VALUES('{}','{}','{}','oneline','{}','{}','{}','1', {},'{}','{}','{}',0, '{}', {},'0','{}','{}', {},null,null);".format(lineId, orderline_id, tableCode, cat1, description, description2, quantity, printerName, printerName, orderTime, comments, stockType, tableCode, cat2, salesorderId)
+            query += "INSERT INTO Kitchen ([line_id], [orderline_id], [table_code], [staff_name],[cat1],[description],[description2],[unit],[quantity],[printer],[printer2],[order_time],[handwritting],[comments],[stock_type],[out_order],[customer_name],[cat2],[salesorder_id],[status],[original_line_id])VALUES('{}','{}','{}','{}','{}','{}','{}','1', {},'{}','{}','{}',0, '{}', {},'0','{}','{}', {},null,null);".format(lineId, orderline_id, tableCode, staffName, cat1, description, description2, quantity, printerName, printerName, orderTime, comments, stockType, tableCode, cat2, salesorderId)
 
     return db_put(query)
+
+
+def getStaff():
+    query = "select staff_id, barcode, inactive, surname, given_names from Staff;"
+    return db_get(query)
+
+
+def getStaffByStaffId(staffId):
+    query = "select staff_id, barcode, inactive, surname, given_names from Staff where staff_id = {};".format(staffId)
+    return db_get(query)
 
 
 def dropTableAndCreateSalesorderLineOnline():

@@ -77,6 +77,22 @@ def updateStock():
 
 
 
+def updateStaff():
+    result = posOperation.getStaff()
+    for staff in result:
+        data = {
+            "staffId": staff[0],
+            "barcode": staff[1],
+            "inactive": staff[2],
+            "surname": staff[3],
+            "givenNames": staff[4]
+        }
+        api.addStaff(data)
+        print("Staff: {} added".format(staff[0]))
+    
+
+
+
 def updateProducts():
 
     # upload Stock
@@ -97,6 +113,8 @@ def updateProducts():
 
     # upload keyboard
     updateKeyboard()
+
+    updateStaff()
 
     time.sleep(2)
 

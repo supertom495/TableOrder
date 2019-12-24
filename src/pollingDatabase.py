@@ -15,32 +15,6 @@ salesorderRecords = {}
 def getToken():
     pass
 
-@deprecated(version='0.1', reason="You should use add_dish, which is the callback of websockets")
-def processOnlineSalesorderLine(lines):
-    # try to insert into salesorderline first,
-    # if success, write it to SalesorderLineOnline
-    # then tell server this operation is succeed
-    # is not success, the orderline will be found in the next round
-    successList = []
-    for item in lines["salesorderlines"]:
-        result = posOperation.insertSalesorderLine(item)
-        posOperation.insertSalesorderLineOnlineSingle(
-            result[0], result[1], result[2])  # salesorder_id, pos_line_id, online_line_id
-        successList.append([result[2], result[1]])
-        print("DISH: \n" + 
-        "salesorder_id, pos_line_id, online_line_id\n {} added\n".format(result))
-
-    api.updateSalesorderLine({"rows": successList})
-
-
-# retrive online orderline, and write it to POS
-@deprecated(version='0.1', reason="You should use websocket instead")
-def retriveSalesorderLine(salesOrderIds):
-    response = api.getSalesorderLine(salesOrderIds)
-    result = json.loads(response.text)
-    # for item in result:
-    processOnlineSalesorderLine(result)
-
 
 # get all the table from db and update it to api
 def addTable(tables):
@@ -101,7 +75,8 @@ def findSalesOrder(tableCode=None):
                 "tableCode": orderDetails[2],
                 "subtotal": float(orderDetails[3]),
                 "status": orderDetails[4],
-                "guestNo": orderDetails[5]
+                "guestNo": orderDetails[5],
+                "staffId": orderDetails[6]
             }
             api.addSalesOrder(data)
             print("salesorder {} has been updated".format(orderDetails[0]))
@@ -135,7 +110,8 @@ def checkSalesorderRecords(salesorderRecords):
             "tableCode": orderDetails[2],
             "subtotal": float(orderDetails[3]),
             "status": orderDetails[4],
-            "guestNo": orderDetails[5]
+            "guestNo": orderDetails[5],
+            "staffId": orderDetails[6]
         }
         api.addSalesOrder(data)
         print("salesorder {} has been updated".format(orderDetails[0]))
@@ -180,7 +156,8 @@ def postSalesorderLine(salesOrderIds, comments=None):
                 "parentLineId": item[5],
                 "lineType": lineType,
                 "comments": comments,
-                "timeOrdered": item[7].strftime('%Y-%m-%d %H:%M:%S')
+                "timeOrdered": item[7].strftime('%Y-%m-%d %H:%M:%S'),
+                "staffId": item[8]
             }
 
             lst.append(data)

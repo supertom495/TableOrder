@@ -30,24 +30,25 @@ class PusherWebsocket:
         data = json.loads(data)
         tableCode = data["tableCode"]
         guestNo = data["guestNo"]
+        
 
         lock = threading.Lock()
         with lock:
             # test if table occupied by POS
             staffId = posOperation.getTableStaffId(tableCode)[0][0]
             if staffId != 0:
-                self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'tableCode': tableCode, 'code': '-1', 'message':'Fail to open table, table is using by POS'})
+                self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'staffId': data["staffId"],'tableCode': tableCode, 'code': '-1', 'message':'Fail to open table, table is using by POS'})
                 return
 
             # test if table is already opened
             tableStatus = posOperation.getTableByTableCode(tableCode)[0][3]
             if tableStatus != 0:
-                self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'tableCode': tableCode, 'code': '-2', 'message':'Fail to open table, table is already opened'})
+                self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'staffId': data["staffId"],'tableCode': tableCode, 'code': '-2', 'message':'Fail to open table, table is already opened'})
                 return
 
 
             posOperation.activateTable(tableCode)
-            salesorderId = posOperation.insertSalesorder(tableCode, guestNo)
+            salesorderId = posOperation.insertSalesorder(tableCode, guestNo, data["staffId"])
             
             table = posOperation.getTableByTableCode(tableCode)
             pollingDatabase.addTable(table)
@@ -55,15 +56,14 @@ class PusherWebsocket:
             # send salesorder to api
             pollingDatabase.findSalesOrder(tableCode=tableCode)
 
-            self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'tableCode': tableCode,
-                'code': '0', 'message':'success', 'salesorderId':salesorderId})
+            self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'staffId': data["staffId"],'tableCode': tableCode, 'code': '0', 'message':'success', 'salesorderId':salesorderId})
 
 
     def add_dish(self, data, *args, **kwargs):
         # print("processing Args:", args)
         # print("processing Kwargs:", kwargs)
         print("Channel Callback: %s" % data)
-        print("Adding dishs")
+        print("Adding dishes")
 
         data = json.loads(data)
         tableCode = data["tableCode"]
@@ -73,13 +73,13 @@ class PusherWebsocket:
         # test if this order/table is occupied at POS
         staffId = posOperation.getTableStaffId(tableCode)[0][0]
         if staffId != 0:
-            self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'tableCode': tableCode, 'code': '-1', 'message':'Fail to add dish, table is using by POS'})
+            self.sender.trigger('littlenanjing', 'App\\Events\\AddDishResult', {'staffId': data["staffId"], 'salesorderId': salesorderId, 'tableCode': tableCode, 'code': '-1', 'message':'Fail to add dish, table is using by POS'})
             return
 
 
 
         for item in salesorderLines:
-            result = posOperation.insertSalesorderLine(item, salesorderId)
+            result = posOperation.insertSalesorderLine(item, salesorderId, data["staffId"])
         
             comments = item["comments"]
             print("DISH: \n" + 
@@ -90,7 +90,7 @@ class PusherWebsocket:
 
         pollingDatabase.postSalesorderLine([salesorderId], comments)
         
-        self.sender.trigger('littlenanjing', 'App\\Events\\AddDishResult', {'salesorderId': salesorderId, 'code': '0', 'message':'success'})
+        self.sender.trigger('littlenanjing', 'App\\Events\\AddDishResult', {'staffId': data["staffId"],'salesorderId': salesorderId, 'code': '0', 'message':'success'})
 
 
 
