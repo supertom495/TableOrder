@@ -106,6 +106,9 @@ class PusherWebsocket:
             # update the given salesorder to given tableCode
             posOperation.updateSalesorderTableCode(fromOrder[0], toTableCode)
 
+
+            pollingDatabase.findSalesOrder(toTableCode)
+
             self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult', {'staffId': data["staffId"],'code': '0', 'message':'success'})
 
 
