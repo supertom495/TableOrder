@@ -103,19 +103,37 @@ def getKeyboardCat():
 
 
 def getTable():
-    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats from [Tables]")
+    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats, staff_id from [Tables]")
 
 def getTableByTableCode(tableCode):
-    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats from [Tables] where table_code = '{}';".format(tableCode))
+    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats, staff_id from [Tables] where table_code = '{}';".format(tableCode))
 
 
 def getActiveTable():
-    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats from [Tables] where table_status = 2;")
+    return db_get("select table_id, site_id, table_code, table_status, inactive, logon_time, start_time, seats, staff_id from [Tables] where table_status = 2;")
 
 
 def getTableStaffId(tableCode):
     return db_get("select staff_id from [Tables] where table_code = '{}';".format(tableCode))
 
+
+def swapTable(fromTableCode, toTableCode):
+    query = ("UPDATE t1 " + 
+            "SET " + 
+            "t1.table_status = t2.table_status, " +
+            "t1.start_time = t2.start_time " +
+            "FROM [Tables] AS t1 " +
+            "INNER JOIN [Tables] AS t2 " +
+            "    ON      (t1.table_code = '{}' " +
+            "            AND t2.table_code = '{}') " +
+            "        OR " +
+            "            (t1.table_code = '{}' " +
+            "            AND t2.table_code = '{}'); ").format(fromTableCode, toTableCode, toTableCode, fromTableCode)
+    db_put(query)
+
+
+def activateTable(tableCode):
+    return db_put("update [Tables] set table_status = 2, start_time = '{}' where table_code = '{}';".format(common.tsToTime(common.getCurrentTs()), tableCode))
 
 # def getActiveSaleOrders():
 #     return db_get("select custom as table_code, MAX(salesorder_date) as salesorder_date from SalesOrder where custom in (select table_code COLLATE database_default from [Tables] where table_status = 2) group by custom order by custom;")
@@ -150,11 +168,6 @@ def insertSalesorderLineOnline(lines):
             item[1], item[0])
 
     db_put(query)
-
-
-
-def getSalesOrder(salesOrderId):
-    return db_get("select * from SalesOrder where salesorder_id = '{}'".format(salesOrderId))
 
 
 def insertSalesorderLine(item, salesorderId, staffId):
@@ -199,8 +212,9 @@ def insertSalesorderLine(item, salesorderId, staffId):
     return (salesorder_id, orderline_id, line_id)
 
 
-def activateTable(tableCode):
-    return db_put("update [Tables] set table_status = 2, start_time = '{}' where table_code = '{}';".format(common.tsToTime(common.getCurrentTs()), tableCode))
+
+def getSalesOrder(salesOrderId):
+    return db_get("select * from SalesOrder where salesorder_id = '{}'".format(salesOrderId))
 
 
 def insertSalesorder(tableCode, guestNo, staffId):
@@ -214,8 +228,14 @@ def insertSalesorder(tableCode, guestNo, staffId):
     return salesorder_id
 
 
+# no usage
 def updateSalesorderGuestNo(salesorderId, guestNo):
-    return db_put("update SalesOrder set guest_no = {} where salesorder_id = {};".format(salesorderId, guestNo))
+    return db_put("update SalesOrder set guest_no = {} where salesorder_id = {};".format(guestNo, salesorderId))
+
+
+def updateSalesorderTableCode(salesorderId, toTableCode):
+    return db_put("update SalesOrder set custom = '{}' where salesorder_id = {};".format(toTableCode, salesorderId))
+
 
 def getStockPrint(stockId):
     return db_get("select * from StockPrint where stock_id = {};".format(stockId))

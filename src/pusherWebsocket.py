@@ -59,6 +59,56 @@ class PusherWebsocket:
             self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult', {'staffId': data["staffId"],'tableCode': tableCode, 'code': '0', 'message':'success', 'salesorderId':salesorderId})
 
 
+    def change_table(self, data, *args, **kwargs):
+
+        print("Channel Callback: %s" % data)
+        print("change Table")
+        data = json.loads(data)
+        fromTableCode = data["fromTableCode"]
+        toTableCode = data["toTableCode"]
+        staffId = data["staffId"]
+
+        lock = threading.Lock()
+        with lock:
+            fromTable = posOperation.getTableByTableCode(fromTableCode)[0]
+            toTable = posOperation.getTableByTableCode(toTableCode)[0]
+            fromOrder = posOperation.getOrderDetailByTableCode(fromTableCode)
+            if len(fromOrder) == 0:
+                self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult', {'staffId': data["staffId"], 'code': '-1', 'message':'No order on this table'})
+                return
+            fromOrder = fromOrder[0]
+
+
+            # test if table occupied by POS
+            staffIdFrom = fromTable[8]
+            staffIdTo = toTable[8]
+            if staffIdFrom != 0 or staffIdTo != 0:
+                self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult', {'staffId': data["staffId"], 'code': '-1', 'message':'Fail to change table, table is using by POS'})
+                return
+
+            # check for table status first
+            tableStatusFrom = fromTable[3]
+            tableStatusTo = toTable[3]
+            if tableStatusFrom != 2 and tableStatusTo != 0:
+                self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult', {'staffId': data["staffId"], 'code': '-2', 'message':'Fail to change table, table status is incorrect'})
+                return
+
+            # check for salesorder status
+            statusFrom = fromOrder[4]
+            if statusFrom == 11:
+                self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult', {'staffId': data["staffId"], 'code': '-3', 'message':'Fail to change table, salesorder status is incorrect'})
+                return
+
+
+            # swap the table contents
+            posOperation.swapTable(fromTableCode, toTableCode)
+
+            # update the given salesorder to given tableCode
+            posOperation.updateSalesorderTableCode(fromOrder[0], toTableCode)
+
+            self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult', {'staffId': data["staffId"],'code': '0', 'message':'success'})
+
+
     def add_dish(self, data, *args, **kwargs):
         # print("processing Args:", args)
         # print("processing Kwargs:", kwargs)
@@ -100,3 +150,4 @@ class PusherWebsocket:
         channel = self.receiver.subscribe('littlenanjing')
         channel.bind('App\\Events\\OpenTableRequest', self.open_table)
         channel.bind('App\\Events\\AddDishRequest', self.add_dish)
+        channel.bind('App\\Events\\ChangeTableRequest', self.change_table)
