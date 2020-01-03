@@ -12,15 +12,41 @@ def updateKeyboard():
 
     lst = []
     for item in keyboard:
+        if item[1] is '': continue
         lst.append({"kbId": item[0], "kbName": item[1]})
     print(lst)
     api.addKeyboard({"rows": lst})
 
     lst = []
     for item in keyboardCat:
-        lst.append({"kbId": item[0], "catName": item[1]})
+        if item[1] is '': continue
+        lst.append({
+            "kbId": item[0],
+            "catName": item[1],
+            "catId": item[2]
+            })
     print(lst)
     api.addKeyboardCat({"rows": lst})
+
+
+def updateKeyboardItem():
+    keyboardItem = posOperation.getKeyboardItem()
+
+    lst = []
+    for item in keyboardItem:
+        if item[4] is '': continue
+        lst.append({
+            "kbId": item[0],
+            "itemName": item[1],
+            "catId": item[2],
+            "itemId": item[3],
+            "itemBarcode": item[4],
+            "stockId": item[5]
+             })
+    print(lst)
+    api.addKeyboardItem({"rows": lst})
+
+
 
 def castStock(stock):
     cat1En = posOperation.findCategoryEnglish(stock[13])
@@ -98,6 +124,12 @@ def updateProducts():
     # upload Stock
     updateStock()
 
+    # upload keyboard
+    updateKeyboard()
+
+    # update keyboardItem
+    updateKeyboardItem()
+
     # upload extra to api
     result = posOperation.getExtra()
     response = api.addOption(castOption("stock_extra", result))
@@ -110,9 +142,6 @@ def updateProducts():
 
     # upload image
     uploadImageToAPI()
-
-    # upload keyboard
-    updateKeyboard()
 
     updateStaff()
 

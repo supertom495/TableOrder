@@ -1,28 +1,22 @@
-import pysher
-import sys
-import time
+import tkinter as tk
 
-# Add a logging handler so we can see the raw communication data
-import logging
-root = logging.getLogger()
-root.setLevel(logging.INFO)
-ch = logging.StreamHandler(sys.stdout)
-root.addHandler(ch)
 
-global pusher
+root = tk.Tk() 
+# top = tk.Toplevel(root) 
+root.overrideredirect(1) #removes border but undesirably from taskbar too (usually for non toplevel windows) 
+root.attributes("-alpha",0.0) 
 
-# We can't subscribe until we've connected, so we use a callback handler
-# to subscribe when able
-def connect_handler(data):
-    channel = pusher.subscribe('live_trades')
-    channel.bind('trade', callback)
+#toplevel follows root taskbar events (minimize, restore) 
+# def onRootIconify(event): top.withdraw() 
+# root.bind("<Unmap>", onRootIconify) 
+# def onRootDeiconify(event): top.deiconify() 
+# root.bind("<Map>", onRootDeiconify) 
 
-appkey = "de504dc5763aeef9ff52"
-pusher = pysher.Pusher(appkey)
-pusher.connection.bind('pusher:connection_established', connect_handler)
-pusher.connect()
+# window = tk.Frame(master=top) 
 
-print("finished")
+printQRCodeButtonText = tk.StringVar()
+printQRCodeButtonText.set("get QRCode")
+printQRCodeButton = tk.Button(root, textvariable=printQRCodeButtonText, font=('Arial', 12),width=10, height=1)
+printQRCodeButton.place(x=0, y=0)
 
-while True:
-    time.sleep(1)
+root.mainloop() 

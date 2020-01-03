@@ -51,6 +51,18 @@ def addKeyboard(data):
     return response
 
 
+def activateKeyboard(kbId):
+    url = "{}/keyboard/{}".format(common.URLPREFIX, kbId)
+    header = {
+        "Content-Type": "application/json",
+    }
+    response = requests.put(url, headers=header)
+
+    testResponse(response, "activate keyboard")
+
+    return response
+
+
 def addKeyboardCat(data):
     url = "{}/keyboardcat".format(common.URLPREFIX)
     data = json.dumps(data)
@@ -61,6 +73,32 @@ def addKeyboardCat(data):
                              data=data, headers=header)
 
     testResponse(response, "add keyboard category")
+
+    return response
+
+
+def addKeyboardItem(data):
+    url = "{}/keyboarditem".format(common.URLPREFIX)
+    data = json.dumps(data)
+    header = {
+        "Content-Type": "application/json",
+    }
+    response = requests.post(url,
+                             data=data, headers=header)
+
+    testResponse(response, "add keyboard items")
+
+    return response
+
+
+def listKeyboard():
+    url = "{}/keyboard".format(common.URLPREFIX)
+    header = {
+        "Content-Type": "application/json",
+    }
+    response = requests.get(url, headers=header)
+
+    testResponse(response, "list keyboard")
 
     return response
 

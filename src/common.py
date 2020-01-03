@@ -88,7 +88,7 @@ def setUpWebsocketServer():
     t.setDaemon(True)
     t.start()
     print("wait...10s" + "setting up websocket connection")
-    time.sleep(10)
+    time.sleep(5)
 
 
 def runWebsocket():
@@ -148,3 +148,4 @@ def roundSeconds(dateTimeObject):
         newDateTime = newDateTime + datetime.timedelta(seconds=1)
 
     return newDateTime.replace(microsecond=0)
+

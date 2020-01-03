@@ -98,8 +98,16 @@ def getKeyboard():
     return db_get("select kb_id, kb_name from Keyboard")
 
 
+def getKeyboardByKeyboardName(kbName):
+    return db_get("select kb_id from Keyboard where kb_name = '{}'".format(kbName))
+
+
 def getKeyboardCat():
-    return db_get("select kb_id, cat_name from KeyboardCat")
+    return db_get("select kb_id, cat_name, cat_id from KeyboardCat")
+
+
+def getKeyboardItem():
+    return db_get("select kb_id, item_name, cat_id, item_id, item_barcode, stock_id from KeyboardItem")
 
 
 def getTable():
