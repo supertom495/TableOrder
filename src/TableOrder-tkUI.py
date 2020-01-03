@@ -52,20 +52,6 @@ if __name__ == "__main__":
     
     pusherWebsocket.PusherWebsocket()
 
-    # set up window widget
-    # root = tk.Tk() 
-    # top = tk.Toplevel(root) 
-    # top.overrideredirect(1) #removes border but undesirably from taskbar too (usually for non toplevel windows) 
-    # root.attributes("-alpha",0.0) 
-
-    # #toplevel follows root taskbar events (minimize, restore) 
-    # def onRootIconify(event): top.withdraw() 
-    # root.bind("<Unmap>", onRootIconify) 
-    # def onRootDeiconify(event): top.deiconify() 
-    # root.bind("<Map>", onRootDeiconify) 
-
-    # window = tk.Frame(master=top) 
-
     
     window = tk.Tk()
     # window.overrideredirect(1)
@@ -81,7 +67,7 @@ if __name__ == "__main__":
         'Arial', 12), width=10, height=1, command=lambda: thread_it(b, buttontext))
     b.place(x=150, y=130)
 
-    # need a button to sync stock
+    # Button to sync stock
     syncStockButtonText = tk.StringVar()
     syncStockButtonText.set("update products")
 

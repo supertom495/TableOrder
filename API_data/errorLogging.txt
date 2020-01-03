@@ -3145,3 +3145,60 @@ Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1048 Column 
 2020-01-03 11:07:30.548390	Fail to add keyboard category
 Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
 
+2020-01-03 12:46:23.966808	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:46:40.243366	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:46:44.129572	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:46:48.002181	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:46:52.096881	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:46:56.606363	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:47:55.231767	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:48:17.120343	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:48:35.315080	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:48:49.475587	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:48:59.352554	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:49:03.460898	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:55:08.146525	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:55:18.337721	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:55:22.297337	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:55:52.622399	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 12:56:00.914026	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 16:52:18.950895	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-03 17:06:14.374523	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
