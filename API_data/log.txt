@@ -1,0 +1,6 @@
+2020-01-06 10:40:27,767 - commonTest.setLogger.33 - INFO - hello world, i'm log helper in python, may i help you
+2020-01-06 10:40:27,770 - commonTest.logTest.44 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "c:/Users/SUPERTOM/Documents/order-system/TableOrder/tests/commonTest.py", line 42, in logTest
+    aa = name[0]
+IndexError: list index out of range

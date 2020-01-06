@@ -8,8 +8,6 @@ import json
 import posOperation
 import wx
 import wx.adv 
-import os
-import time
 
 
 def loadKeyboardList():

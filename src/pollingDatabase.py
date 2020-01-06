@@ -1,12 +1,10 @@
 import posOperation
 import api
-import json
 import common
 import time
 import threading
 import sys
 import requests
-from deprecated import deprecated
 
 tablesRecord = {}
 salesorderRecords = {}
