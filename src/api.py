@@ -116,6 +116,15 @@ def addTable(data):
 
     return response
 
+def deleteTable():
+    url = "{}/table".format(common.URLPREFIX)
+    header = {
+        "Content-Type": "application/json",
+    }
+    response = requests.delete(url, headers=header)
+
+    testResponse(response, "delete table")
+    return response
 
 def addSalesOrder(data):
     url = "{}/salesorder".format(common.URLPREFIX)

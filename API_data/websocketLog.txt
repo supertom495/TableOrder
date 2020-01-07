@@ -22,3 +22,6 @@
 2020-01-07 13:01:01,497 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
 2020-01-07 13:06:21,193 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
 2020-01-07 13:08:03,549 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 13:55:57,309 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 15:05:24,820 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 15:17:02,688 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------

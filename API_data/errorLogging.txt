@@ -3985,3 +3985,6 @@ Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplica
 2020-01-07 13:01:14.087455	Fail to add salesorder line
 Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6646' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6646, 1810, 35, 11.64, 1, 6646, DISH, 1, , 2020-01-07 13:01:10, 2))"}
 
+2020-01-07 15:17:16.754530	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
