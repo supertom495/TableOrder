@@ -130,6 +130,7 @@ def addSalesOrder(data):
 
     return response
 
+
 def deleteSalesOrder(salesorderId):
     url = "{}/salesorder/{}".format(common.URLPREFIX, salesorderId)
     header = {

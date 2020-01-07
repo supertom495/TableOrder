@@ -3202,3 +3202,786 @@ Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplica
 2020-01-03 17:06:14.374523	Fail to add keyboard category
 Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
 
+2020-01-07 11:38:15.974126	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-07 11:38:50.173827	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-07 11:41:15.507334	Fail to add keyboard category
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2-\u5176\u5b83' for key 'PRIMARY' (SQL: insert into `keyboard_cat` (`kb_id`, `cat_name`, `cat_id`) values (2, \u5176\u5b83, 7))"}
+
+2020-01-07 12:18:31.290365	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:32.707573	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:34.096857	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:35.460210	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:36.874430	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:38.314577	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:39.721812	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:41.068210	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:42.438545	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:43.788932	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:45.247033	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:46.677206	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:48.070480	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:49.554511	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:50.971721	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:52.383942	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:53.785193	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:55.161513	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:56.540851	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:57.915146	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:18:59.314403	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:00.708701	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:02.375216	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:04.128526	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:05.532770	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:06.924083	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:08.338266	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:09.770434	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:11.197618	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:12.603856	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:13.980175	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:15.312611	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:16.689926	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:18.087188	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:19.512376	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:20.912631	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:22.314880	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:23.710148	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:25.102423	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:26.509659	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:27.885978	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:29.305182	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:30.678508	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:32.041862	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:33.513924	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:34.937117	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:36.691469	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:38.328047	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:39.816066	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:41.206348	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:42.554740	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:43.953021	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:45.391154	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:46.818336	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:48.204628	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:49.631810	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:51.142768	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:52.566959	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:53.929314	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:55.323587	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:56.711874	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:58.100158	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:19:59.547288	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:00.912635	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:02.303913	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:03.743064	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:05.160485	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:06.592652	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:07.994901	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:09.432057	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:11.990213	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:14.148470	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:16.046365	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:17.642096	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:19.111167	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:20.558296	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:22.054294	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:24.554686	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:26.139447	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:27.614503	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:29.044676	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:30.452909	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:31.878097	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:33.317247	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:34.705574	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:36.070882	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:37.488091	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:38.863412	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:40.269652	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:41.636005	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:43.039242	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:44.679854	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:46.322460	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:47.960080	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:49.337807	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:50.861731	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:52.300883	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:53.711219	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:55.121447	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:56.529680	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:57.920959	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:20:59.345150	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:00.766347	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:02.174091	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:03.567366	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:04.972606	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:06.384828	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:07.790069	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:09.187332	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:10.570631	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:12.016791	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:13.461898	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:14.851182	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:16.316262	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:17.683605	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:19.078918	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:20.745415	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:23.178937	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:24.597112	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:26.022299	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:27.394750	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:28.855843	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:30.247120	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:31.666324	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:33.053613	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:34.421953	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:35.821210	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:37.327182	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:38.805228	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:40.242385	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:41.599939	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:42.962295	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:44.323653	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:45.947311	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:47.398429	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:48.793012	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:50.226538	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:51.615787	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:53.010054	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:54.544947	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:56.365082	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:58.013673	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:21:59.394977	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:00.803210	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:02.171550	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:03.548866	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:04.960092	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:06.379296	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:07.762331	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:09.172769	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:10.651812	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:12.064035	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:13.509181	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:14.961285	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:16.385476	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:17.775757	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:19.304667	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:20.834576	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:22.208946	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:23.646074	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:25.033343	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:26.460527	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:27.865768	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:29.571206	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:31.604766	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:33.168583	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:34.564848	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:35.983055	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:37.381315	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:38.830439	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:40.254628	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:41.664856	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:43.060125	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:44.411509	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:45.806777	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:47.161154	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:48.541462	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:49.931752	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:51.367902	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:52.769153	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:54.158437	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:55.527775	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:56.915064	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:58.381142	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:22:59.746490	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:01.145747	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:02.494140	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:03.872483	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:05.584874	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:07.222492	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:08.570885	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:09.941220	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:11.322526	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:12.703830	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:14.121040	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:15.468457	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:16.843757	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:18.234038	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:19.597391	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:20.978697	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:22.343046	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:23.725350	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:25.098676	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:26.461031	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:27.848320	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:29.219652	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:30.620905	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:32.000216	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:33.384513	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:34.724928	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:36.119197	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:37.531420	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:39.116181	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:40.811647	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:42.299665	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:43.709918	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:45.052302	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:46.397708	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:47.782997	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:49.179262	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:50.561580	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:51.974814	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:53.368058	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:54.755347	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:56.148621	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:57.608715	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:23:58.979082	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:00.411226	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:01.810476	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:03.394239	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:04.838380	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:06.188765	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:07.609825	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:09.001468	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:10.363823	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:11.736153	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:13.236140	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:15.203298	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:16.551221	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:17.914574	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:19.305853	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:20.711094	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:22.135331	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:23.518631	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:24.912901	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:26.380975	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:30.987656	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:32.328066	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:33.731313	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:35.066741	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:36.586675	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:37.944045	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:39.367239	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:40.771486	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:42.180713	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:24:43.584972	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6639' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6639, 1809, 6, 3.45, 1, 6639, DISH, 1, , 2020-01-07 12:14:18, 2))"}
+
+2020-01-07 12:35:45.385703	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6641' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6641, 1808, 34, 13.45, 1, 6641, DISH, 1, , 2020-01-07 12:35:45, 2))"}
+
+2020-01-07 13:01:14.087455	Fail to add salesorder line
+Reason: {"errors":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6646' for key 'pos_line_id' (SQL: insert into `salesorder_line` (`pos_line_id`, `salesorder_id`, `stock_id`, `price`, `quantity`, `parent_line_id`, `line_type`, `is_online`, `comments`, `time_ordered`, `staff_id`) values (6646, 1810, 35, 11.64, 1, 6646, DISH, 1, , 2020-01-07 13:01:10, 2))"}
+
