@@ -13,3 +13,6 @@ pyinstaller --clean --windowed -D --add-data api-ms-win-crt-runtime-l1-1-0.dll;.
 
 # this is the sample for debug software
 pyinstaller --clean -D --add-data api-ms-win-crt-runtime-l1-1-0.dll;. --log-level=DEBUG --debug=all src/TableOrder-wxUI.py
+
+3.5 build
+Fix the bug that stock can not be match any printer

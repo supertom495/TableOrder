@@ -300,27 +300,35 @@ def goToKitchen(lineId, comments):
     else:
         staffName = "online"
 
+    printer = None
+
     # check keyboard print
     kbId = getKbIdFromKeyboardItem(stockId)
     # 如果不在keyboard item 里面， 就去keyboard 里面找
-    if (not kbId):
+    if not kbId:
         kbId = getKbIdFromKeyboardCat(catId)
-    kbId = kbId[0][0]
-    keyboardPrint = getKeyboardPrint(kbId)
-    if (keyboardPrint):
-        printer = keyboardPrint
+
+    # 如果找到了相应的kbId
+    if kbId:
+        kbId = kbId[0][0]
+        keyboardPrint = getKeyboardPrint(kbId)
+        if keyboardPrint:
+            printer = keyboardPrint
 
     # check cat print
     catPrint = getCatPrint(catId)
-    if (catPrint):
+    if catPrint:
         printer = catPrint
 
     # check stock print
     stockPrint = getStockPrint(stockId)
-    if (stockPrint):
+    if stockPrint:
         printer = stockPrint
 
-    insertKitchen(printer, salesorderLine, salesOrder, stock, comments, staffName)
+    if printer:
+        insertKitchen(printer, salesorderLine, salesOrder, stock, comments, staffName)
+    else:
+        raise Exception('Stock的printer没有正确配置. Stock id = {}'.format(stockId))
 
 
 def insertKitchen(printers, salesorderLine, salesOrder, stock, comments, staffName):
