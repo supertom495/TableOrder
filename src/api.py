@@ -116,6 +116,7 @@ def addTable(data):
 
     return response
 
+
 def deleteTable():
     url = "{}/table".format(common.URLPREFIX)
     header = {
@@ -125,6 +126,7 @@ def deleteTable():
 
     testResponse(response, "delete table")
     return response
+
 
 def addSalesOrder(data):
     url = "{}/salesorder".format(common.URLPREFIX)
@@ -146,7 +148,7 @@ def deleteSalesOrder(salesorderId):
         "Content-Type": "application/json",
     }
     response = requests.delete(url,
-                             headers=header)
+                               headers=header)
 
     testResponse(response, "delete salesorder by salesorderId{}".format(salesorderId))
 
@@ -163,6 +165,20 @@ def addSalesorderLine(data):
                              data=data, headers=header)
 
     testResponse(response, "add salesorder line")
+
+    return response
+
+
+def removeSalesorderLine(data):
+    url = "{}/salesorderline".format(common.URLPREFIX)
+    data = json.dumps(data)
+    header = {
+        "Content-Type": "application/json",
+    }
+    response = requests.delete(url,
+                               data=data, headers=header)
+
+    testResponse(response, "remove salesorder line")
 
     return response
 

@@ -8,7 +8,7 @@ import requests
 
 tablesRecord = {}
 salesorderRecords = {}
-
+salesorderLineRecords = {}
 
 def getToken():
     pass
@@ -163,6 +163,33 @@ def postSalesorderLine(salesOrderIds, comments=None):
             # if success ->
             if response.status_code < 400:
                 posOperation.insertSalesorderLineOnline(lines)
+
+
+# 把在pos上删掉的菜从线上删除
+def removeSalesorderLine(salesorderIds):
+    # 这里要加锁因为这个轮询可能和websocket的请求冲突
+    if len(salesorderIds) == 0:
+        return
+
+    lock = threading.Lock()
+    with lock:
+        ids = str(tuple(salesorderIds))
+        if len(salesorderIds) == 1:
+            ids = ids.replace(",", "")
+        lines = posOperation.getSalesorderLineOnlineDeleted(ids)
+        lst = [{"posLineId": item[0]} for item in lines]
+
+        print("to be removed: " + lst)
+
+        if lst:
+            response = api.removeSalesorderLine({"rows": lst})
+
+            # if success ->
+            if response.status_code < 400:
+                lines = str(tuple(lines))
+                if len(lines) == 1:
+                    lines = ids.replace(",", "")
+                posOperation.deleteSalesorderLineOnline(lines)
 
 
 def MyRun():
