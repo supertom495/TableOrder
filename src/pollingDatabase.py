@@ -177,18 +177,18 @@ def removeSalesorderLine(salesorderIds):
         if len(salesorderIds) == 1:
             ids = ids.replace(",", "")
         lines = posOperation.getSalesorderLineOnlineDeleted(ids)
-        lst = [{"posLineId": item[0]} for item in lines]
+        lst = [item[0] for item in lines]
 
-        print("to be removed: " + lst)
+        print("to be removed: ", lst)
 
         if lst:
             response = api.removeSalesorderLine({"rows": lst})
 
             # if success ->
             if response.status_code < 400:
-                lines = str(tuple(lines))
-                if len(lines) == 1:
-                    lines = ids.replace(",", "")
+                lines = str(tuple(lst))
+                if len(lst) == 1:
+                    lines = lines.replace(",", "")
                 posOperation.deleteSalesorderLineOnline(lines)
 
 
@@ -200,6 +200,7 @@ def MyRun():
             checkSalesorderRecords(salesorderRecords)
             salesOrderIds = findSalesOrder()
             postSalesorderLine(salesOrderIds)  # post loacl order to server
+            removeSalesorderLine(salesOrderIds)
             print("RoundEnd!")
             time.sleep(common.SLEEPTIME)
         except TimeoutError:
@@ -208,6 +209,6 @@ def MyRun():
         except requests.exceptions.ConnectionError:
             print("API service not connected... retry in 10s")
         except:
-            common.logging("Unexpected error:" + sys.exc_info()[0])
+            common.logging("Unexpected error: {}".format(sys.exc_info()[0]))
             print("Unexpected error:", sys.exc_info()[0])
             print("Something wrong with API service... retry in 10s")

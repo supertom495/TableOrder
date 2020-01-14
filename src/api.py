@@ -170,7 +170,7 @@ def addSalesorderLine(data):
 
 
 def removeSalesorderLine(data):
-    url = "{}/salesorderline".format(common.URLPREFIX)
+    url = "{}/salesorderline/poslineids".format(common.URLPREFIX)
     data = json.dumps(data)
     header = {
         "Content-Type": "application/json",
