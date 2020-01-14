@@ -8,6 +8,7 @@ import json
 import posOperation
 import wx
 import wx.adv
+import sys
 
 
 def loadKeyboardList():
@@ -33,6 +34,11 @@ def create_menu_item(menu, label, func):
 class TaskBarIcon(wx.adv.TaskBarIcon):
     def __init__(self):
         super(TaskBarIcon, self).__init__()
+        self.name = "SingleApp-%s" % wx.GetUserId()
+        self.instance = wx.SingleInstanceChecker(self.name)
+        if self.instance.IsAnotherRunning():
+            wx.MessageBox("Another instance is running", "ERROR")
+            sys.exit()
         self.set_icon(TRAY_ICON)
         self.Bind(wx.adv.EVT_TASKBAR_LEFT_DOWN, self.on_left_down)
         self.frame = MyFrame()
@@ -60,6 +66,7 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
 
     def on_exit(self, event):
         wx.CallAfter(self.Destroy)
+        self.frame.Destroy()
 
 
 class MyFrame(wx.Frame):
