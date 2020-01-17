@@ -203,7 +203,9 @@ def deleteSalesorderLineOnline(lines):
 
 
 def insertSalesorderLine(item, salesorderId, staffId):
-    line_id = db_get("select max(line_id) from SalesOrderLine")[0][0] + 1
+    line_id = db_get("select max(line_id) from SalesOrderLine")
+    line_id = 1 if line_id[0][0] is None else line_id[0][0] + 1
+
     salesorder_id = salesorderId
     stock_id = item["stockId"]
     # get the first item from the list
@@ -259,7 +261,9 @@ def getSalesOrder(salesOrderId):
 
 def insertSalesorder(tableCode, guestNo, staffId):
     time = common.tsToTime(common.getCurrentTs())
-    salesorder_id = db_get("select max(salesorder_id) from SalesOrder")[0][0] + 1
+
+    salesorder_id = db_get("select max(salesorder_id) from SalesOrder")
+    salesorder_id = 1 if salesorder_id[0][0] is None else salesorder_id[0][0] + 1
 
     query = "INSERT INTO [SalesOrder] ([salesorder_id], [salesorder_date], [expiry_date], [staff_id],[customer_id]," \
             "[transaction],[original_id],[custom],[comments],[subtotal],[discount],[rounding],[total_ex],[total_inc]," \
@@ -271,6 +275,19 @@ def insertSalesorder(tableCode, guestNo, staffId):
 
     return salesorder_id
 
+
+# 更新salesorder价格
+def updateSalesorderPrice(salesorderId):
+    lines = db_get("select * from SalesOrderLine where salesorder_id = {}".format(salesorderId))
+    if len(lines) == 0:
+        return
+    subtotal = 0
+    total_ex = 0
+    for line in lines:
+        subtotal += line[10]
+        total_ex += line[9]
+
+    return db_put("update SalesOrder set subtotal={}, total_inc={}, total_ex={} where salesorder_id = {};".format(subtotal, subtotal, total_ex, salesorderId))
 
 # no usage
 def updateSalesorderGuestNo(salesorderId, guestNo):

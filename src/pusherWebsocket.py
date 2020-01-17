@@ -187,6 +187,7 @@ class PusherWebsocket:
                 # find printer and insert into kitchen
                 posOperation.goToKitchen(result[1], comments)
 
+            posOperation.updateSalesorderPrice(salesorderId)
             pollingDatabase.postSalesorderLine([salesorderId], comments)
 
             self.sender.trigger('littlenanjing', 'App\\Events\\AddDishResult',

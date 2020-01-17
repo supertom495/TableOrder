@@ -45,3 +45,50 @@
 2020-01-14 15:59:53,753 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
 2020-01-14 16:05:12,588 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
 2020-01-17 11:55:26,241 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:10:34,954 - pusherWebsocket.add_dish.196 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 182, in add_dish
+    comments = item["comments"] or ""
+KeyError: 'comments'
+2020-01-17 12:32:20,247 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:32:42,564 - pusherWebsocket.add_dish.197 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 190, in add_dish
+    posOperation.updateSalesorderPrice(salesorderId)
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 286, in updateSalesorderPrice
+    return db_put("update SalesOrder set subtotal={}, total_inc={}, total_ex={} where salesorder_id = {};".format(subtotal, subtotal, total_ex))
+IndexError: tuple index out of range
+2020-01-17 12:33:18,045 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:41:54,459 - pusherWebsocket.open_table.95 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 83, in open_table
+    salesorderId = posOperation.insertSalesorder(tableCode, guestNo, data["staffId"])
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 262, in insertSalesorder
+    def insertSalesorder(tableCode, guestNo, staffId):
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+2020-01-17 12:42:05,644 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:42:11,914 - pusherWebsocket.open_table.95 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 83, in open_table
+    salesorderId = posOperation.insertSalesorder(tableCode, guestNo, data["staffId"])
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 266, in insertSalesorder
+    salesorder_id = 1 if len(salesorder_id) == 0 else salesorder_id[0][0] + 1
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+2020-01-17 12:43:10,341 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:43:44,956 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:44:18,641 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:44:44,407 - pusherWebsocket.add_dish.197 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 180, in add_dish
+    result = posOperation.insertSalesorderLine(item, salesorderId, data["staffId"])
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 207, in insertSalesorderLine
+    line_id = 1 if len(line_id) == 0 else line_id[0][0] + 1
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+2020-01-17 12:46:41,441 - pusherWebsocket.add_dish.197 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 180, in add_dish
+    result = posOperation.insertSalesorderLine(item, salesorderId, data["staffId"])
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 207, in insertSalesorderLine
+    line_id = 1 if line_id[0][0] is None else line_id[0][0] + 1
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+2020-01-17 12:46:47,181 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
