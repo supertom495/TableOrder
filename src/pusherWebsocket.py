@@ -110,7 +110,7 @@ class PusherWebsocket:
                 fromOrder = posOperation.getOrderDetailByTableCode(fromTableCode)
                 if len(fromOrder) == 0:
                     self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult',
-                                        {'staffId': data["staffId"], 'code': '-1', 'message': 'No order on this table'})
+                                        {'staffId': data["staffId"], 'code': '-1', 'message': '此桌没有订单'})
                     return
                 fromOrder = fromOrder[0]
 
@@ -120,7 +120,7 @@ class PusherWebsocket:
                 if (staffIdFrom != 0 and staffIdFrom is not None) or (staffIdTo != 0 and staffIdTo is not None):
                     self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult',
                                         {'staffId': data["staffId"], 'code': '-1',
-                                         'message': 'Fail to change table, table is using by POS'})
+                                         'message': '操作失败，该桌正被POS占用'})
                     return
 
                 # check for table status first
@@ -129,7 +129,7 @@ class PusherWebsocket:
                 if tableStatusFrom != 2 and tableStatusTo != 0:
                     self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult',
                                         {'staffId': data["staffId"], 'code': '-2',
-                                         'message': 'Fail to change table, table status is incorrect'})
+                                         'message': '只能换有人的桌去空桌！'})
                     return
 
                 # check for salesorder status
@@ -137,7 +137,7 @@ class PusherWebsocket:
                 if statusFrom == 11:
                     self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult',
                                         {'staffId': data["staffId"], 'code': '-3',
-                                         'message': 'Fail to change table, salesorder status is incorrect'})
+                                         'message': '此桌订单显示已付款，不能换桌'})
                     return
 
                 # swap the table contents
@@ -146,6 +146,9 @@ class PusherWebsocket:
                 # update the given salesorder to given tableCode
                 posOperation.updateSalesorderTableCode(fromOrder[0], toTableCode)
 
+                # update any changes to Online before trigger event
+                pollingDatabase.addTable(posOperation.getTableByTableCode(fromTableCode))
+                pollingDatabase.addTable(posOperation.getTableByTableCode(toTableCode))
                 pollingDatabase.findSalesOrder(toTableCode)
 
                 self.sender.trigger('littlenanjing', 'App\\Events\\ChangeTableResult',
