@@ -289,6 +289,7 @@ def updateSalesorderPrice(salesorderId):
 
     return db_put("update SalesOrder set subtotal={}, total_inc={}, total_ex={} where salesorder_id = {};".format(subtotal, subtotal, total_ex, salesorderId))
 
+
 # no usage
 def updateSalesorderGuestNo(salesorderId, guestNo):
     return db_put("update SalesOrder set guest_no = {} where salesorder_id = {};".format(guestNo, salesorderId))
