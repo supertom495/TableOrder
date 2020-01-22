@@ -117,6 +117,21 @@ def updateStaff():
         print("Staff: {} added".format(staff[0]))
 
 
+def updateSite():
+    result = posOperation.getSite()
+    lst = []
+    for site in result:
+        lst.append({
+            "siteId": site[0],
+            "siteCode": site[1],
+            "siteName": site[2],
+            "siteName2": site[3],
+            "inactive": site[4]
+        })
+    print(lst)
+    api.addSite({"rows": lst})
+
+
 def updateProducts():
     # upload Stock
     updateStock()
@@ -142,9 +157,11 @@ def updateProducts():
 
     updateStaff()
 
+    # upload site to API
+    updateSite()
+
     # delete all the table online
     api.deleteTable()
-
     pollingDatabase.tablesRecord = {}
 
     time.sleep(2)

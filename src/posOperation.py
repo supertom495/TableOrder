@@ -160,6 +160,10 @@ def activateTable(tableCode):
         common.tsToTime(common.getCurrentTs()), tableCode))
 
 
+def getSite():
+    return db_get("select * from Site;")
+
+
 # get latest 2 orders from this table
 def getOrderDetailByTableCode(tableCode):
     return db_get(

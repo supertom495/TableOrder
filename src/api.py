@@ -257,3 +257,17 @@ def addStaff(data):
     testResponse(response, "add staff")
 
     return response
+
+
+def addSite(data):
+    url = "{}/site".format(common.URLPREFIX)
+    data = json.dumps(data)
+    header = {
+        "Content-Type": "application/json",
+    }
+    response = requests.post(url,
+                             data=data, headers=header)
+
+    testResponse(response, "add site")
+
+    return response
