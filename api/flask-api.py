@@ -67,11 +67,9 @@ def getStock():
         displayStock["description2"] = stock[3]
         displayStock["price"] = float(round(stock[4]*Decimal(1.1), 2))
         displayStock["image"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format("bbqhot", stock[1])
-
-
         data[kbItem[0]]["stocks"].append(displayStock)
 
-    ResponseUtil.success(result, data)
+    ResponseUtil.success(result, [v for v in data.values()])
     return result
 
 
