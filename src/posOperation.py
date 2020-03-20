@@ -1,11 +1,10 @@
 import pymssql
 import common
 
-
-
 def db_get(query):
     # Func db_get: Get data from DB.
     try:
+
         conn = pymssql.connect(host=common.DB_HOST, user=common.DB_USER,
                                password=common.DB_PASSWORD, database=common.DB, charset='utf8')
         cursor = conn.cursor()
