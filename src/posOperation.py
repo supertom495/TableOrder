@@ -1,10 +1,6 @@
 import pymssql
 import common
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 10c1de0f29b7d2f8c135128c41a01b4cceaa3986
 def db_get(query):
     # Func db_get: Get data from DB.
     try:
