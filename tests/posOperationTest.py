@@ -1,10 +1,9 @@
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../src")
-import common
 import posOperation
-
+import common
 common.setVar()
+
 
 def testPrinter(lineId):
     res = posOperation.findPrinter(lineId)
@@ -14,5 +13,13 @@ def testActivateTable(tableId):
     res = posOperation.activateTable(tableId)
 
 
+def testCatPrint(catId):
+    catPrint = posOperation.getCatPrint(catId)
+    for i in catPrint:
+        a = i
+        print(a)
+
+
+testCatPrint(3)
 
 # print( posOperation.getActiveSaleOrdersByTableCode("02"))

@@ -5,3 +5,4 @@ dist/
 *.dll
 .idea/
 .vscode/
+*.pyo

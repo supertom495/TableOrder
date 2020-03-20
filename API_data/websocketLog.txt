@@ -1,0 +1,95 @@
+2020-01-06 11:05:06,911 - pusherWebsocket.setLogger.52 - INFO - program opened--------------------------------------------------------------
+2020-01-07 11:34:31,226 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 11:34:38,273 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 11:38:01,290 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:02:39,194 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:08:47,551 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:09:15,190 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:09:56,907 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:10:15,448 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:10:57,967 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:12:13,201 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:14:49,769 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:18:22,115 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:29:41,313 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:33:01,632 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:34:08,456 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:34:45,982 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:42:08,130 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:53:02,581 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:57:21,622 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 12:59:34,689 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 13:01:01,497 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 13:06:21,193 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 13:08:03,549 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 13:55:57,309 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 15:05:24,820 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 15:17:02,688 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-07 16:02:30,639 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 10:43:34,224 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 10:44:34,676 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 10:46:48,258 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 10:47:12,343 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 10:48:06,240 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 10:49:49,207 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 10:50:49,540 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 10:52:01,022 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 10:57:52,788 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 11:02:52,629 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 11:09:06,421 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 11:10:02,668 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 15:53:04,635 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 15:53:21,255 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 15:59:28,510 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 15:59:44,153 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 15:59:53,753 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-14 16:05:12,588 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 11:55:26,241 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:10:34,954 - pusherWebsocket.add_dish.196 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 182, in add_dish
+    comments = item["comments"] or ""
+KeyError: 'comments'
+2020-01-17 12:32:20,247 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:32:42,564 - pusherWebsocket.add_dish.197 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 190, in add_dish
+    posOperation.updateSalesorderPrice(salesorderId)
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 286, in updateSalesorderPrice
+    return db_put("update SalesOrder set subtotal={}, total_inc={}, total_ex={} where salesorder_id = {};".format(subtotal, subtotal, total_ex))
+IndexError: tuple index out of range
+2020-01-17 12:33:18,045 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:41:54,459 - pusherWebsocket.open_table.95 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 83, in open_table
+    salesorderId = posOperation.insertSalesorder(tableCode, guestNo, data["staffId"])
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 262, in insertSalesorder
+    def insertSalesorder(tableCode, guestNo, staffId):
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+2020-01-17 12:42:05,644 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:42:11,914 - pusherWebsocket.open_table.95 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 83, in open_table
+    salesorderId = posOperation.insertSalesorder(tableCode, guestNo, data["staffId"])
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 266, in insertSalesorder
+    salesorder_id = 1 if len(salesorder_id) == 0 else salesorder_id[0][0] + 1
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+2020-01-17 12:43:10,341 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:43:44,956 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:44:18,641 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-17 12:44:44,407 - pusherWebsocket.add_dish.197 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 180, in add_dish
+    result = posOperation.insertSalesorderLine(item, salesorderId, data["staffId"])
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 207, in insertSalesorderLine
+    line_id = 1 if len(line_id) == 0 else line_id[0][0] + 1
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+2020-01-17 12:46:41,441 - pusherWebsocket.add_dish.197 - ERROR - Exception Logged
+Traceback (most recent call last):
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\pusherWebsocket.py", line 180, in add_dish
+    result = posOperation.insertSalesorderLine(item, salesorderId, data["staffId"])
+  File "C:\Users\SUPERTOM\Documents\order-system\TableOrder\src\posOperation.py", line 207, in insertSalesorderLine
+    line_id = 1 if line_id[0][0] is None else line_id[0][0] + 1
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+2020-01-17 12:46:47,181 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------
+2020-01-22 11:03:41,310 - pusherWebsocket.setLogger.36 - INFO - program opened--------------------------------------------------------------

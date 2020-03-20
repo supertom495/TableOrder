@@ -1,16 +1,14 @@
 import posOperation
 import api
-import json
 import common
 import time
 import threading
 import sys
 import requests
-from deprecated import deprecated
 
 tablesRecord = {}
 salesorderRecords = {}
-
+salesorderLineRecords = {}
 
 def getToken():
     pass
@@ -18,25 +16,24 @@ def getToken():
 
 # get all the table from db and update it to api
 def addTable(tables):
-    
     for table in tables:
 
         # 如果这张桌子没有被记录，记录它
         if table[2] not in tablesRecord:
-            tablesRecord[table[2]] = table[3] # tableCode : tableStatus
+            tablesRecord[table[2]] = table[3]  # tableCode : tableStatus
             isChanged = True
         else:
             # 状态没有发生改变
             if tablesRecord[table[2]] == table[3]:
                 isChanged = False
             else:
-                tablesRecord[table[2]] = table[3] # tableCode : tableStatus
+                tablesRecord[table[2]] = table[3]  # tableCode : tableStatus
                 isChanged = True
 
         # 如果这张桌子没有发生变化，则跳过
         if not isChanged:
             continue
-        
+
         startTime = None if not table[6] else common.roundSeconds(table[6]).strftime('%Y-%m-%d %H:%M:%S')
         data = {
             "tableToken": getToken(),
@@ -54,10 +51,8 @@ def addTable(tables):
         # print(data)
 
 
-
 # get the newest sales order for active table, and update it to api
 def findSalesOrder(tableCode=None):
-    
     activeOrderIds = []
 
     # get activate table
@@ -88,7 +83,7 @@ def findSalesOrder(tableCode=None):
     return activeOrderIds
 
 
-def checkSalesorderRecords(salesorderRecords):    
+def checkSalesorderRecords(salesorderRecords):
     toBeDeleted = []
     for salesorderRecord in salesorderRecords:
         orderDetails = posOperation.getOrderDetailBySalesorderId(salesorderRecord)
@@ -98,7 +93,7 @@ def checkSalesorderRecords(salesorderRecords):
             # 使用api，单独删除线上内容的salesorder by salesorder id
             api.deleteSalesOrder(salesorderRecord)
             continue
-        
+
         # 如果订单状态并未发生改变，则跳过
         orderDetails = orderDetails[0]
         if orderDetails[4] == salesorderRecords[salesorderRecord]:
@@ -122,7 +117,6 @@ def checkSalesorderRecords(salesorderRecords):
     # 把不需要/已经跟新完毕的订单移除内存
     for key in toBeDeleted:
         del salesorderRecords[key]
-
 
 
 # find the need line for the required order, and upload it to api
@@ -165,10 +159,37 @@ def postSalesorderLine(salesOrderIds, comments=None):
         print(lst)
         if lst != []:
             response = api.addSalesorderLine({"rows": lst})
-            
+
             # if success ->
             if response.status_code < 400:
                 posOperation.insertSalesorderLineOnline(lines)
+
+
+# 把在pos上删掉的菜从线上删除
+def removeSalesorderLine(salesorderIds):
+    # 这里要加锁因为这个轮询可能和websocket的请求冲突
+    if len(salesorderIds) == 0:
+        return
+
+    lock = threading.Lock()
+    with lock:
+        ids = str(tuple(salesorderIds))
+        if len(salesorderIds) == 1:
+            ids = ids.replace(",", "")
+        lines = posOperation.getSalesorderLineOnlineDeleted(ids)
+        lst = [item[0] for item in lines]
+
+        print("to be removed: ", lst)
+
+        if lst:
+            response = api.removeSalesorderLine({"rows": lst})
+
+            # if success ->
+            if response.status_code < 400:
+                lines = str(tuple(lst))
+                if len(lst) == 1:
+                    lines = lines.replace(",", "")
+                posOperation.deleteSalesorderLineOnline(lines)
 
 
 def MyRun():
@@ -178,7 +199,8 @@ def MyRun():
             addTable(tables)  # TODO update table when needed
             checkSalesorderRecords(salesorderRecords)
             salesOrderIds = findSalesOrder()
-            postSalesorderLine(salesOrderIds)       # post loacl order to server
+            postSalesorderLine(salesOrderIds)  # post loacl order to server
+            removeSalesorderLine(salesOrderIds)
             print("RoundEnd!")
             time.sleep(common.SLEEPTIME)
         except TimeoutError:
@@ -187,6 +209,6 @@ def MyRun():
         except requests.exceptions.ConnectionError:
             print("API service not connected... retry in 10s")
         except:
-            common.logging("Unexpected error:" + sys.exc_info()[0])
+            common.logging("Unexpected error: {}".format(sys.exc_info()[0]))
             print("Unexpected error:", sys.exc_info()[0])
             print("Something wrong with API service... retry in 10s")

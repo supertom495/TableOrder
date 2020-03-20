@@ -5,6 +5,8 @@ import api
 import time
 import ftplib
 import os
+import pollingDatabase
+
 
 def updateKeyboard():
     keyboard = posOperation.getKeyboard()
@@ -24,7 +26,7 @@ def updateKeyboard():
             "kbId": item[0],
             "catName": item[1],
             "catId": item[2]
-            })
+        })
     print(lst)
     api.addKeyboardCat({"rows": lst})
 
@@ -42,10 +44,9 @@ def updateKeyboardItem():
             "itemId": item[3],
             "itemBarcode": item[4],
             "stockId": item[5]
-             })
+        })
     print(lst)
     api.addKeyboardItem({"rows": lst})
-
 
 
 def castStock(stock):
@@ -67,7 +68,7 @@ def castStock(stock):
         "cat1En": cat1En,
         "cat2": stock[14],
         "cat2En": cat2En,
-        "price": float(stock[18])*1.1,
+        "price": float(stock[18]) * 1.1,
         "quantity": stock[19]
     }
     return data
@@ -102,7 +103,6 @@ def updateStock():
                 print("error content: " + response.text)
 
 
-
 def updateStaff():
     result = posOperation.getStaff()
     for staff in result:
@@ -115,12 +115,24 @@ def updateStaff():
         }
         api.addStaff(data)
         print("Staff: {} added".format(staff[0]))
-    
 
+
+def updateSite():
+    result = posOperation.getSite()
+    lst = []
+    for site in result:
+        lst.append({
+            "siteId": site[0],
+            "siteCode": site[1],
+            "siteName": site[2],
+            "siteName2": site[3],
+            "inactive": site[4]
+        })
+    print(lst)
+    api.addSite({"rows": lst})
 
 
 def updateProducts():
-
     # upload Stock
     updateStock()
 
@@ -145,8 +157,14 @@ def updateProducts():
 
     updateStaff()
 
-    time.sleep(2)
+    # upload site to API
+    updateSite()
 
+    # delete all the table online
+    api.deleteTable()
+    pollingDatabase.tablesRecord = {}
+
+    time.sleep(2)
 
 
 def uploadImageToFTP():
@@ -198,11 +216,9 @@ def uploadImageToAPI():
         if os.path.exists(filePath):
             pictureList.append(filePath)
 
-
     for picture in pictureList:
         with open(picture, 'rb') as file:
-                data = {
-                    "fileName": picture.split("/")[-1]
-                }
-                api.uploadStockImage(data, file)
-
+            data = {
+                "fileName": picture.split("/")[-1]
+            }
+            api.uploadStockImage(data, file)

@@ -1,6 +1,5 @@
 import ftplib
 import os
-import sys
 import posOperation
 import common
 
