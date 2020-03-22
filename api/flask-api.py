@@ -4,6 +4,7 @@ import common
 import posOperation
 from ServiceUtil import ServiceUtil
 from ResponseUtil import ResponseUtil
+from database import init_db, db_session
 import Keyboard
 import KeyboardCat
 import KeyboardItem
@@ -16,6 +17,10 @@ app = flask.Flask(__name__)
 CORS(app, supports_credentials=True, resource=r'/*')
 app.config["DEBUG"] = True
 
+
+@app.teardown_request
+def shutdown_session(exception=None):
+    db_session.remove()
 
 @app.route('/', methods=['GET'])
 def home():
@@ -127,5 +132,8 @@ def getStock():
     return result
 
 
-common.setVar()
-app.run()
+if __name__ == '__main__':
+    init_db()
+    common.setVar()
+    app.debug = True
+    app.run()
