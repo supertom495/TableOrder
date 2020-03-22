@@ -1,4 +1,5 @@
 import flask
+from flask_cors import *
 import common
 import posOperation
 from ServiceUtil import ServiceUtil
@@ -12,6 +13,7 @@ from decimal import Decimal
 import time
 
 app = flask.Flask(__name__)
+CORS(app, supports_credentials=True, resource=r'/*')
 app.config["DEBUG"] = True
 
 
