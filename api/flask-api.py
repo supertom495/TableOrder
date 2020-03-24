@@ -7,7 +7,6 @@ from sqlalchemy.ext.declarative import DeclarativeMeta
 from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock
 import decimal, datetime, json, time
 
-
 app = flask.Flask(__name__)
 CORS(app, supports_credentials=True, resource=r'/*')
 app.config["DEBUG"] = True
@@ -153,8 +152,30 @@ def getStock():
     return result
 
 
+
+@app.route('/stafftoken', methods=['PUT'])
+def getStaffToken():
+    result = ServiceUtil.returnSuccess()
+
+    barcode = flask.request.form.get('barcode')
+    toBeEncrypted = barcode+str(int(time.time())+3600)
+    app.logger.info('Before encryption:%s', toBeEncrypted)
+
+    # timestamp = toBeEncrypted[-10:]
+    # print(timestamp)
+    cipherText = UtilValidate.encryption(toBeEncrypted).decode('UTF-8')
+    app.logger.info('After encryption:%s', cipherText)
+
+    b = UtilValidate.decryption(cipherText).decode("UTF-8")
+    print("decode===", b)
+
+    ResponseUtil.success(result, cipherText)
+
+    return result
+
+
+
 if __name__ == '__main__':
     init_db()
-    common.setVar()
     app.debug = True
     app.run()
