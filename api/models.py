@@ -3,7 +3,9 @@ from sqlalchemy import Column, DateTime, Float, ForeignKey, ForeignKeyConstraint
 from sqlalchemy.dialects.mssql import BIT, MONEY
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-from database import Base
+from sqlalchemy.schema import Sequence
+from sqlalchemy.sql import func
+from database import Base, db_session
 
 
 class Tables(Base):
@@ -13,31 +15,28 @@ class Tables(Base):
     table_id = Column(Integer, nullable=False, primary_key=True)
     site_id = Column(Integer, nullable=False)
     table_code= Column(Unicode(15), nullable=False)
-    table_status = Column('table_status', SmallInteger, nullable=False),
-    seats = Column('seats', SmallInteger, nullable=False)
-    inactive = Column('inactive', BIT, nullable=False)
+    table_status = Column(SmallInteger, nullable=False)
+    seats = Column(SmallInteger, nullable=False)
+    inactive = Column(BIT, nullable=False)
     staff_id = Column(Integer)
     logon_time = Column(DateTime)
-    table_shape = Column(SmallInteger)
-    table_left = Column(SmallInteger)
-    table_top = Column(SmallInteger)
-    table_width = Column(SmallInteger)
-    table_height = Column(SmallInteger)
-    show_state = Column(SmallInteger)
-    table_fore_color = Column(Integer)
-    table_font_size = Column(SmallInteger)
-    state_fore_color = Column(Integer)
-    state_font_size = Column(SmallInteger)
-    customer_name = Column(Unicode(60))
-    table_left_rate = Column(Float(24))
-    table_top_rate = Column(Float(24))
-    table_width_rate = Column(Float(24))
-    table_height_rate = Column(Float(24))
     computer_user = Column(Unicode(100))
     start_time = Column(DateTime)
     ip = Column(Unicode(20))
     kb_id = Column(Integer)
 
+    @classmethod
+    def getTableOccupation(cls, tableCode):
+        return cls.query.filter(cls.table_code == tableCode)\
+                        .filter((cls.staff_id == 0) | (cls.staff_id == None)).first()
+
+    @classmethod
+    def getTableValidation(cls, tableCode):
+        return cls.query.filter(cls.table_code == tableCode, cls.table_status == 0).first()
+
+    @classmethod
+    def activateTable(cls, tableCode, time):
+        return cls.query.filter(cls.table_code == tableCode).update({"table_status": 2, "start_time": time})
 
 class Keyboard(Base):
     __tablename__ = 'Keyboard'
@@ -62,7 +61,7 @@ class Keyboard(Base):
 
     @classmethod
     def getActivateKeyboard(cls):
-        return cls.query.filter(Keyboard.kb_name2=='online').first()
+        return cls.query.filter(cls.kb_name2=='online').first()
 
 
 class KeyboardCat(Base):
@@ -241,3 +240,153 @@ class ExtraStock(Base):
     @classmethod
     def getAll(cls):
         return cls.query.all()
+
+
+
+class Staff(Base):
+    __tablename__ = 'Staff'
+    __table_args__ = (
+        Index('Custom1', 'custom1', 'staff_id', unique=True),
+        Index('Position', 'position', 'staff_id', unique=True),
+        Index('Given Names', 'given_names', 'staff_id', unique=True),
+        Index('Surname', 'surname', 'staff_id', unique=True),
+        Index('Barcode', 'barcode', 'staff_id', unique=True),
+        Index('Docket Name', 'docket_name', 'staff_id', unique=True),
+        Index('State', 'state', 'staff_id', unique=True),
+        Index('Custom2', 'custom2', 'staff_id', unique=True),
+        Index('Suburb', 'suburb', 'staff_id', unique=True)
+    )
+
+    staff_id = Column(Integer, primary_key=True, server_default=text("(0)"))
+    barcode = Column(Unicode(15), nullable=False, unique=True)
+    inactive = Column(BIT, nullable=False, server_default=text("(0)"))
+    surname = Column(Unicode(50), nullable=False)
+    given_names = Column(Unicode(50), nullable=False)
+    docket_name = Column(Unicode(50), nullable=False)
+    position = Column(Unicode(50), nullable=False)
+    dob = Column(DateTime, nullable=False)
+    commission = Column(Float(53), nullable=False, server_default=text("(0)"))
+    addr1 = Column(Unicode(40), nullable=False)
+    addr2 = Column(Unicode(40), nullable=False)
+    addr3 = Column(Unicode(40), nullable=False)
+    suburb = Column(Unicode(40), nullable=False)
+    state = Column(Unicode(30), nullable=False)
+    postcode = Column(Unicode(10), nullable=False)
+    phone = Column(Unicode(20), nullable=False)
+    mobile = Column(Unicode(20), nullable=False)
+    email = Column(Unicode(50), nullable=False)
+    custom1 = Column(Unicode(50), nullable=False)
+    custom2 = Column(Unicode(50), nullable=False)
+    status = Column(BIT, nullable=False, server_default=text("(0)"))
+    date_modified = Column(DateTime, nullable=False, server_default=text("('9/24/2003 1:47:12')"))
+
+    @classmethod
+    def getStaffByBarcode(cls, barcode):
+        return cls.query.filter(cls.barcode == barcode).first()
+
+
+class Salesorder(Base):
+    __tablename__ = 'SalesOrder'
+
+    salesorder_id = Column(Integer, primary_key=True, server_default=text("(0)"))
+    salesorder_date = Column(DateTime, nullable=False, index=True, server_default=text("('9/24/2003 1:47:12')"))
+    expiry_date = Column(DateTime, nullable=False, server_default=text("('9/24/2003 1:47:12')"))
+    staff_id = Column(ForeignKey('Staff.staff_id'), nullable=False, index=True, server_default=text("(0)"))
+    customer_id = Column(ForeignKey('Customer.customer_id'), nullable=False, index=True, server_default=text("(0)"))
+    transaction = Column(Unicode(2), nullable=False, index=True)
+    original_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
+    custom = Column(Unicode(40))
+    comments = Column(Unicode(255), nullable=False)
+    subtotal = Column(MONEY, nullable=False, server_default=text("(0)"))
+    discount = Column(MONEY, nullable=False, server_default=text("(0)"))
+    rounding = Column(MONEY, nullable=False, server_default=text("(0)"))
+    total_ex = Column(MONEY, nullable=False, server_default=text("(0)"))
+    total_inc = Column(MONEY, nullable=False, server_default=text("(0)"))
+    status = Column(SmallInteger, nullable=False, server_default=text("(0)"))
+    exported = Column(BIT, nullable=False, server_default=text("(0)"))
+    guest_no = Column(SmallInteger)
+    customer_name = Column(Unicode(40))
+    origin = Column(Integer)
+
+    # customer = relationship('Customer')
+    staff = relationship('Staff')
+
+    @classmethod
+    def insertSalesorder(cls, tableCode, guestNo, staffId, time):
+
+        max =  cls.query.session.query(func.max(cls.salesorder_id).label("max_id")).one()
+        salesorder_id = 1 if max.max_id is None else max.max_id + 1
+
+        newSalesorder = Salesorder(salesorder_id = salesorder_id,
+                                   salesorder_date = time,
+                                   expiry_date = time,
+                                   staff_id = staffId,
+                                   custom = tableCode,
+                                   customer_name = tableCode,
+                                   guest_no = guestNo,
+                                   transaction = 'DI',
+                                   comments = '')
+        cls.query.session.add(newSalesorder)
+
+
+class Customer(Base):
+    __tablename__ = 'Customer'
+    __table_args__ = (
+        Index('Country', 'country', 'customer_id', unique=True),
+        Index('Surname', 'surname', 'customer_id', unique=True),
+        Index('Customer Name', 'surname', 'given_names', 'customer_id', unique=True),
+        Index('Given Names', 'given_names', 'customer_id', unique=True),
+        Index('Suburb', 'suburb', 'customer_id', unique=True),
+        Index('Custom1', 'custom1', 'customer_id', unique=True),
+        Index('Salutation', 'salutation', 'customer_id', unique=True),
+        Index('Company', 'company', 'customer_id', unique=True),
+        Index('Position', 'position', 'customer_id', unique=True),
+        Index('Custom2', 'custom2', 'customer_id', unique=True),
+        Index('State', 'state', 'customer_id', unique=True),
+        Index('Barcode', 'barcode', 'customer_id', unique=True),
+        Index('AC Owner', 'owner_id', 'customer_id', unique=True)
+    )
+
+    customer_id = Column(Integer, primary_key=True, server_default=text("(0)"))
+    barcode = Column(Unicode(15), nullable=False, unique=True)
+    grade = Column(SmallInteger, nullable=False, server_default=text("(0)"))
+    notes = Column(Unicode(255), nullable=False)
+    comments = Column(Unicode(255), nullable=False)
+    status = Column(BIT, nullable=False, server_default=text("(0)"))
+    custom1 = Column(Unicode(50), nullable=False)
+    custom2 = Column(Unicode(50), nullable=False)
+    inactive = Column(BIT, nullable=False, server_default=text("(0)"))
+    date_modified = Column(DateTime, nullable=False, server_default=text("('9/24/2003 1:47:12')"))
+    surname = Column(Unicode(50), nullable=False)
+    given_names = Column(Unicode(50), nullable=False)
+    position = Column(Unicode(50), nullable=False)
+    company = Column(Unicode(50), nullable=False)
+    salutation = Column(Unicode(5), nullable=False)
+    account = Column(BIT, nullable=False, server_default=text("(0)"))
+    opened_id = Column(ForeignKey('Staff.staff_id'), nullable=False, index=True, server_default=text("(0)"))
+    owner_id = Column(ForeignKey('Staff.staff_id'), nullable=False, index=True, server_default=text("(0)"))
+    limit = Column(MONEY, nullable=False, server_default=text("(0)"))
+    days = Column(SmallInteger, nullable=False, server_default=text("(0)"))
+    fromEOM = Column(BIT, nullable=False, server_default=text("(0)"))
+    addr1 = Column(Unicode(40), nullable=False)
+    addr2 = Column(Unicode(40), nullable=False)
+    addr3 = Column(Unicode(40), nullable=False)
+    suburb = Column(Unicode(40), nullable=False)
+    state = Column(Unicode(30), nullable=False)
+    postcode = Column(Unicode(10), nullable=False)
+    country = Column(Unicode(20), nullable=False)
+    phone = Column(Unicode(20), nullable=False)
+    fax = Column(Unicode(20), nullable=False)
+    mobile = Column(Unicode(20), nullable=False)
+    email = Column(Unicode(50), nullable=False)
+    abn = Column(Unicode(11), nullable=False)
+    overseas = Column(BIT, nullable=False, server_default=text("(0)"))
+    total_points = Column(Integer)
+    unclaimed_points = Column(Integer)
+    dob = Column(DateTime)
+    sex = Column(Unicode(1))
+    receive_info = Column(BIT)
+    prepaid_amt = Column(MONEY)
+
+    opened = relationship('Staff', primaryjoin='Customer.opened_id == Staff.staff_id')
+    owner = relationship('Staff', primaryjoin='Customer.owner_id == Staff.staff_id')

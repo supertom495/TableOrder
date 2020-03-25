@@ -4,7 +4,7 @@ import common
 from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import init_db, db_session
 from sqlalchemy.ext.declarative import DeclarativeMeta
-from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock
+from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder
 import decimal, datetime, json, time
 
 app = flask.Flask(__name__)
@@ -16,8 +16,24 @@ app.config["DEBUG"] = True
 def shutdown_session(exception=None):
     db_session.remove()
 
+@app.after_request
+def commit_session(response):
+    db_session.commit()
+    return response
+
 @app.route('/', methods=['GET'])
 def home():
+    # from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+    # try:
+    #     result = session.query(profile.name).filter(...).one()
+    #     print
+    #     result
+    # except NoResultFound:
+    #     print
+    #     'No result was found'
+    # except MultipleResultsFound:
+    #     print
+    #     'Multiple results were found'
     return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
 
 
@@ -158,24 +174,74 @@ def getStaffToken():
     result = ServiceUtil.returnSuccess()
 
     barcode = flask.request.form.get('barcode')
+    staff = Staff.getStaffByBarcode(barcode)
+    if staff == None:
+        return ResponseUtil.errorDataNotFound(result, "no such a staff")
+
     toBeEncrypted = barcode+str(int(time.time())+3600)
     app.logger.info('Before encryption:%s', toBeEncrypted)
 
     # timestamp = toBeEncrypted[-10:]
     # print(timestamp)
     cipherText = UtilValidate.encryption(toBeEncrypted).decode('UTF-8')
-    app.logger.info('After encryption:%s', cipherText)
-
-    b = UtilValidate.decryption(cipherText).decode("UTF-8")
-    print("decode===", b)
-
+    # app.logger.info('After encryption:%s', cipherText)
+    # b = UtilValidate.decryption(cipherText).decode("UTF-8")
+    # print("decode===", b)
     ResponseUtil.success(result, cipherText)
-
     return result
 
+
+@app.route('/salesorder', methods=['POST'])
+def newSalesOrder():
+    result = ServiceUtil.returnSuccess()
+
+    token = flask.request.form.get('token')
+    tableCode = flask.request.form.get('tableCode')
+    guestNo = flask.request.form.get('guestNo')
+
+    if token is None or tableCode is None or guestNo is None:
+        return  ResponseUtil.errorMissingParameter(result)
+
+    tokenValid, staffId = UtilValidate.tokenValidation(token)
+    if not tokenValid:
+        return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
+
+    # test if table occupied by POS
+    tableOccupation = Tables.getTableOccupation(tableCode)
+    if UtilValidate.isEmpty(tableOccupation):
+        return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is using by POS')
+
+    # test if table is already opened
+    tableValidation = Tables.getTableValidation(tableCode)
+    if UtilValidate.isEmpty(tableValidation):
+        return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is already opened')
+
+    # Activate Table
+    Tables.activateTable(tableCode, UtilValidate.tsToTime(UtilValidate.getCurrentTs()))
+    # insert a new salesorder
+    Salesorder.insertSalesorder(tableCode, guestNo, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()))
+
+    ResponseUtil.success(result)
+    return result
+
+
+    # posOperation.activateTable(tableCode)
+    # salesorderId = posOperation.insertSalesorder(tableCode, guestNo, data["staffId"])
+    #
+    # table = posOperation.getTableByTableCode(tableCode)
+
+
+    # pollingDatabase.addTable(table)
+    #
+    # # send salesorder to api
+    # pollingDatabase.findSalesOrder(tableCode=tableCode)
+    #
+    # self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult',
+    #                     {'staffId': data["staffId"], 'tableCode': tableCode, 'code': '0',
+    #                      'message': 'success', 'salesorderId': salesorderId})
 
 
 if __name__ == '__main__':
     init_db()
     app.debug = True
-    app.run()
+    app.run(port=5001)
