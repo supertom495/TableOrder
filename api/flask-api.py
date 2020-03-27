@@ -338,6 +338,7 @@ def getSalesorder():
             newItem["description2"] = stock.description2
             newItem["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
             newItem["stockId"] = int(stock.stock_id)
+            newItem["quantity"] = salesorderLines[i].quantity
             newItem["comments"] = ''
             newItem["extra"] = []
             newItem["taste"] = []
@@ -345,20 +346,24 @@ def getSalesorder():
                 if salesorderLines[i + 1].parentline_id == 1:
                     i += 1
                     newTaste = {}
+                    stock = Stock.getStockById(salesorderLines[i].stock_id)
                     newTaste["barcode"] = stock.barcode
                     newTaste["description"] = stock.description
                     newTaste["description2"] = stock.description2
                     newTaste["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
                     newTaste["stockId"] = int(stock.stock_id)
+                    newTaste["quantity"] = salesorderLines[i].quantity
                     newItem["taste"].append(newTaste)
                 elif salesorderLines[i + 1].parentline_id == 2:
                     i += 1
                     newExtra = {}
+                    stock = Stock.getStockById(salesorderLines[i].stock_id)
                     newExtra["barcode"] = stock.barcode
                     newExtra["description"] = stock.description
                     newExtra["description2"] = stock.description2
                     newExtra["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
                     newExtra["stockId"] = int(stock.stock_id)
+                    newExtra["quantity"] = salesorderLines[i].quantity
                     newItem["extra"].append(newExtra)
 
             data["salesorderLines"].append(newItem)
