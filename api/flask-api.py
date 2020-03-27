@@ -4,7 +4,7 @@ import common
 from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import init_db, db_session
 from sqlalchemy.ext.declarative import DeclarativeMeta
-from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder
+from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine
 import decimal, datetime, json, time
 
 app = flask.Flask(__name__)
@@ -122,12 +122,12 @@ def getStock():
     for kbItem in kbItems:
         stock = Stock.getStockById(kbItem.stock_id)
         displayStock = {}
-        displayStock["stockId"] = stock.stock_id
+        displayStock["stockId"] = int(stock.stock_id)
         displayStock["barcode"] = stock.barcode
         displayStock["description"] = stock.description
         displayStock["description2"] = stock.description2
         displayStock["price"] = float(round(stock.sell*decimal.Decimal(1.1), 2))
-        displayStock["image"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format("bbqhot", stock.stock_id)
+        displayStock["image"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format("bbqhot", stock.barcode)
         displayStock["taste"] = []
         displayStock["extra"] = []
         if stock.stock_id in sortedTaste:
@@ -192,7 +192,7 @@ def getStaffToken():
 
 
 @app.route('/salesorder', methods=['POST'])
-def newSalesOrder():
+def newSalesorder():
     result = ServiceUtil.returnSuccess()
 
     token = flask.request.form.get('token')
@@ -214,31 +214,159 @@ def newSalesOrder():
     # test if table is already opened
     tableValidation = Tables.getTableValidation(tableCode)
     if UtilValidate.isEmpty(tableValidation):
-        return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is already opened')
+        return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is already opened', code=3001)
 
     # Activate Table
     Tables.activateTable(tableCode, UtilValidate.tsToTime(UtilValidate.getCurrentTs()))
     # insert a new salesorder
-    Salesorder.insertSalesorder(tableCode, guestNo, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()))
+    salesorderId = Salesorder.insertSalesorder(tableCode, guestNo, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()))
 
-    ResponseUtil.success(result)
+    ResponseUtil.success(result, {"salesorderId" : salesorderId})
+
     return result
 
 
-    # posOperation.activateTable(tableCode)
-    # salesorderId = posOperation.insertSalesorder(tableCode, guestNo, data["staffId"])
-    #
-    # table = posOperation.getTableByTableCode(tableCode)
+@app.route('/salesorderline', methods=['POST'])
+def insertSalesorderLine():
+    result = ServiceUtil.returnSuccess()
+
+    token = flask.request.form.get('token')
+    tableCode = flask.request.form.get('tableCode')         # TODO VALIDATE TABLECODE
+    salesorderId = flask.request.form.get('salesorderId')   # TODO VALIDATE SALESORDERID
+    salesorderLines = flask.request.form.get('salesorderLines')
+
+    if token is None or tableCode is None or salesorderId is None or salesorderLines is None:
+        return  ResponseUtil.errorMissingParameter(result)
+
+    tokenValid, staffId = UtilValidate.tokenValidation(token)
+    if not tokenValid:
+        return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
 
 
-    # pollingDatabase.addTable(table)
+    # test if table occupied by POS
+    tableOccupation = Tables.getTableOccupation(tableCode)
+    if UtilValidate.isEmpty(tableOccupation):
+        return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is using by POS')
+
+
+    salesorderLines = json.loads(salesorderLines)
+    print(salesorderLines)
+    for stockId, options in salesorderLines.items():
+        if len(options) != 5:
+            return ResponseUtil.errorWrongLogic(result, 'content incorrect')
+
+        stock = Stock.getStockById(stockId)
+        sizeLevel = options["sizeLevel"]
+        quantity = options["quantity"]
+        price = stock.sell
+        if sizeLevel == 0 or sizeLevel == 1:
+            price = stock.sell
+        if sizeLevel == 2:
+            price = stock.sell2
+        if sizeLevel == 3:
+            price = stock.sell3
+        if sizeLevel == 4:
+            price = stock.sell4
+
+        parentlineId = 0
+        originalSalesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, stockId, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId)
+
+        # def insertSalesorderLine(cls, salesorderId, stockId, sizeLevel, price, quantity, parentlineId, orderlineId,
+        #                          staffId, time):
+
+        for extra in options["extra"]:
+            parentlineId = 2
+            sizeLevel = 0
+            price = 0 # FIXME IT HAS PRICE
+            quantity = 1
+            salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId = originalSalesorderLineId)
+
+        for taste in options["taste"]:
+            parentlineId = 1
+            sizeLevel = 0
+            price = 0 # FIXME IT HAS PRICE
+            quantity = 1
+            salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId = originalSalesorderLineId)
+
+        comments = options["comments"]
+
+        print(stockId, options)
+    # for item in salesorderLines:
+    #     result = posOperation.insertSalesorderLine(item, salesorderId, data["staffId"])
     #
-    # # send salesorder to api
-    # pollingDatabase.findSalesOrder(tableCode=tableCode)
+    #     comments = item["comments"] or ""
+    #     print("DISH: \n" +
+    #           "salesorderId, line_id, last_line_id\n {} added\n".format(
+    #               result))  # from the dish_line_id -> option_line_id
     #
-    # self.sender.trigger('littlenanjing', 'App\\Events\\OpenTableResult',
-    #                     {'staffId': data["staffId"], 'tableCode': tableCode, 'code': '0',
-    #                      'message': 'success', 'salesorderId': salesorderId})
+    #     # find printer and insert into kitchen
+    #     posOperation.goToKitchen(result[1], comments)
+    #
+    # posOperation.updateSalesorderPrice(salesorderId)
+
+    return result
+
+@app.route('/salesorder', methods=['GET'])
+def getSalesorder():
+    result = ServiceUtil.returnSuccess()
+    tableCode = flask.request.args.get('tableCode')
+
+    if tableCode is None:
+        return  ResponseUtil.errorMissingParameter(result)
+
+    # test if table is opened
+    tableValidation = Tables.getTableValidation(tableCode)
+    if UtilValidate.isNotEmpty(tableValidation):
+        return ResponseUtil.errorWrongLogic(result, 'Inactive table')
+
+    salesorder = Salesorder.getSalesorderByTableCode(tableCode)
+
+    data = {}
+    data["salesorderId"] = salesorder.salesorder_id
+    data["imageUrl"] = "https://pos-static.redpayments.com.au/bbqhot/img/"
+    data["total"] = float(salesorder.total_inc)
+    data["salesorderLines"] = []
+
+    salesorderLines = SalesorderLine.getSalesorderLine(salesorder.salesorder_id)
+
+    for i in range(len(salesorderLines)):
+        if salesorderLines[i].parentline_id == 0:
+            newItem = {}
+            stock = Stock.getStockById(salesorderLines[i].stock_id)
+            newItem["barcode"] = stock.barcode
+            newItem["description"] = stock.description
+            newItem["description2"] = stock.description2
+            newItem["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
+            newItem["stockId"] = int(stock.stock_id)
+            newItem["comments"] = ''
+            newItem["extra"] = []
+            newItem["taste"] = []
+            if salesorderLines[i+1]:
+                if salesorderLines[i + 1].parentline_id == 1:
+                    i += 1
+                    newTaste = {}
+                    newTaste["barcode"] = stock.barcode
+                    newTaste["description"] = stock.description
+                    newTaste["description2"] = stock.description2
+                    newTaste["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
+                    newTaste["stockId"] = int(stock.stock_id)
+                    newItem["taste"].append(newTaste)
+
+                if salesorderLines[i + 1].parentline_id == 2:
+                    i += 1
+                    newExtra = {}
+                    newExtra["barcode"] = stock.barcode
+                    newExtra["description"] = stock.description
+                    newExtra["description2"] = stock.description2
+                    newExtra["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
+                    newExtra["stockId"] = int(stock.stock_id)
+                    newItem["extra"].append(newExtra)
+
+            data["salesorderLines"].append(newItem)
+
+    ResponseUtil.success(result, data)
+
+    return result
 
 
 if __name__ == '__main__':

@@ -6,6 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import Sequence
 from sqlalchemy.sql import func
 from database import Base, db_session
+import decimal
 
 
 class Tables(Base):
@@ -308,7 +309,7 @@ class Salesorder(Base):
     customer_name = Column(Unicode(40))
     origin = Column(Integer)
 
-    # customer = relationship('Customer')
+    customer = relationship('Customer')
     staff = relationship('Staff')
 
     @classmethod
@@ -327,6 +328,101 @@ class Salesorder(Base):
                                    transaction = 'DI',
                                    comments = '')
         cls.query.session.add(newSalesorder)
+        return salesorder_id
+
+    @classmethod
+    def getSalesorderByTableCode(cls, tableCode):
+        return cls.query.filter(cls.custom == tableCode).order_by(cls.salesorder_date.desc()).first()
+
+
+class SalesorderLine(Base):
+    __tablename__ = 'SalesOrderLine'
+
+    line_id = Column(Integer, primary_key=True, server_default=text("(0)"))
+    salesorder_id = Column(ForeignKey('SalesOrder.salesorder_id'), nullable=False, index=True, server_default=text("(0)"))
+    stock_id = Column(ForeignKey('Stock.stock_id'), nullable=False, index=True, server_default=text("(0)"))
+    cost_ex = Column(MONEY, nullable=False, server_default=text("(0)"))
+    cost_inc = Column(MONEY, nullable=False, server_default=text("(0)"))
+    sales_tax = Column(Unicode(3), nullable=False)
+    sell_ex = Column(MONEY, nullable=False, server_default=text("(0)"))
+    sell_inc = Column(MONEY, nullable=False, server_default=text("(0)"))
+    rrp = Column(MONEY, nullable=False, server_default=text("(0)"))
+    print_ex = Column(MONEY, nullable=False, server_default=text("(0)"))
+    print_inc = Column(MONEY, nullable=False, server_default=text("(0)"))
+    quantity = Column(Float(53), nullable=False, server_default=text("(0)"))
+    parentline_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
+    package = Column(BIT, nullable=False, server_default=text("(0)"))
+    status = Column(SmallInteger, nullable=False, server_default=text("(0)"))
+    orderline_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
+    size_level = Column(SmallInteger)
+    staff_id = Column(Integer)
+    time_ordered = Column(DateTime)
+    out_order = Column(SmallInteger)
+    hand_writting = Column(BIT)
+    seq_id = Column(Integer)
+    original_line_id = Column(Integer)
+
+    salesorder = relationship('Salesorder')
+    stock = relationship('Stock')
+
+    @classmethod
+    def insertSalesorderLine(cls, salesorderId, stockId, sizeLevel, price, quantity, staffId, time, parentlineId, orderlineId=None):
+        max =  cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
+        salesorderLineId = 1 if max.max_id is None else max.max_id + 1
+        if orderlineId is None:
+            orderlineId = salesorderLineId
+
+        newSalesorderLine = SalesorderLine(line_id = salesorderLineId,
+                                   salesorder_id = salesorderId,
+                                   stock_id = stockId,
+                                   sales_tax = 'GST',
+                                   sell_ex = price,
+                                   sell_inc = round(price * decimal.Decimal(1.1), 2),
+                                   rrp = round(price * decimal.Decimal(1.1), 2),
+                                   print_ex = round(price * decimal.Decimal(1.1), 2),
+                                   print_inc = round(price * decimal.Decimal(1.1), 2),
+                                   quantity = quantity,
+                                   parentline_id = parentlineId,
+                                   status = 1,
+                                   orderline_id = orderlineId,
+                                   size_level = sizeLevel,
+                                   staff_id = staffId,
+                                   time_ordered = time)
+        cls.query.session.add(newSalesorderLine)
+        cls.query.session.commit()
+        return salesorderLineId
+
+
+    @classmethod
+    def getSalesorderLine(cls, salesorderId):
+        return cls.query.filter(cls.salesorder_id == salesorderId).all()
+
+
+class Kitchen(Base):
+    __tablename__ = 'Kitchen'
+    line_id = Column(Integer, nullable=False, primary_key=True)
+    orderline_id = Column(Integer, nullable=False)
+    table_code = Column(Unicode(40))
+    staff_name = Column(Unicode(40), nullable=False)
+    cat1 = Column(Unicode(40))
+    description = Column(Unicode(60))
+    description2 = Column(Unicode(60))
+    unit = Column(Unicode(30))
+    quantity = Column(Float(24), nullable=False)
+    printer = Column(Unicode(100))
+    printer2 = Column(Unicode(100))
+    order_time = Column(DateTime, nullable=False)
+    handwritting = Column(BIT, nullable=False)
+    comments = Column(Unicode(200))
+    stock_type = Column(SmallInteger)
+    out_order = Column(SmallInteger)
+    customer_name = Column(Unicode(40))
+    cat2 = Column(Unicode(40))
+    salesorder_id = Column(Integer)
+    status = Column(SmallInteger)
+    original_line_id = Column(Integer)
+
+
 
 
 class Customer(Base):
