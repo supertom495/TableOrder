@@ -202,18 +202,23 @@ def newSalesorder():
     if token is None or tableCode is None or guestNo is None:
         return  ResponseUtil.errorMissingParameter(result)
 
+    # verifying token
     tokenValid, staffId = UtilValidate.tokenValidation(token)
     if not tokenValid:
         return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
 
+    table = Tables.getTableByTableCode(tableCode)
+
+    # test if table exists
+    if UtilValidate.isEmpty(table):
+        return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
+
     # test if table occupied by POS
-    tableOccupation = Tables.getTableOccupation(tableCode)
-    if UtilValidate.isEmpty(tableOccupation):
+    if table.staff_id == 0 or table.staff_id == None:
         return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is using by POS')
 
     # test if table is already opened
-    tableValidation = Tables.getTableValidation(tableCode)
-    if UtilValidate.isEmpty(tableValidation):
+    if table.table_status != 0:
         return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is already opened', code=3001)
 
     # Activate Table
@@ -244,7 +249,7 @@ def insertSalesorderLine():
 
 
     # test if table occupied by POS
-    tableOccupation = Tables.getTableOccupation(tableCode)
+    tableOccupation = Tables.getTableOccupation(tableCode) # FIXME
     if UtilValidate.isEmpty(tableOccupation):
         return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is using by POS')
 
@@ -310,17 +315,29 @@ def insertSalesorderLine():
 def getSalesorder():
     result = ServiceUtil.returnSuccess()
     tableCode = flask.request.args.get('tableCode')
-
     if tableCode is None:
         return  ResponseUtil.errorMissingParameter(result)
 
-    # test if table is opened
-    tableValidation = Tables.getTableValidation(tableCode)
-    if UtilValidate.isNotEmpty(tableValidation):
+    table = Tables.getTableByTableCode(tableCode)
+
+    # test if table exists
+    if UtilValidate.isEmpty(table):
+        return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
+
+    # test if table is closed
+    if table.table_status == 0:
         return ResponseUtil.errorWrongLogic(result, 'Inactive table')
 
+    # find the Salesorder
     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
+    if UtilValidate.isEmpty(salesorder):
+        return ResponseUtil.errorWrongLogic(result, 'No order found')
 
+    # do not return invalid salesorder (when status is 10, 11)
+    if salesorder.status == 10 or salesorder.status == 11:
+        return ResponseUtil.errorWrongLogic(result, 'No order found')
+
+    # put Salesorder to data
     data = {}
     data["salesorderId"] = salesorder.salesorder_id
     data["imageUrl"] = "https://pos-static.redpayments.com.au/bbqhot/img/"
@@ -342,7 +359,7 @@ def getSalesorder():
             newItem["comments"] = ''
             newItem["extra"] = []
             newItem["taste"] = []
-            if salesorderLines[i+1]:
+            if i+1 < len(salesorderLines):
                 if salesorderLines[i + 1].parentline_id == 1:
                     i += 1
                     newTaste = {}

@@ -26,14 +26,14 @@ class Tables(Base):
     ip = Column(Unicode(20))
     kb_id = Column(Integer)
 
-    @classmethod
-    def getTableOccupation(cls, tableCode):
-        return cls.query.filter(cls.table_code == tableCode)\
-                        .filter((cls.staff_id == 0) | (cls.staff_id == None)).first()
+    # @classmethod
+    # def getTableOccupation(cls, tableCode):
+    #     return cls.query.filter(cls.table_code == tableCode)\
+    #                     .filter((cls.staff_id == 0) | (cls.staff_id == None)).first()
 
     @classmethod
-    def getTableValidation(cls, tableCode):
-        return cls.query.filter(cls.table_code == tableCode, cls.table_status == 0).first()
+    def getTableByTableCode(cls, tableCode):
+        return cls.query.filter(cls.table_code == tableCode).first()
 
     @classmethod
     def activateTable(cls, tableCode, time):
