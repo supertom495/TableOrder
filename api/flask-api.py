@@ -240,6 +240,11 @@ def insertSalesorderLine():
     salesorderId = flask.request.form.get('salesorderId')   # TODO VALIDATE SALESORDERID
     salesorderLines = flask.request.form.get('salesorderLines')
 
+    app.debug(token)
+    app.debug(tableCode)
+    app.debug(salesorderId)
+    app.debug(salesorderLines)
+
     if token is None or tableCode is None or salesorderId is None or salesorderLines is None:
         return  ResponseUtil.errorMissingParameter(result)
 
