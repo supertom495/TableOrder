@@ -351,8 +351,7 @@ def getSalesorder():
                     newTaste["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
                     newTaste["stockId"] = int(stock.stock_id)
                     newItem["taste"].append(newTaste)
-
-                if salesorderLines[i + 1].parentline_id == 2:
+                elif salesorderLines[i + 1].parentline_id == 2:
                     i += 1
                     newExtra = {}
                     newExtra["barcode"] = stock.barcode
