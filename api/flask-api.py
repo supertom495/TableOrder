@@ -337,7 +337,7 @@ def getSalesorder():
     if salesorder.status == 10 or salesorder.status == 11:
         return ResponseUtil.errorWrongLogic(result, 'No order found')
 
-    # put Salesorder to data
+    # put Salesorder lines to data
     data = {}
     data["salesorderId"] = salesorder.salesorder_id
     data["imageUrl"] = "https://pos-static.redpayments.com.au/bbqhot/img/"
@@ -348,39 +348,24 @@ def getSalesorder():
 
     for i in range(len(salesorderLines)):
         if salesorderLines[i].parentline_id == 0:
-            newItem = {}
             stock = Stock.getStockById(salesorderLines[i].stock_id)
-            newItem["barcode"] = stock.barcode
-            newItem["description"] = stock.description
-            newItem["description2"] = stock.description2
-            newItem["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
-            newItem["stockId"] = int(stock.stock_id)
-            newItem["quantity"] = salesorderLines[i].quantity
+            quantity = salesorderLines[i].quantity
+            newItem = fullfillStockMap(stock, quantity)
             newItem["comments"] = ''
             newItem["extra"] = []
             newItem["taste"] = []
+            # if there is next line
             if i+1 < len(salesorderLines):
+                # test if is extra or taste then put in the dict
                 if salesorderLines[i + 1].parentline_id == 1:
                     i += 1
-                    newTaste = {}
                     stock = Stock.getStockById(salesorderLines[i].stock_id)
-                    newTaste["barcode"] = stock.barcode
-                    newTaste["description"] = stock.description
-                    newTaste["description2"] = stock.description2
-                    newTaste["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
-                    newTaste["stockId"] = int(stock.stock_id)
-                    newTaste["quantity"] = salesorderLines[i].quantity
+                    newTaste = fullfillStockMap(stock, quantity)
                     newItem["taste"].append(newTaste)
                 elif salesorderLines[i + 1].parentline_id == 2:
                     i += 1
-                    newExtra = {}
                     stock = Stock.getStockById(salesorderLines[i].stock_id)
-                    newExtra["barcode"] = stock.barcode
-                    newExtra["description"] = stock.description
-                    newExtra["description2"] = stock.description2
-                    newExtra["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
-                    newExtra["stockId"] = int(stock.stock_id)
-                    newExtra["quantity"] = salesorderLines[i].quantity
+                    newExtra = fullfillStockMap(stock, quantity)
                     newItem["extra"].append(newExtra)
 
             data["salesorderLines"].append(newItem)
@@ -389,6 +374,17 @@ def getSalesorder():
 
     return result
 
+
+def fullfillStockMap(stock:Stock, quantity:int) -> dict:
+    stockMap = {}
+    stockMap["barcode"] = stock.barcode
+    stockMap["description"] = stock.description
+    stockMap["description2"] = stock.description2
+    stockMap["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
+    stockMap["stockId"] = int(stock.stock_id)
+    stockMap["quantity"] = quantity
+
+    return stockMap
 
 if __name__ == '__main__':
     init_db()
