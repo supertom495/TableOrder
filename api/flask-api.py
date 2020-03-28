@@ -214,7 +214,7 @@ def newSalesorder():
         return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
 
     # test if table occupied by POS
-    if table.staff_id == 0 or table.staff_id == None:
+    if table.staff_id != 0 and table.staff_id is not None:
         return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is using by POS')
 
     # test if table is already opened
@@ -253,9 +253,14 @@ def insertSalesorderLine():
         return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
 
 
+    table = Tables.getTableByTableCode(tableCode)
+
+    # test if table exists
+    if UtilValidate.isEmpty(table):
+        return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
+
     # test if table occupied by POS
-    tableOccupation = Tables.getTableOccupation(tableCode) # FIXME
-    if UtilValidate.isEmpty(tableOccupation):
+    if table.staff_id != 0 and table.staff_id is not None:
         return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is using by POS')
 
 
