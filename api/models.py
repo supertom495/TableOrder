@@ -334,6 +334,25 @@ class Salesorder(Base):
     def getSalesorderByTableCode(cls, tableCode):
         return cls.query.filter(cls.custom == tableCode).order_by(cls.salesorder_date.desc()).first()
 
+    @classmethod
+    def updatePrice(cls, salesorderId):
+        salesorder = cls.query.filter(cls.salesorder_id == salesorderId).one()
+        salesOrderLines = SalesorderLine.query.filter(SalesorderLine.salesorder_id == salesorderId).all()
+        if len(salesOrderLines) == 0:
+            return
+
+        salesorder.total_ex  = decimal.Decimal(0)
+        salesorder.total_inc =  decimal.Decimal(0)
+
+        for line in salesOrderLines:
+            salesorder.total_ex += line.print_ex
+            salesorder.total_inc += line.print_inc
+
+        salesorder.subtotal = salesorder.total_inc
+
+        return
+
+
 
 class SalesorderLine(Base):
     __tablename__ = 'SalesOrderLine'

@@ -22,55 +22,10 @@ def commit_session(response):
     app.logger.info('RESPONSE - %s', response.data)
     return response
 
+
 @app.route('/', methods=['GET'])
 def home():
-    # from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
-    # try:
-    #     result = session.query(profile.name).filter(...).one()
-    #     print
-    #     result
-    # except NoResultFound:
-    #     print
-    #     'No result was found'
-    # except MultipleResultsFound:
-    #     print
-    #     'Multiple results were found'
     return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
-
-
-
-def alchemyEncoder():
-    _visited_objs = []
-    class AlchemyEncoder(json.JSONEncoder):
-        def jsonify(self, obj):
-            """JSON encoder function for SQLAlchemy special classes."""
-            if isinstance(obj, datetime.date):
-                return obj.isoformat()
-            elif isinstance(obj, decimal.Decimal):
-                return float(obj)
-
-        def default(self, obj):
-            if isinstance(obj.__class__, DeclarativeMeta):
-                # don't re-visit self
-                if obj in _visited_objs:
-                    return None
-                _visited_objs.append(obj)
-                # an SQLAlchemy class
-                fields = {}
-                for field in [x for x in dir(obj) if not x.startswith('_') and x != 'metadata']:
-                    fields[field] = self.jsonify(obj.__getattribute__(field))
-                # a json-encodable dict
-                return fields
-            return json.JSONEncoder.default(self, obj)
-    return AlchemyEncoder
-
-
-
-@app.route('/table', methods=['GET'])
-def getTable():
-
-    u = Tables.query.all()
-    return json.dumps(u, cls=alchemyEncoder(), check_circular=True)
 
 
 @app.route('/stock', methods=['GET'])
@@ -288,12 +243,12 @@ def insertSalesorderLine():
 
     # test if given sales order Id is the one attached to table
     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
-    if salesorder.salesorder_id != salesorderId:
-        return ResponseUtil.ERROR_WRONG_LOGIC(result, 'Given salesorderId is not matched to table record')
+    if salesorder.salesorder_id != int(salesorderId):
+        return ResponseUtil.errorWrongLogic(result, 'Given salesorderId is not matched to table record')
 
 
     salesorderLines = json.loads(salesorderLines)
-    print(salesorderLines)
+
     for line in salesorderLines:
         if len(line) != 6:
             return ResponseUtil.errorWrongLogic(result, 'incorrect content')
@@ -314,39 +269,30 @@ def insertSalesorderLine():
 
         parentlineId = 0
         originalSalesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, stockId, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId)
+        # goToKitchen()
 
-        # def insertSalesorderLine(cls, salesorderId, stockId, sizeLevel, price, quantity, parentlineId, orderlineId,
-        #                          staffId, time):
 
         for extra in line["extra"]:
             parentlineId = 2
             sizeLevel = 0
-            price = 0 # FIXME IT HAS PRICE
+            price = Stock.getStockById(extra).sell
             quantity = 1
-            salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId = originalSalesorderLineId)
+            salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId=originalSalesorderLineId)
+            # goToKitchen()
+
 
         for taste in line["taste"]:
             parentlineId = 1
             sizeLevel = 0
-            price = 0 # FIXME IT HAS PRICE
+            price = Stock.getStockById(taste).sell
             quantity = 1
-            salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId = originalSalesorderLineId)
+            salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId=originalSalesorderLineId)
+            # goToKitchen()
 
         comments = line["comments"]
 
-        print(line)
-    # for item in salesorderLines:
-    #     result = posOperation.insertSalesorderLine(item, salesorderId, data["staffId"])
-    #
-    #     comments = item["comments"] or ""
-    #     print("DISH: \n" +
-    #           "salesorderId, line_id, last_line_id\n {} added\n".format(
-    #               result))  # from the dish_line_id -> option_line_id
-    #
-    #     # find printer and insert into kitchen
-    #     posOperation.goToKitchen(result[1], comments)
-    #
-    # posOperation.updateSalesorderPrice(salesorderId)
+    Salesorder.updatePrice(salesorderId)
+
 
     return result
 
