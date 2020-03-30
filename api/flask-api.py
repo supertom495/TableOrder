@@ -251,8 +251,8 @@ def insertSalesorderLine():
     result = ServiceUtil.returnSuccess()
 
     token = flask.request.form.get('token')
-    tableCode = flask.request.form.get('tableCode')         # TODO VALIDATE TABLECODE # saleID tableCODE different need 
-    salesorderId = flask.request.form.get('salesorderId')   # TODO VALIDATE SALESORDERID
+    tableCode = flask.request.form.get('tableCode')
+    salesorderId = flask.request.form.get('salesorderId')
     salesorderLines = flask.request.form.get('salesorderLines')
 
     app.logger.info(token)
@@ -262,6 +262,7 @@ def insertSalesorderLine():
 
     if token is None or tableCode is None or salesorderId is None or salesorderLines is None:
         return ResponseUtil.errorMissingParameter(result)
+
 
     tokenValid, staffId = UtilValidate.tokenValidation(token)
     if not tokenValid:
@@ -274,9 +275,21 @@ def insertSalesorderLine():
     if UtilValidate.isEmpty(table):
         return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
 
+
+    # test if table is closed
+    if table.table_status == 0:
+        return ResponseUtil.errorWrongLogic(result, 'Inactive table')
+
+
     # test if table occupied by POS
     if table.staff_id != 0 and table.staff_id is not None:
-        return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is using by POS')
+        return ResponseUtil.errorWrongLogic(result, 'Fail to add dishes, table is using by POS')
+
+
+    # test if given sales order Id is the one attached to table
+    salesorder = Salesorder.getSalesorderByTableCode(tableCode)
+    if salesorder.salesorder_id != salesorderId:
+        return ResponseUtil.ERROR_WRONG_LOGIC(result, 'Given salesorderId is not matched to table record')
 
 
     salesorderLines = json.loads(salesorderLines)
