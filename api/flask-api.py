@@ -19,7 +19,7 @@ def shutdown_session(exception=None):
 @app.after_request
 def commit_session(response):
     db_session.commit()
-    app.logger.info('RESPONSE - %s', response)
+    app.logger.info('RESPONSE - %s', response.data)
     return response
 
 @app.route('/', methods=['GET'])
@@ -251,7 +251,7 @@ def insertSalesorderLine():
     result = ServiceUtil.returnSuccess()
 
     token = flask.request.form.get('token')
-    tableCode = flask.request.form.get('tableCode')         # TODO VALIDATE TABLECODE
+    tableCode = flask.request.form.get('tableCode')         # TODO VALIDATE TABLECODE # saleID tableCODE different need 
     salesorderId = flask.request.form.get('salesorderId')   # TODO VALIDATE SALESORDERID
     salesorderLines = flask.request.form.get('salesorderLines')
 
@@ -281,13 +281,14 @@ def insertSalesorderLine():
 
     salesorderLines = json.loads(salesorderLines)
     print(salesorderLines)
-    for stockId, options in salesorderLines.items():
-        if len(options) != 5:
-            return ResponseUtil.errorWrongLogic(result, 'content incorrect')
+    for line in salesorderLines:
+        if len(line) != 6:
+            return ResponseUtil.errorWrongLogic(result, 'incorrect content')
 
+        stockId = line["stockId"]
         stock = Stock.getStockById(stockId)
-        sizeLevel = options["sizeLevel"]
-        quantity = options["quantity"]
+        sizeLevel = line["sizeLevel"]
+        quantity = line["quantity"]
         price = stock.sell
         if sizeLevel == 0 or sizeLevel == 1:
             price = stock.sell
@@ -304,23 +305,23 @@ def insertSalesorderLine():
         # def insertSalesorderLine(cls, salesorderId, stockId, sizeLevel, price, quantity, parentlineId, orderlineId,
         #                          staffId, time):
 
-        for extra in options["extra"]:
+        for extra in line["extra"]:
             parentlineId = 2
             sizeLevel = 0
             price = 0 # FIXME IT HAS PRICE
             quantity = 1
             salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId = originalSalesorderLineId)
 
-        for taste in options["taste"]:
+        for taste in line["taste"]:
             parentlineId = 1
             sizeLevel = 0
             price = 0 # FIXME IT HAS PRICE
             quantity = 1
             salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId = originalSalesorderLineId)
 
-        comments = options["comments"]
+        comments = line["comments"]
 
-        print(stockId, options)
+        print(line)
     # for item in salesorderLines:
     #     result = posOperation.insertSalesorderLine(item, salesorderId, data["staffId"])
     #
