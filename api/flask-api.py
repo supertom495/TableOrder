@@ -19,6 +19,7 @@ def shutdown_session(exception=None):
 @app.after_request
 def commit_session(response):
     db_session.commit()
+    app.logger.info('RESPONSE - %s', response)
     return response
 
 @app.route('/', methods=['GET'])
@@ -69,7 +70,6 @@ def alchemyEncoder():
 def getTable():
 
     u = Tables.query.all()
-
     return json.dumps(u, cls=alchemyEncoder(), check_circular=True)
 
 
@@ -228,6 +228,21 @@ def newSalesorder():
 
     ResponseUtil.success(result, {"salesorderId" : salesorderId})
 
+    return result
+
+
+# testing purpose
+@app.route('/salesorder', methods=['PUT'])
+def resetTable():
+    result = ServiceUtil.returnSuccess()
+    tableCode = flask.request.form.get('tableCode')
+    # salesorderId = flask.request.form.get('salesorderId')
+    table = Tables.getTableByTableCode(tableCode)
+    salesorder = Salesorder.getSalesorderByTableCode(tableCode)
+    table.staff_id = 0
+    table.table_status = 0
+    salesorder.status = 11
+    ResponseUtil.success(result, "salesoder {} closed".format(salesorder.salesorder_id))
     return result
 
 
