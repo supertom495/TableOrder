@@ -16,10 +16,17 @@ app.config["DEBUG"] = True
 def shutdown_session(exception=None):
     db_session.remove()
 
+@app.before_request
+def logTime():
+    app.logger.info("START: "+ str(time.time()))
+
+
 @app.after_request
 def commit_session(response):
     db_session.commit()
     app.logger.info('RESPONSE - %s', response.data)
+    app.logger.info("END  : "+ str(time.time()))
+
     return response
 
 
@@ -30,8 +37,6 @@ def home():
 
 @app.route('/stock', methods=['GET'])
 def getStock():
-
-    a = time.time()
 
     result = ServiceUtil.returnSuccess()
 
@@ -117,8 +122,7 @@ def getStock():
         data[kbItem.cat_id]["stocks"].append(displayStock)
 
     ResponseUtil.success(result, [v for v in data.values()])
-    b = time.time()
-    print(b - a)
+
 
     return result
 
@@ -279,6 +283,7 @@ def insertSalesorderLine():
             quantity = 1
             salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId=originalSalesorderLineId)
             # goToKitchen()
+
 
 
         for taste in line["taste"]:
