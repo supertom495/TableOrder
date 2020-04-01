@@ -4,7 +4,7 @@ import common
 from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import init_db, db_session
 from sqlalchemy.ext.declarative import DeclarativeMeta
-from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine
+from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site
 import decimal, datetime, json, time
 
 app = flask.Flask(__name__)
@@ -330,6 +330,7 @@ def getSalesorder():
     # put Salesorder lines to data
     data = {}
     data["salesorderId"] = salesorder.salesorder_id
+    data["startTime"] = salesorder.salesorder_date
     data["imageUrl"] = "https://pos-static.redpayments.com.au/bbqhot/img/"
     data["total"] = float(salesorder.total_inc)
     data["salesorderLines"] = []
@@ -369,7 +370,8 @@ def getSalesorder():
 def getTable():
     result = ServiceUtil.returnSuccess()
     tables = Tables.getTableAll()
-    mappedTables = []
+    data = {}
+    data["tables"] = []
     for table in tables:
         mappedTable = {}
         mappedTable["tableId"] = table.table_id
@@ -380,9 +382,19 @@ def getTable():
         mappedTable["tableCode"] = table.table_code
         mappedTable["seats"] = table.seats
 
-        mappedTables.append(mappedTable)
+        data["tables"].append(mappedTable)
 
-    ResponseUtil.success(result, mappedTables)
+    sites = Site.getSiteAll()
+    data["sites"] = []
+    for site in sites:
+        mappedSite = {}
+        mappedSite["siteName"] = site.site_name
+        mappedSite["siteName2"] = site.site_name2
+        mappedSite["siteId"] = site.site_id
+        mappedSite["inactive"] = site.inactive
+        data["sites"].append(mappedSite)
+
+    ResponseUtil.success(result, data)
 
     return result
 

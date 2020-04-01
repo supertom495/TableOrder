@@ -38,6 +38,23 @@ class Tables(Base):
     def activateTable(cls, tableCode, time):
         return cls.query.filter(cls.table_code == tableCode).update({"table_status": 2, "start_time": time})
 
+
+class Site(Base):
+    __tablename__ = 'Site'
+    site_id = Column(Integer, nullable=False, primary_key=True)
+    site_code = Column(Unicode(15), nullable=False)
+    site_name = Column(Unicode(20), nullable=False)
+    site_name2 = Column(Unicode(20), nullable=False)
+    inactive = Column(BIT, nullable=False)
+    printer = Column(Unicode(60))
+    printer2 = Column(Unicode(60))
+
+    @classmethod
+    def getSiteAll(cls):
+        return cls.query.all()
+
+
+
 class Keyboard(Base):
     __tablename__ = 'Keyboard'
     kb_id = Column(Integer, nullable=False, primary_key=True)
