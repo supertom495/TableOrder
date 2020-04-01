@@ -128,6 +128,12 @@ class ResponseUtil:
 		return result
 
 	@staticmethod
+	def errorDataAccess(result:dict, message) -> dict:
+		result["code"] = ResponseUtil.ERROR_DATA_ACCESS
+		result["message"] = "ERROR_DATA_ACCESS" + " : " + message
+		return result
+
+	@staticmethod
 	def errorWrongLogic(result:dict, message, code=ERROR_WRONG_LOGIC) -> dict:
 		result["code"] = code
 		result["message"] = "ERROR_WRONG_LOGIC" + " : " + message

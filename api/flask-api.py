@@ -32,7 +32,7 @@ def commit_session(response):
 
 @app.route('/', methods=['GET'])
 def home():
-    return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
+    return "<h1>RPOS online order</h1><p>This site has API for self-ordering.</p>"
 
 
 @app.route('/stock', methods=['GET'])
@@ -242,20 +242,20 @@ def insertSalesorderLine():
 
     # test if table occupied by POS
     if table.staff_id != 0 and table.staff_id is not None:
-        return ResponseUtil.errorWrongLogic(result, 'Fail to add dishes, table is using by POS')
+        return ResponseUtil.errorWrongLogic(result, 'Fail to add dishes, table is using by POS', code=3001)
 
 
     # test if given sales order Id is the one attached to table
     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
     if salesorder.salesorder_id != int(salesorderId):
-        return ResponseUtil.errorWrongLogic(result, 'Given salesorderId is not matched to table record')
+        return ResponseUtil.errorWrongLogic(result, 'Given salesorderId is not matched to table record', code=3002)
 
 
     salesorderLines = json.loads(salesorderLines)
 
     for line in salesorderLines:
         if len(line) != 6:
-            return ResponseUtil.errorWrongLogic(result, 'incorrect content')
+            return ResponseUtil.errorWrongLogic(result, 'Incorrect content', code=3003)
 
         stockId = line["stockId"]
         stock = Stock.getStockById(stockId)
@@ -321,11 +321,11 @@ def getSalesorder():
     # find the Salesorder
     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
     if UtilValidate.isEmpty(salesorder):
-        return ResponseUtil.errorWrongLogic(result, 'No order found')
+        return ResponseUtil.errorWrongLogic(result, 'No order found', code=3001)
 
     # do not return invalid salesorder (when status is 10, 11)
     if salesorder.status == 10 or salesorder.status == 11:
-        return ResponseUtil.errorWrongLogic(result, 'No order found')
+        return ResponseUtil.errorWrongLogic(result, 'No order found', code=3001)
 
     # put Salesorder lines to data
     data = {}
@@ -361,6 +361,83 @@ def getSalesorder():
             data["salesorderLines"].append(newItem)
 
     ResponseUtil.success(result, data)
+
+    return result
+
+
+@app.route('/table', methods=['GET'])
+def getTable():
+    result = ServiceUtil.returnSuccess()
+    tables = Tables.getTableAll()
+    mappedTables = []
+    for table in tables:
+        mappedTable = {}
+        mappedTable["tableId"] = table.table_id
+        mappedTable["tableStatus"] = table.table_status
+        mappedTable["siteId"] = table.site_id
+        mappedTable["startTime"] = table.start_time
+        mappedTable["inactive"] = table.inactive
+        mappedTable["tableCode"] = table.table_code
+        mappedTable["seats"] = table.seats
+
+        mappedTables.append(mappedTable)
+
+    ResponseUtil.success(result, mappedTables)
+
+    return result
+
+
+@app.route('/table', methods=['PUT'])
+def swapTable():
+    result = ServiceUtil.returnSuccess()
+
+    fromTableCode = flask.request.form.get('fromTableCode')
+    toTableCode = flask.request.form.get('toTableCode')
+    token = flask.request.form.get('token')
+
+
+    if token is None or toTableCode is None or toTableCode is None:
+        return ResponseUtil.errorMissingParameter(result)
+
+
+    tokenValid, staffId = UtilValidate.tokenValidation(token)
+    if not tokenValid:
+        return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
+
+
+    fromTable = Tables.getTableByTableCode(fromTableCode)
+    toTable = Tables.getTableByTableCode(toTableCode)
+
+    # test if table exists
+    if UtilValidate.isEmpty(fromTable) or UtilValidate.isEmpty(toTable):
+        return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
+
+
+    # test if table occupied by POS
+    if fromTable.staff_id != 0 and fromTable.staff_id is not None\
+            and toTable.staff_id != 0 and toTable.staff_id is not None:
+        return ResponseUtil.errorWrongLogic(result, 'Table is using by POS')
+
+
+    # only approve the table have people to table without people
+    if fromTable.table_status == 0 or toTable.table_status != 0:
+        return ResponseUtil.errorWrongLogic(result, 'Not allowed, only approve the occupied table to vacant table', code=3001)
+
+
+    fromSalesorder = Salesorder.getSalesorderByTableCode(fromTable.table_code)
+    if UtilValidate.isEmpty(fromSalesorder) or fromSalesorder.status == 11:
+        return ResponseUtil.errorDataAccess(result, 'Order is paid or not exist')
+
+    # swap the table contents
+    tempTableStatus = fromTable.table_status
+    tempTableStartTime =  fromTable.start_time
+    fromTable.table_status = toTable.table_status
+    fromTable.start_time = toTable.start_time
+    toTable.table_status = tempTableStatus
+    toTable.start_time = tempTableStartTime
+
+    # update the given salesorder to given tableCode
+    fromSalesorder.custom = toTable.table_code
 
     return result
 

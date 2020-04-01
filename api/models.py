@@ -26,10 +26,9 @@ class Tables(Base):
     ip = Column(Unicode(20))
     kb_id = Column(Integer)
 
-    # @classmethod
-    # def getTableOccupation(cls, tableCode):
-    #     return cls.query.filter(cls.table_code == tableCode)\
-    #                     .filter((cls.staff_id == 0) | (cls.staff_id == None)).first()
+    @classmethod
+    def getTableAll(cls):
+        return cls.query.all()
 
     @classmethod
     def getTableByTableCode(cls, tableCode):
