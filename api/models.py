@@ -437,7 +437,7 @@ class SalesorderLine(Base):
 
     @classmethod
     def getSalesorderLine(cls, salesorderId):
-        return cls.query.filter(cls.salesorder_id == salesorderId).all()
+        return cls.query.filter(cls.salesorder_id == salesorderId).order_by(cls.line_id.asc()).all()
 
 
 class Kitchen(Base):

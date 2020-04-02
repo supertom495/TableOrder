@@ -270,6 +270,8 @@ def getSalesorder():
         else:
             if line.parentline_id  == 1 or line.parentline_id == 2:
                 data["salesorderLines"][line.orderline_id]["option"].append(newItem)
+            else:
+                data["salesorderLines"][line.orderline_id]["other"].append(newItem)
 
     data["salesorderLines"] = [v for v in data["salesorderLines"].values()]
 
