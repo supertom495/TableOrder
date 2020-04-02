@@ -12,10 +12,15 @@ class UtilValidate:
 	def isNotEmpty(data) -> bool:
 		if type(data) is list:
 			return data is not None and len(data)!=0
+		if type(data) is str:
+			return bool(data and data.strip())
 
 
 	@staticmethod
 	def isEmpty(data) -> bool:
+		# if type(data) is list:
+		if type(data) is str:
+			return not (data and data.strip())
 		return not data
 
 	# format match the api requirement

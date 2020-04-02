@@ -82,15 +82,32 @@ def getStock():
 
     for kbItem in kbItems:
         stock = Stock.getStockById(kbItem.stock_id)
+
         displayStock = {}
         displayStock["stockId"] = int(stock.stock_id)
         displayStock["barcode"] = stock.barcode
         displayStock["description"] = stock.description
         displayStock["description2"] = stock.description2
-        displayStock["price"] = float(round(stock.sell*decimal.Decimal(1.1), 2))
         displayStock["image"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format("bbqhot", stock.barcode)
         displayStock["taste"] = []
         displayStock["extra"] = []
+        # put different size level price
+        displayStock["price"] = {}
+        displayStock["price"][0] = [Stock.getStockPrice(stock, stock.sell), "default"]
+
+        if UtilValidate.isNotEmpty(stock.custom1):
+            displayStock["price"][1] = [Stock.getStockPrice(stock, stock.sell), stock.custom1]
+
+        if UtilValidate.isNotEmpty(stock.custom2):
+            displayStock["price"][2] = [Stock.getStockPrice(stock, stock.sell2), stock.custom2]
+
+        if UtilValidate.isNotEmpty(stock.custom3):
+            displayStock["price"][3] = [Stock.getStockPrice(stock, stock.sell3), stock.custom3]
+
+        if UtilValidate.isNotEmpty(stock.custom4):
+            displayStock["price"][4] = [Stock.getStockPrice(stock, stock.sell4), stock.custom4 ]
+
+
         if stock.stock_id in sortedTaste:
             for tasteId in sortedTaste[stock.stock_id]:
                 displayTaste = {}
@@ -233,45 +250,28 @@ def getSalesorder():
 
     salesorderLines = SalesorderLine.getSalesorderLine(salesorder.salesorder_id)
 
-    # for i in range(len(salesorderLines)):
-    #     if salesorderLines[i].parentline_id == 0:
-    #         stock = Stock.getStockById(salesorderLines[i].stock_id)
-    #         quantity = salesorderLines[i].quantity
-    #         newItem = fullfillStockMap(stock, quantity)
-    #         newItem["comments"] = ''
-    #         newItem["extra"] = []
-    #         newItem["taste"] = []
-    #         # if there is next line
-    #         if i+1 < len(salesorderLines):
-    #             # test if is extra or taste then put in the dict
-    #             if salesorderLines[i + 1].parentline_id == 1:
-    #                 i += 1
-    #                 stock = Stock.getStockById(salesorderLines[i].stock_id)
-    #                 newTaste = fullfillStockMap(stock, quantity)
-    #                 newItem["taste"].append(newTaste)
-    #             elif salesorderLines[i + 1].parentline_id == 2:
-    #                 i += 1
-    #                 stock = Stock.getStockById(salesorderLines[i].stock_id)
-    #                 newExtra = fullfillStockMap(stock, quantity)
-    #                 newItem["extra"].append(newExtra)
-    #
-    #         data["salesorderLines"].append(newItem)
-
     for line in salesorderLines:
         stock = Stock.getStockById(line.stock_id)
         quantity = line.quantity
         newItem = fullfillStockMap(stock, quantity)
+        newItem["price"] = float(round(line.print_inc,2))
 
         if line.parentline_id == 0:
             newItem["comments"] = ''
             newItem["option"] = []
             newItem["other"] = []
+            if line.size_level == 0: newItem["custom"] = ""
+            if line.size_level == 1: newItem["custom"] = stock.custom1
+            if line.size_level == 2: newItem["custom"] = stock.custom2
+            if line.size_level == 3: newItem["custom"] = stock.custom3
+            if line.size_level == 4: newItem["custom"] = stock.custom4
+
             data["salesorderLines"][line.line_id] = newItem
         else:
             if line.parentline_id  == 1 or line.parentline_id == 2:
                 data["salesorderLines"][line.orderline_id]["option"].append(newItem)
 
-
+    data["salesorderLines"] = [v for v in data["salesorderLines"].values()]
 
 
     ResponseUtil.success(result, data)
@@ -379,7 +379,7 @@ def fullfillStockMap(stock:Stock, quantity:int) -> dict:
     stockMap["barcode"] = stock.barcode
     stockMap["description"] = stock.description
     stockMap["description2"] = stock.description2
-    stockMap["price"] = float(round(stock.sell * decimal.Decimal(1.1), 2))
+    # stockMap["price"] = Stock.getStockPrice(stock, stock.sell)
     stockMap["stockId"] = int(stock.stock_id)
     stockMap["quantity"] = quantity
 

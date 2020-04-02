@@ -236,6 +236,13 @@ class Stock(Base):
     def getStockById(cls, stockId):
         return cls.query.filter(cls.stock_id == stockId).one()
 
+    @staticmethod
+    def getStockPrice(stock, price):
+        if stock.goods_tax is 'GST':
+            return float(round(price*decimal.Decimal(1.1), 2))
+        else:
+            return float(round(price, 2))
+
 
 class TasteStock(Base):
     __tablename__ = 'TasteStock'
