@@ -83,6 +83,7 @@ def getStock():
 
     for kbItem in kbItems:
         stock = Stock.getStockById(kbItem.stock_id)
+        # stock = Stock.getStockById(133)
 
         displayStock = {}
         displayStock["stockId"] = int(stock.stock_id)
@@ -94,7 +95,7 @@ def getStock():
         displayStock["extra"] = []
         # put different size level price
         displayStock["price"] = {}
-        displayStock["price"][0] = [Stock.getStockPrice(stock, stock.sell), "default"]
+        displayStock["price"][0] = Stock.getStockPrice(stock, stock.sell)
 
         if UtilValidate.isNotEmpty(stock.custom1):
             displayStock["price"][1] = [Stock.getStockPrice(stock, stock.sell), stock.custom1]
