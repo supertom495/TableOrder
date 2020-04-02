@@ -60,6 +60,7 @@ def getStock():
     for i in range(len(kbCatIds)):
         data[kbCatIds[i]] = {}
         catName = Category.getCategoryNameByCatCode(kbCatCodes[i])
+        data[kbCatIds[i]]["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format("bbqhot")
         data[kbCatIds[i]]["catName"] = catName.cat_name
         data[kbCatIds[i]]["catName2"] = catName.cat_name2
         data[kbCatIds[i]]["stocks"] = []
@@ -88,7 +89,7 @@ def getStock():
         displayStock["barcode"] = stock.barcode
         displayStock["description"] = stock.description
         displayStock["description2"] = stock.description2
-        displayStock["image"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format("bbqhot", stock.barcode)
+        # displayStock["image"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format("bbqhot", stock.barcode)
         displayStock["taste"] = []
         displayStock["extra"] = []
         # put different size level price
