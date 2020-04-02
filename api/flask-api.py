@@ -258,6 +258,7 @@ def getSalesorder():
         newItem["price"] = float(round(line.print_inc,2))
 
         if line.parentline_id == 0:
+            newItem["timeOrdered"] = line.time_ordered
             newItem["comments"] = ''
             newItem["option"] = []
             newItem["other"] = []
