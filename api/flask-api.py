@@ -5,6 +5,7 @@ from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import init_db, db_session
 from sqlalchemy.ext.declarative import DeclarativeMeta
 from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site
+from service import salesorderService, salesorderLineService
 import decimal, datetime, json, time
 
 app = flask.Flask(__name__)
@@ -151,41 +152,13 @@ def getStaffToken():
 
 
 @app.route('/salesorder', methods=['POST'])
-def newSalesorder():
-    result = ServiceUtil.returnSuccess()
+def apiNewSalesorder():
 
     token = flask.request.form.get('token')
     tableCode = flask.request.form.get('tableCode')
     guestNo = flask.request.form.get('guestNo')
 
-    if token is None or tableCode is None or guestNo is None:
-        return  ResponseUtil.errorMissingParameter(result)
-
-    # verifying token
-    tokenValid, staffId = UtilValidate.tokenValidation(token)
-    if not tokenValid:
-        return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
-
-    table = Tables.getTableByTableCode(tableCode)
-
-    # test if table exists
-    if UtilValidate.isEmpty(table):
-        return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
-
-    # test if table occupied by POS
-    if table.staff_id != 0 and table.staff_id is not None:
-        return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is using by POS')
-
-    # test if table is already opened
-    if table.table_status != 0:
-        return ResponseUtil.errorWrongLogic(result, 'Fail to open table, table is already opened', code=3001)
-
-    # Activate Table
-    Tables.activateTable(tableCode, UtilValidate.tsToTime(UtilValidate.getCurrentTs()))
-    # insert a new salesorder
-    salesorderId = Salesorder.insertSalesorder(tableCode, guestNo, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()))
-
-    ResponseUtil.success(result, {"salesorderId" : salesorderId})
+    result = salesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo})
 
     return result
 
@@ -206,8 +179,7 @@ def resetTable():
 
 
 @app.route('/salesorderline', methods=['POST'])
-def insertSalesorderLine():
-    result = ServiceUtil.returnSuccess()
+def apiInsertSalesorderLine():
 
     token = flask.request.form.get('token')
     tableCode = flask.request.form.get('tableCode')
@@ -219,85 +191,8 @@ def insertSalesorderLine():
     app.logger.info(salesorderId)
     app.logger.info(salesorderLines)
 
-    if token is None or tableCode is None or salesorderId is None or salesorderLines is None:
-        return ResponseUtil.errorMissingParameter(result)
-
-
-    tokenValid, staffId = UtilValidate.tokenValidation(token)
-    if not tokenValid:
-        return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
-
-
-    table = Tables.getTableByTableCode(tableCode)
-
-    # test if table exists
-    if UtilValidate.isEmpty(table):
-        return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
-
-
-    # test if table is closed
-    if table.table_status == 0:
-        return ResponseUtil.errorWrongLogic(result, 'Inactive table')
-
-
-    # test if table occupied by POS
-    if table.staff_id != 0 and table.staff_id is not None:
-        return ResponseUtil.errorWrongLogic(result, 'Fail to add dishes, table is using by POS', code=3001)
-
-
-    # test if given sales order Id is the one attached to table
-    salesorder = Salesorder.getSalesorderByTableCode(tableCode)
-    if salesorder.salesorder_id != int(salesorderId):
-        return ResponseUtil.errorWrongLogic(result, 'Given salesorderId is not matched to table record', code=3002)
-
-
-    salesorderLines = json.loads(salesorderLines)
-
-    for line in salesorderLines:
-        if len(line) != 6:
-            return ResponseUtil.errorWrongLogic(result, 'Incorrect content', code=3003)
-
-        stockId = line["stockId"]
-        stock = Stock.getStockById(stockId)
-        sizeLevel = line["sizeLevel"]
-        quantity = line["quantity"]
-        price = stock.sell
-        if sizeLevel == 0 or sizeLevel == 1:
-            price = stock.sell
-        if sizeLevel == 2:
-            price = stock.sell2
-        if sizeLevel == 3:
-            price = stock.sell3
-        if sizeLevel == 4:
-            price = stock.sell4
-
-        parentlineId = 0
-        originalSalesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, stockId, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId)
-        # goToKitchen()
-
-
-        for extra in line["extra"]:
-            parentlineId = 2
-            sizeLevel = 0
-            price = Stock.getStockById(extra).sell
-            quantity = 1
-            salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId=originalSalesorderLineId)
-            # goToKitchen()
-
-
-
-        for taste in line["taste"]:
-            parentlineId = 1
-            sizeLevel = 0
-            price = Stock.getStockById(taste).sell
-            quantity = 1
-            salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity, staffId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), parentlineId, orderlineId=originalSalesorderLineId)
-            # goToKitchen()
-
-        comments = line["comments"]
-
-    Salesorder.updatePrice(salesorderId)
-
+    result = salesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
+                                                     "salesorderId":salesorderId, "salesorderLines":salesorderLines})
 
     return result
 
@@ -331,35 +226,53 @@ def getSalesorder():
     data = {}
     data["salesorderId"] = salesorder.salesorder_id
     data["startTime"] = salesorder.salesorder_date
+    data["guestNo"] = salesorder.guest_no
     data["imageUrl"] = "https://pos-static.redpayments.com.au/bbqhot/img/"
     data["total"] = float(salesorder.total_inc)
-    data["salesorderLines"] = []
+    data["salesorderLines"] = {}
 
     salesorderLines = SalesorderLine.getSalesorderLine(salesorder.salesorder_id)
 
-    for i in range(len(salesorderLines)):
-        if salesorderLines[i].parentline_id == 0:
-            stock = Stock.getStockById(salesorderLines[i].stock_id)
-            quantity = salesorderLines[i].quantity
-            newItem = fullfillStockMap(stock, quantity)
-            newItem["comments"] = ''
-            newItem["extra"] = []
-            newItem["taste"] = []
-            # if there is next line
-            if i+1 < len(salesorderLines):
-                # test if is extra or taste then put in the dict
-                if salesorderLines[i + 1].parentline_id == 1:
-                    i += 1
-                    stock = Stock.getStockById(salesorderLines[i].stock_id)
-                    newTaste = fullfillStockMap(stock, quantity)
-                    newItem["taste"].append(newTaste)
-                elif salesorderLines[i + 1].parentline_id == 2:
-                    i += 1
-                    stock = Stock.getStockById(salesorderLines[i].stock_id)
-                    newExtra = fullfillStockMap(stock, quantity)
-                    newItem["extra"].append(newExtra)
+    # for i in range(len(salesorderLines)):
+    #     if salesorderLines[i].parentline_id == 0:
+    #         stock = Stock.getStockById(salesorderLines[i].stock_id)
+    #         quantity = salesorderLines[i].quantity
+    #         newItem = fullfillStockMap(stock, quantity)
+    #         newItem["comments"] = ''
+    #         newItem["extra"] = []
+    #         newItem["taste"] = []
+    #         # if there is next line
+    #         if i+1 < len(salesorderLines):
+    #             # test if is extra or taste then put in the dict
+    #             if salesorderLines[i + 1].parentline_id == 1:
+    #                 i += 1
+    #                 stock = Stock.getStockById(salesorderLines[i].stock_id)
+    #                 newTaste = fullfillStockMap(stock, quantity)
+    #                 newItem["taste"].append(newTaste)
+    #             elif salesorderLines[i + 1].parentline_id == 2:
+    #                 i += 1
+    #                 stock = Stock.getStockById(salesorderLines[i].stock_id)
+    #                 newExtra = fullfillStockMap(stock, quantity)
+    #                 newItem["extra"].append(newExtra)
+    #
+    #         data["salesorderLines"].append(newItem)
 
-            data["salesorderLines"].append(newItem)
+    for line in salesorderLines:
+        stock = Stock.getStockById(line.stock_id)
+        quantity = line.quantity
+        newItem = fullfillStockMap(stock, quantity)
+
+        if line.parentline_id == 0:
+            newItem["comments"] = ''
+            newItem["option"] = []
+            newItem["other"] = []
+            data["salesorderLines"][line.line_id] = newItem
+        else:
+            if line.parentline_id  == 1 or line.parentline_id == 2:
+                data["salesorderLines"][line.orderline_id]["option"].append(newItem)
+
+
+
 
     ResponseUtil.success(result, data)
 
@@ -381,6 +294,13 @@ def getTable():
         mappedTable["inactive"] = table.inactive
         mappedTable["tableCode"] = table.table_code
         mappedTable["seats"] = table.seats
+        mappedTable["guestNo"] = 0
+
+        # find the number of guest
+        if table.table_status != 0:
+            salesorder = Salesorder.getSalesorderByTableCode(table.table_code)
+            if UtilValidate.isNotEmpty(salesorder):
+                mappedTable["guestNo"] = salesorder.guest_no
 
         data["tables"].append(mappedTable)
 
