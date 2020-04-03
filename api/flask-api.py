@@ -1,12 +1,10 @@
 import flask
 from flask_cors import *
-import common
 from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import init_db, db_session
-from sqlalchemy.ext.declarative import DeclarativeMeta
 from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site
 from service import salesorderService, salesorderLineService
-import decimal, datetime, json, time
+import time
 
 app = flask.Flask(__name__)
 CORS(app, supports_credentials=True, resource=r'/*')
@@ -27,7 +25,6 @@ def commit_session(response):
     db_session.commit()
     app.logger.info('RESPONSE - %s', response.data)
     app.logger.info("END  : "+ str(time.time()))
-
     return response
 
 
@@ -88,6 +85,7 @@ def getStock():
         displayStock = {}
         displayStock["stockId"] = int(stock.stock_id)
         displayStock["barcode"] = stock.barcode
+        displayStock["btnBackColor"] = kbItem.btn_backcolor
         displayStock["description"] = stock.description
         displayStock["description2"] = stock.description2
         # displayStock["image"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format("bbqhot", stock.barcode)
@@ -107,8 +105,7 @@ def getStock():
             displayStock["price"][3] = [Stock.getStockPrice(stock, stock.sell3), stock.custom3]
 
         if UtilValidate.isNotEmpty(stock.custom4):
-            displayStock["price"][4] = [Stock.getStockPrice(stock, stock.sell4), stock.custom4 ]
-
+            displayStock["price"][4] = [Stock.getStockPrice(stock, stock.sell4), stock.custom4]
 
         if stock.stock_id in sortedTaste:
             for tasteId in sortedTaste[stock.stock_id]:
@@ -160,12 +157,7 @@ def getStaffToken():
     toBeEncrypted = barcode+str(int(time.time())+3600)
     app.logger.info('Before encryption:%s', toBeEncrypted)
 
-    # timestamp = toBeEncrypted[-10:]
-    # print(timestamp)
     cipherText = UtilValidate.encryption(toBeEncrypted).decode('UTF-8')
-    # app.logger.info('After encryption:%s', cipherText)
-    # b = UtilValidate.decryption(cipherText).decode("UTF-8")
-    # print("decode===", b)
     ResponseUtil.success(result, cipherText)
     return result
 
@@ -182,7 +174,49 @@ def apiNewSalesorder():
     return result
 
 
-# testing purpose
+@app.route('/salesorder-prepay', methods=['POST'])
+def apiNewPrepaidSalesorder():
+
+    token = flask.request.form.get('token')
+    tableCode = flask.request.form.get('tableCode')
+    guestNo = flask.request.form.get('guestNo') or 0
+    salesorderLines = flask.request.form.get('salesorderLines')
+    isPaid = flask.request.form.get('isPaid')
+
+    if (UtilValidate.isNotEmpty(isPaid)):
+        if isPaid.lower() == 'true':
+            isPaid = True
+        else:
+
+            isPaid = False
+    else:
+        isPaid = False
+
+    app.logger.info(token)
+    app.logger.info(tableCode)
+    app.logger.info(guestNo)
+    app.logger.info(salesorderLines)
+    app.logger.info(isPaid)
+
+
+    # if table code then dine in else takeaway
+    result = salesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo,
+                                              "isPaid":isPaid})
+
+    if result['code'] != '0':
+        return result
+    # if paid then go to kitchen else not
+    salesorderId = result.get('data')['salesorderId']
+    result = salesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
+                                                        "salesorderId":salesorderId, "salesorderLines":salesorderLines,
+                                                        "goToKitchen":isPaid})
+
+    ResponseUtil.success(result, {"salesorderId": salesorderId})
+
+    return result
+
+
+# TODO delete this method, this is for test only
 @app.route('/salesorder', methods=['PUT'])
 def resetTable():
     result = ServiceUtil.returnSuccess()
@@ -211,7 +245,8 @@ def apiInsertSalesorderLine():
     app.logger.info(salesorderLines)
 
     result = salesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
-                                                     "salesorderId":salesorderId, "salesorderLines":salesorderLines})
+                                                     "salesorderId":salesorderId, "salesorderLines":salesorderLines,
+                                                     "goToKitchen":True})
 
     return result
 
@@ -221,7 +256,6 @@ def getSalesorder():
     tableCode = flask.request.args.get('tableCode')
     if tableCode is None:
         return  ResponseUtil.errorMissingParameter(result)
-
     table = Tables.getTableByTableCode(tableCode)
 
     # test if table exists
@@ -239,6 +273,60 @@ def getSalesorder():
 
     # do not return invalid salesorder (when status is 10, 11)
     if salesorder.status == 10 or salesorder.status == 11:
+        return ResponseUtil.errorWrongLogic(result, 'No order found', code=3001)
+
+    # put Salesorder lines to data
+    data = {}
+    data["salesorderId"] = salesorder.salesorder_id
+    data["startTime"] = salesorder.salesorder_date
+    data["guestNo"] = salesorder.guest_no
+    data["imageUrl"] = "https://pos-static.redpayments.com.au/bbqhot/img/"
+    data["total"] = float(salesorder.total_inc)
+    data["salesorderLines"] = {}
+
+    salesorderLines = SalesorderLine.getSalesorderLine(salesorder.salesorder_id)
+
+    for line in salesorderLines:
+        stock = Stock.getStockById(line.stock_id)
+        quantity = line.quantity
+        newItem = fullfillStockMap(stock, quantity)
+        newItem["price"] = float(round(line.print_inc,2))
+
+        if line.parentline_id == 0:
+            newItem["timeOrdered"] = line.time_ordered
+            newItem["comments"] = ''
+            newItem["option"] = []
+            newItem["other"] = []
+            if line.size_level == 0: newItem["custom"] = ""
+            if line.size_level == 1: newItem["custom"] = stock.custom1
+            if line.size_level == 2: newItem["custom"] = stock.custom2
+            if line.size_level == 3: newItem["custom"] = stock.custom3
+            if line.size_level == 4: newItem["custom"] = stock.custom4
+
+            data["salesorderLines"][line.line_id] = newItem
+        else:
+            if line.parentline_id  == 1 or line.parentline_id == 2:
+                data["salesorderLines"][line.orderline_id]["option"].append(newItem)
+            else:
+                data["salesorderLines"][line.orderline_id]["other"].append(newItem)
+
+    data["salesorderLines"] = [v for v in data["salesorderLines"].values()]
+
+
+    ResponseUtil.success(result, data)
+
+    return result
+
+
+# TODO delete this method, this is for test only
+@app.route('/salesorderById', methods=['GET'])
+def getSalesorderById():
+    result = ServiceUtil.returnSuccess()
+    salesorderId = flask.request.args.get('salesorderId')
+
+    # find the Salesorder
+    salesorder = Salesorder.getSalesorderById(salesorderId)
+    if UtilValidate.isEmpty(salesorder):
         return ResponseUtil.errorWrongLogic(result, 'No order found', code=3001)
 
     # put Salesorder lines to data

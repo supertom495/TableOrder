@@ -121,7 +121,7 @@ class KeyboardItem(Base):
     # btn_width = Column(Integer, nullable=False)
     # btn_height = Column(Integer, nullable=False)
     # btn_forecolor = Column(Integer, nullable=False)
-    # btn_backcolor = Column(Integer, nullable=False)
+    btn_backcolor = Column(Integer, nullable=False)
     # btn_fontname = Column(Unicode(64), nullable=False)
     # btn_fontsize = Column(Integer, nullable=False)
     # btn_showpic = Column(BIT, nullable=False)
@@ -309,6 +309,31 @@ class Staff(Base):
         return cls.query.filter(cls.barcode == barcode).first()
 
 
+
+class SaleID(Base):
+    __tablename__ = 'SaleID'
+    sale_type = Column(Integer, nullable=False, primary_key=True)
+    sale_id = Column(Integer, nullable=False)
+    date_modified = Column(DateTime, nullable=False)
+
+    @classmethod
+    def updateSalesorderId(cls):
+        sale = cls.query.filter(cls.sale_type == 1).one()
+        sale.sale_id = sale.sale_id + 1
+        cls.query.session.commit()
+
+        return sale.sale_id
+
+    @classmethod
+    def updateTakeawayId(cls):
+        sale = cls.query.filter(cls.sale_type == 2).one()
+        sale.sale_id = sale.sale_id + 1
+        cls.query.session.commit()
+
+        return sale.sale_id
+
+
+
 class Salesorder(Base):
     __tablename__ = 'SalesOrder'
 
@@ -336,22 +361,30 @@ class Salesorder(Base):
     staff = relationship('Staff')
 
     @classmethod
-    def insertSalesorder(cls, tableCode, guestNo, staffId, time):
+    def insertSalesorder(cls, tableCode, guestNo, staffId, time, transaction, status):
 
-        max =  cls.query.session.query(func.max(cls.salesorder_id).label("max_id")).one()
-        salesorder_id = 1 if max.max_id is None else max.max_id + 1
+        # max =  cls.query.session.query(func.max(cls.salesorder_id).label("max_id")).one()
+        salesorder_id = SaleID.updateSalesorderId()
+        if transaction == 'TA':
+            tableCode = 'TA' + '-OL-' + str(SaleID.updateTakeawayId())
 
         newSalesorder = Salesorder(salesorder_id = salesorder_id,
                                    salesorder_date = time,
                                    expiry_date = time,
                                    staff_id = staffId,
                                    custom = tableCode,
-                                   customer_name = tableCode,
+                                   transaction = transaction,
                                    guest_no = guestNo,
-                                   transaction = 'DI',
+                                   status = status,
                                    comments = '')
         cls.query.session.add(newSalesorder)
+        cls.query.session.commit()
+
         return salesorder_id
+
+    @classmethod
+    def getSalesorderById(cls, id):
+        return cls.query.filter(cls.salesorder_id == id).one()
 
     @classmethod
     def getSalesorderByTableCode(cls, tableCode):
@@ -408,7 +441,8 @@ class SalesorderLine(Base):
     stock = relationship('Stock')
 
     @classmethod
-    def insertSalesorderLine(cls, salesorderId, stockId, sizeLevel, price, quantity, staffId, time, parentlineId, orderlineId=None):
+    def insertSalesorderLine(cls, salesorderId, stockId, sizeLevel, price, quantity, staffId, time, parentlineId,
+                             status, orderlineId=None):
         max =  cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
         salesorderLineId = 1 if max.max_id is None else max.max_id + 1
         if orderlineId is None:
@@ -425,7 +459,7 @@ class SalesorderLine(Base):
                                    print_inc = round(price * decimal.Decimal(1.1), 2),
                                    quantity = quantity,
                                    parentline_id = parentlineId,
-                                   status = 1,
+                                   status = status,
                                    orderline_id = orderlineId,
                                    size_level = sizeLevel,
                                    staff_id = staffId,
