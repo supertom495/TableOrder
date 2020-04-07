@@ -1,7 +1,7 @@
 import flask
 from flask_cors import *
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from database import init_db, db_session
+from database import init_db, db_session, storeName
 from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site
 from service import salesorderService, salesorderLineService
 import time
@@ -57,7 +57,7 @@ def getStock():
     for i in range(len(kbCatIds)):
         data[kbCatIds[i]] = {}
         catName = Category.getCategoryNameByCatCode(kbCatCodes[i])
-        data[kbCatIds[i]]["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format("bbqhot")
+        data[kbCatIds[i]]["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
         data[kbCatIds[i]]["catName"] = catName.cat_name
         data[kbCatIds[i]]["catName2"] = catName.cat_name2
         data[kbCatIds[i]]["stocks"] = []

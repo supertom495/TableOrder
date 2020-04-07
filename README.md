@@ -1,4 +1,7 @@
 pyinstaller --log-level=DEBUG --debug=all dataApi.py
+pyinstaller --log-level=DEBUG --debug=all ../api/flask-api.py
+pyinstaller --clean --windowed -D ../api/flask-api.py
+pyinstaller --clean ../api/flask-api.py
 
 --add-data api-ms-win-crt-runtime-l1-1-0
 

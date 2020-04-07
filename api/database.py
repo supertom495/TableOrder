@@ -3,8 +3,17 @@
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import os, sys
+import pymssql
 
-engine = create_engine('mssql+pymssql://sa:1689@localhost/BBQHOT', convert_unicode=True)  # 创建数据库引擎( 当前目录下保存数据库文件)
+if not os.path.exists("./setting"):
+	sys.exit()
+with open(r"setting", 'r') as f:
+	database = f.readline()
+	storeName = f.readline()
+
+storeName = storeName
+engine = create_engine('mssql+pymssql://' + database.strip(), convert_unicode=True)  # 创建数据库引擎( 当前目录下保存数据库文件)
 db_session = scoped_session(sessionmaker(autocommit=False,
 										 autoflush=False,
 										 bind=engine))
