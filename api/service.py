@@ -179,13 +179,17 @@ class salesorderLineService():
 		keyboardCat = KeyboardCat.getByCatIdAndKbId(kbCatId, kbId)
 		catCode = keyboardCat.cat_code
 
+		#get cat code from keyboard cat and find it from category's cat id TODO
+		catId = Category.getCategoryNameByCatCode(catCode).cat_id
+
+
 		# try stock print
 		printer = StockPrint.getPrinter(stockId)
 
 		if printer: return printer
 
 		# try category printer
-		printer = CatPrint.getPrinter(int(catCode))
+		printer = CatPrint.getPrinter(catId)
 
 		if printer: return printer
 
