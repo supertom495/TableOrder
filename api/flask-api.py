@@ -284,7 +284,7 @@ def getSalesorder():
     data["total"] = float(salesorder.total_inc)
     data["salesorderLines"] = {}
 
-    salesorderLines = SalesorderLine.getSalesorderLine(salesorder.salesorder_id)
+    salesorderLines = SalesorderLine.getBySalesorderId(salesorder.salesorder_id)
 
     for line in salesorderLines:
         stock = Stock.getStockById(line.stock_id)
@@ -338,7 +338,7 @@ def getSalesorderById():
     data["total"] = float(salesorder.total_inc)
     data["salesorderLines"] = {}
 
-    salesorderLines = SalesorderLine.getSalesorderLine(salesorder.salesorder_id)
+    salesorderLines = SalesorderLine.getBySalesorderId(salesorder.salesorder_id)
 
     for line in salesorderLines:
         stock = Stock.getStockById(line.stock_id)

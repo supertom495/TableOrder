@@ -1,18 +1,19 @@
 from utils import ResponseUtil, ServiceUtil, UtilValidate
-from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site
+from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, \
+	Salesorder, SalesorderLine, Site, StockPrint, CatPrint, KeyboardPrint, Kitchen
 import json
+
 
 class salesorderService():
 
 	@staticmethod
-	def newSalesorder(context:dict) -> dict:
+	def newSalesorder(context: dict) -> dict:
 		result = ServiceUtil.returnSuccess()
 
 		token = context.get('token')
 		tableCode = context.get('tableCode')
 		guestNo = context.get('guestNo')
 		isPaid = context.get('isPaid')
-
 
 		if token is None:
 			return ResponseUtil.errorMissingParameter(result)
@@ -49,7 +50,6 @@ class salesorderService():
 		else:
 			status = 0
 
-
 		# insert a new salesorder
 		salesorderId = Salesorder.insertSalesorder(tableCode, guestNo, staffId,
 												   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
@@ -63,7 +63,7 @@ class salesorderService():
 class salesorderLineService():
 
 	@staticmethod
-	def insertSalesorderLine(context:dict) -> dict:
+	def insertSalesorderLine(context: dict) -> dict:
 		result = ServiceUtil.returnSuccess()
 
 		token = context.get('token')
@@ -74,7 +74,6 @@ class salesorderLineService():
 
 		if token is None or salesorderId is None or salesorderLines is None:
 			return ResponseUtil.errorMissingParameter(result)
-
 
 		tokenValid, staffId = UtilValidate.tokenValidation(token)
 		if not tokenValid:
@@ -97,8 +96,8 @@ class salesorderLineService():
 			# test if given sales order Id is the one attached to table
 			salesorder = Salesorder.getSalesorderByTableCode(tableCode)
 			if salesorder.salesorder_id != int(salesorderId):
-				return ResponseUtil.errorWrongLogic(result, 'Given salesorderId is not matched to table record', code=3002)
-
+				return ResponseUtil.errorWrongLogic(result, 'Given salesorderId is not matched to table record',
+													code=3002)
 
 		salesorderLines = json.loads(salesorderLines)
 
@@ -106,7 +105,6 @@ class salesorderLineService():
 			status = 1
 		else:
 			status = 0
-
 
 		for line in salesorderLines:
 			if len(line) != 6:
@@ -129,11 +127,9 @@ class salesorderLineService():
 			parentlineId = 0
 			originalSalesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, stockId, sizeLevel, price,
 																		   quantity, staffId,
-																		   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
+																		   UtilValidate.tsToTime(
+																			   UtilValidate.getCurrentTs()),
 																		   parentlineId, status)
-			if goToKitchen:
-				pass
-				# goToKitchen()
 
 			for extra in line["extra"]:
 				parentlineId = 2
@@ -143,9 +139,6 @@ class salesorderLineService():
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
-			if goToKitchen:
-				pass
-				# goToKitchen()
 
 			for taste in line["taste"]:
 				parentlineId = 1
@@ -155,14 +148,91 @@ class salesorderLineService():
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
-			if goToKitchen:
-				pass
-				# goToKitchen()
+
 
 			comments = line["comments"]
+
+			# TODO TEST
+			if goToKitchen:
+				printers = salesorderLineService.findPrinter(stockId)
+				salesorderLineService.insertKitchen(printers, originalSalesorderLineId, comments, tableCode)
+
 
 		Salesorder.updatePrice(salesorderId)
 
 		ResponseUtil.success(result)
 
 		return result
+
+
+	@staticmethod
+	def findPrinter(stockId):
+		# find activate keyboard
+		keyboard = Keyboard.getActivateKeyboard()
+		kbId = keyboard.kb_id
+
+		# find keyboard item
+		keyboardItem = KeyboardItem.getByStockIdAndKbId(stockId, kbId)
+		kbCatId = keyboardItem.cat_id
+
+		# get keyboard Cat
+		keyboardCat = KeyboardCat.getByCatIdAndKbId(kbCatId, kbId)
+		catCode = keyboardCat.cat_code
+
+		# try stock print
+		printer = StockPrint.getPrinter(stockId)
+
+		if printer: return printer
+
+		# try category printer
+		printer = CatPrint.getPrinter(int(catCode))
+
+		if printer: return printer
+
+		# try keyboard printer
+		printer = KeyboardPrint.getPrinter(kbId)
+
+		if printer: return printer
+
+		# TODO FIX THIS FORCE CRASH
+		raise Exception('Stock的printer没有正确配置. Stock id = {}'.format(stockId))
+
+
+	@staticmethod
+	def insertKitchen(printers, originalSalesorderLineId, comments, tableCode):
+		# salesorderLine is the original food
+		# salesorderLines including the extra and taste, but all them need to go to kitchen
+
+		salesorderLines = SalesorderLine.getByOrderlineId(originalSalesorderLineId)
+
+		for salesorderLine in salesorderLines:
+			stock = Stock.getStockById(salesorderLine.stock_id)
+			for printer in printers:
+				# hotFIX
+				deliveryDocket = printer.delivery_docket
+				lineId = salesorderLine.line_id
+				orderlineId = salesorderLine.orderline_id
+				salesorderId = salesorderLine.salesorder_id
+				# TODO FIX FOR TAKEAWAY ORDER
+				tableCode = tableCode
+				cat1 = stock.cat1
+				description = stock.description
+				description2 = stock.description2
+				quantity = salesorderLine.quantity
+				orderTime = salesorderLine.time_ordered
+				cat2 = stock.cat2
+				printerName = printer.printer
+				stockType = salesorderLine.parentline_id
+				comments = comments
+				# TODO FIXME staff_ID is not right
+				staffName = salesorderLine.staff_id
+
+				if stockType != 0: comments = ""
+				if deliveryDocket:
+					printerName = "+" + printerName
+
+				lineId = Kitchen.insertKitchen(lineId, orderlineId, tableCode, staffName, cat1, description, description2,
+								  quantity, printerName, orderTime, comments, stockType, cat2, salesorderId)
+
+
+

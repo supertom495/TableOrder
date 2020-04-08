@@ -108,6 +108,12 @@ class KeyboardCat(Base):
         res = cls.query.join(Keyboard, Keyboard.kb_id == cls.kb_id).filter(Keyboard.kb_name2 == 'online').all()
         return res
 
+    @classmethod
+    def getByCatIdAndKbId(cls, catId, kbId):
+        res = cls.query.filter(cls.cat_id == catId, cls.kb_id == kbId).first()
+        return res
+
+
 class KeyboardItem(Base):
     __tablename__ = 'KeyboardItem'
     item_id = Column(Integer, nullable=False, primary_key=True)
@@ -135,6 +141,10 @@ class KeyboardItem(Base):
         res = cls.query.filter(cls.cat_id.in_(kbCatIds), cls.kb_id == kbId).all()
         return res
 
+    @classmethod
+    def getByStockIdAndKbId(cls, stockId, kbId):
+        res = cls.query.filter(cls.stock_id == stockId, cls.kb_id == kbId).first()
+        return res
 
 
 class Category(Base):
@@ -470,14 +480,18 @@ class SalesorderLine(Base):
 
 
     @classmethod
-    def getSalesorderLine(cls, salesorderId):
+    def getBySalesorderId(cls, salesorderId):
         return cls.query.filter(cls.salesorder_id == salesorderId).order_by(cls.line_id.asc()).all()
+
+    @classmethod
+    def getByOrderlineId(cls, orderlineId):
+        return cls.query.filter(cls.orderline_id == orderlineId).order_by(cls.line_id.asc()).all()
 
 
 class Kitchen(Base):
     __tablename__ = 'Kitchen'
     line_id = Column(Integer, nullable=False, primary_key=True)
-    orderline_id = Column(Integer, nullable=False)
+    orderline_id = Column(Integer, nullable=False, primary_key=True)
     table_code = Column(Unicode(40))
     staff_name = Column(Unicode(40), nullable=False)
     cat1 = Column(Unicode(40))
@@ -498,7 +512,71 @@ class Kitchen(Base):
     status = Column(SmallInteger)
     original_line_id = Column(Integer)
 
+    @classmethod
+    def insertKitchen(cls, lineId, orderlineId, tableCode, staffName, cat1, description, description2, quantity,
+                      printerName, orderTime, comments, stockType, cat2, salesorderId):
 
+        newKitchen = Kitchen(line_id = lineId,
+                             orderline_id = orderlineId,
+                             table_code = tableCode,
+                             staff_name = staffName,
+                             cat1 = cat1,
+                             description = description,
+                             description2 = description2,
+                             quantity = quantity,
+                             printer = printerName,
+                             printer2 = printerName,
+                             order_time = orderTime,
+                             handwritting = 0,
+                             comments = comments,
+                             stock_type = stockType,
+                             customer_name = tableCode,
+                             cat2 = cat2,
+                             salesorder_id = salesorderId)
+
+        cls.query.session.add(newKitchen)
+        cls.query.session.commit()
+
+        return lineId
+
+
+class StockPrint(Base):
+    __tablename__ = 'StockPrint'
+    stock_id = Column(Integer, nullable=False, primary_key=True)
+    site_id = Column(Integer, nullable=False)
+    printer = Column(Unicode(60), nullable=False)
+    printer2 = Column(Unicode(60), nullable=False)
+    delivery_docket = Column(BIT)
+
+    @classmethod
+    def getPrinter(cls, stockId):
+        return cls.query.filter(cls.stock_id == stockId).all()
+
+
+class CatPrint(Base):
+    __tablename__ = 'CatPrint'
+    Cat_id = Column(Integer, nullable=False, primary_key=True)
+    site_id = Column(Integer, nullable=False)
+    printer = Column(Unicode(60), nullable=False)
+    printer2 = Column(Unicode(60), nullable=False)
+    delivery_docket = Column(BIT)
+
+    @classmethod
+    def getPrinter(cls, catId):
+        return cls.query.filter(cls.Cat_id == catId).all()
+
+
+class KeyboardPrint(Base):
+    __tablename__ = 'KeyboardPrint'
+    kb_id = Column(Integer, nullable=False, primary_key=True)
+    site_id =  Column(Integer, nullable=False)
+    printer = Column(Unicode(60), nullable=False)
+    printer2 = Column(Unicode(60), nullable=False)
+    delivery_docket =  Column(BIT)
+
+    @classmethod
+    def getPrinter(cls, kbId):
+        return cls.query.filter(cls.kb_id == kbId).all()
 
 
 class Customer(Base):
