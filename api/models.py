@@ -235,10 +235,10 @@ class Stock(Base):
     longdesc2 = Column(Unicode(255))
     longdesc3 = Column(Unicode(255))
     longdesc4 = Column(Unicode(255))
-    sell5 = Column(MONEY)
-    sell6 = Column(MONEY)
-    sell7 = Column(MONEY)
-    sell8 = Column(MONEY)
+    # sell5 = Column(MONEY)
+    # sell6 = Column(MONEY)
+    # sell7 = Column(MONEY)
+    # sell8 = Column(MONEY)
 
     # supplier = relationship('Supplier')
 
