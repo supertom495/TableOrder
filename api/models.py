@@ -2,6 +2,7 @@
 from sqlalchemy import Column, DateTime, Float, ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary, NCHAR, SmallInteger, String, Table, Unicode, UnicodeText, text
 from sqlalchemy.dialects.mssql import BIT, MONEY
 from sqlalchemy.orm import relationship
+from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import Sequence
 from sqlalchemy.sql import func
@@ -105,8 +106,11 @@ class KeyboardCat(Base):
 
     @classmethod
     def getActivateKeyboardCat(cls):
-        res = cls.query.join(Keyboard, Keyboard.kb_id == cls.kb_id).filter(Keyboard.kb_name2 == 'online').all()
-        return res
+        try:
+            res = cls.query.join(Keyboard, Keyboard.kb_id == cls.kb_id).filter(Keyboard.kb_name2 == 'online').all()
+            return res
+        except ProgrammingError:
+            return None
 
     @classmethod
     def getByCatIdAndKbId(cls, catId, kbId):
@@ -165,7 +169,7 @@ class Category(Base):
     cat_name4 = Column(Unicode(40))
 
     @classmethod
-    def getCategoryNameByCatCode(cls, catCode):
+    def getByCatCode(cls, catCode):
         res = cls.query.filter(cls.cat_code == catCode).one()
         return res
 
@@ -245,6 +249,10 @@ class Stock(Base):
     @classmethod
     def getStockById(cls, stockId):
         return cls.query.filter(cls.stock_id == stockId).one()
+
+    @classmethod
+    def getStockByBarcode(cls, barcode):
+        return cls.query.filter(cls.barcode == barcode).one()
 
     @staticmethod
     def getStockPrice(stock, price):

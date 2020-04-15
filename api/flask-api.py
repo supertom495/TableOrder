@@ -40,8 +40,9 @@ def getStock():
 
     # find activate keyboard categories
     kbCat = KeyboardCat.getActivateKeyboardCat()
+
     if UtilValidate.isEmpty(kbCat):
-        return ResponseUtil.errorDataNotFound(result, "keyboard或keyboard categories 未正确配置")
+        return ResponseUtil.errorDataNotFound(result, "Please check if keyboard'kb_name2 is online or keyboard cat has cat code")
 
     kbId = kbCat[0].kb_id
     kbCatIds = [i.cat_id for i in kbCat]
@@ -52,15 +53,14 @@ def getStock():
     if len(kbItems) == 0:
         return ResponseUtil.errorDataNotFound(result, "未找到激活的keyboard item")
 
-    data = {}
+    stockMap = {}
     # fill category information
     for i in range(len(kbCatIds)):
-        data[kbCatIds[i]] = {}
-        catName = Category.getCategoryNameByCatCode(kbCatCodes[i])
-        data[kbCatIds[i]]["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
-        data[kbCatIds[i]]["catName"] = catName.cat_name
-        data[kbCatIds[i]]["catName2"] = catName.cat_name2
-        data[kbCatIds[i]]["stocks"] = []
+        stockMap[kbCatIds[i]] = {}
+        category = Category.getByCatCode(kbCatCodes[i])
+        stockMap[kbCatIds[i]]["catName"] = category.cat_name
+        stockMap[kbCatIds[i]]["catName2"] = category.cat_name2
+        stockMap[kbCatIds[i]]["stocks"] = []
 
     taste = TasteStock.getAll()
     extra = ExtraStock.getAll()
@@ -76,19 +76,22 @@ def getStock():
         if item.stock_id in sortedExtra:
             sortedExtra[item.stock_id].append(item.extra_id)
 
-    cachedOption = {}
+    cachedExtra = {}
+    cachedTaste = {}
 
     for kbItem in kbItems:
-        stock = Stock.getStockById(kbItem.stock_id)
-        # stock = Stock.getStockById(133)
+        if not kbItem.item_barcode.strip(): continue
+        stock = Stock.getStockByBarcode(kbItem.item_barcode)
 
         displayStock = {}
         displayStock["stockId"] = int(stock.stock_id)
+        displayStock["inactive"] = stock.inactive
+        displayStock["show_extra"] = stock.show_extra
+        displayStock["show_taste"] = stock.show_taste
         displayStock["barcode"] = stock.barcode
         displayStock["btnBackColor"] = kbItem.btn_backcolor
         displayStock["description"] = stock.description
         displayStock["description2"] = stock.description2
-        # displayStock["image"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format("bbqhot", stock.barcode)
         displayStock["taste"] = []
         displayStock["extra"] = []
         # put different size level price
@@ -109,37 +112,41 @@ def getStock():
 
         if stock.stock_id in sortedTaste:
             for tasteId in sortedTaste[stock.stock_id]:
-                displayTaste = {}
-                if tasteId in cachedOption:
-                    displayTaste = cachedOption[tasteId]
-                else:
+                displayStock["taste"].append(tasteId)
+                if tasteId not in cachedTaste:
+                    displayTaste = {}
                     stock = Stock.getStockById(tasteId)
                     displayTaste["stockId"] = int(stock.stock_id)
+                    displayTaste["custom1"] = stock.custom1
                     displayTaste["barcode"] = stock.barcode
+                    displayTaste["price"] = Stock.getStockPrice(stock, stock.sell)
                     displayTaste["description"] = stock.description
                     displayTaste["description2"] = stock.description2
-                    cachedOption[tasteId] = displayTaste
-                displayStock["taste"].append(displayTaste)
+                    cachedTaste[tasteId] = displayTaste
 
         if stock.stock_id in sortedExtra:
             for extraId in sortedExtra[stock.stock_id]:
-                displayExtra = {}
-                if extraId in cachedOption:
-                    displayExtra = cachedOption[extraId]
-                else:
+                displayStock["extra"].append(extraId)
+                if extraId not in cachedExtra:
+                    displayExtra = {}
                     stock = Stock.getStockById(extraId)
                     displayExtra["stockId"] = int(stock.stock_id)
+                    displayExtra["custom1"] = stock.custom1
                     displayExtra["barcode"] = stock.barcode
+                    displayExtra["price"] = Stock.getStockPrice(stock, stock.sell)
                     displayExtra["description"] = stock.description
                     displayExtra["description2"] = stock.description2
-                    cachedOption[extraId] = displayExtra
+                    cachedExtra[extraId] = displayExtra
 
-                displayStock["extra"].append(displayExtra)
+        stockMap[kbItem.cat_id]["stocks"].append(displayStock)
 
-        data[kbItem.cat_id]["stocks"].append(displayStock)
+    data = {}
+    data["stock"] = [v for v in stockMap.values()]
+    data["extra"] = [v for v in cachedExtra.values()]
+    data["taste"] = [v for v in cachedTaste.values()]
+    data["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
 
-    ResponseUtil.success(result, [v for v in data.values()])
-
+    ResponseUtil.success(result, data)
 
     return result
 

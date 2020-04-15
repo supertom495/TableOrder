@@ -180,7 +180,7 @@ class salesorderLineService():
 		catCode = keyboardCat.cat_code
 
 		#get cat code from keyboard cat and find it from category's cat id TODO
-		catId = Category.getCategoryNameByCatCode(catCode).cat_id
+		catId = Category.getByCatCode(catCode).cat_id
 
 
 		# try stock print
