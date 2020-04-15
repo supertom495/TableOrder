@@ -1,5 +1,5 @@
 Login: sa
 Password: 1689
-ServerName: 192.168.1.4
+ServerName: 127.0.0.1
 DBName: GONGCHA
 StoreName: bbqhot
