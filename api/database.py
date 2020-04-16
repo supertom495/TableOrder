@@ -7,9 +7,10 @@ import yaml
 import os, sys
 import pymssql
 
-if not os.path.exists("./flask.yaml"):
+if not os.path.exists("./setting/flask.yaml"):
+	print("did not found setting file")
 	sys.exit()
-with open('flask.yaml') as f:
+with open('./setting/flask.yaml') as f:
 	data = yaml.load(f, Loader=yaml.FullLoader)
 	if (len(data) != 5): sys.exit()
 
