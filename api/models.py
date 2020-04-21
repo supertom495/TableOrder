@@ -252,7 +252,7 @@ class Stock(Base):
 
     @classmethod
     def getStockByBarcode(cls, barcode):
-        return cls.query.filter(cls.barcode == barcode).one()
+        return cls.query.filter(cls.barcode == barcode).first()
 
     @staticmethod
     def getStockPrice(stock, price):
