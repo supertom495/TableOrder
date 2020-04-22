@@ -82,6 +82,7 @@ def getStock():
     for kbItem in kbItems:
         if not kbItem.item_barcode.strip(): continue
         stock = Stock.getStockByBarcode(kbItem.item_barcode)
+        if UtilValidate.isEmpty(stock): continue
 
         displayStock = {}
         displayStock["stockId"] = int(stock.stock_id)
