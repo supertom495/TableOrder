@@ -302,7 +302,8 @@ def getSalesorder():
 
         if line.parentline_id == 0:
             newItem["timeOrdered"] = line.time_ordered
-            newItem["comments"] = ''
+            kitchenLine = Kitchen.getByLineId(line.line_id)
+            newItem["comments"] = kitchenLine.comments if kitchenLine  else ""
             newItem["option"] = []
             newItem["other"] = []
             if line.size_level == 0: newItem["custom"] = ""
