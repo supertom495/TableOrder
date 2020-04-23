@@ -2,7 +2,7 @@ import flask
 from flask_cors import *
 from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import init_db, db_session, storeName
-from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site
+from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site, Kitchen
 from service import salesorderService, salesorderLineService
 import time
 
@@ -93,6 +93,7 @@ def getStock():
         displayStock["btnBackColor"] = kbItem.btn_backcolor
         displayStock["description"] = stock.description
         displayStock["description2"] = stock.description2
+        displayStock["longdesc"] = stock.longdesc
         displayStock["taste"] = []
         displayStock["extra"] = []
         # put different size level price
