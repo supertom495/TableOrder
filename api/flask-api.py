@@ -81,7 +81,7 @@ def getStock():
 
     for kbItem in kbItems:
         if not kbItem.item_barcode.strip(): continue
-        stock = Stock.getStockByBarcode(kbItem.item_barcode)
+        stock = Stock.getByBarcode(kbItem.item_barcode)
         if UtilValidate.isEmpty(stock): continue
 
         displayStock = {}
@@ -98,30 +98,31 @@ def getStock():
         displayStock["extra"] = []
         # put different size level price
         displayStock["price"] = {}
-        displayStock["price"][0] = Stock.getStockPrice(stock, stock.sell)
+        displayStock["price"][0] = Stock.getPrice(stock, stock.sell)
 
         if UtilValidate.isNotEmpty(stock.custom1):
-            displayStock["price"][1] = [Stock.getStockPrice(stock, stock.sell), stock.custom1]
+            displayStock["price"][1] = [Stock.getPrice(stock, stock.sell), stock.custom1]
 
         if UtilValidate.isNotEmpty(stock.custom2):
-            displayStock["price"][2] = [Stock.getStockPrice(stock, stock.sell2), stock.custom2]
+            displayStock["price"][2] = [Stock.getPrice(stock, stock.sell2), stock.custom2]
 
         if UtilValidate.isNotEmpty(stock.custom3):
-            displayStock["price"][3] = [Stock.getStockPrice(stock, stock.sell3), stock.custom3]
+            displayStock["price"][3] = [Stock.getPrice(stock, stock.sell3), stock.custom3]
 
         if UtilValidate.isNotEmpty(stock.custom4):
-            displayStock["price"][4] = [Stock.getStockPrice(stock, stock.sell4), stock.custom4]
+            displayStock["price"][4] = [Stock.getPrice(stock, stock.sell4), stock.custom4]
 
         if stock.stock_id in sortedTaste:
             for tasteId in sortedTaste[stock.stock_id]:
                 displayStock["taste"].append(tasteId)
                 if tasteId not in cachedTaste:
                     displayTaste = {}
-                    stock = Stock.getStockById(tasteId)
+                    stock = Stock.getByStockId(tasteId)
                     displayTaste["stockId"] = int(stock.stock_id)
                     displayTaste["custom1"] = stock.custom1
+                    displayTaste["cat2"] = stock.cat2
                     displayTaste["barcode"] = stock.barcode
-                    displayTaste["price"] = Stock.getStockPrice(stock, stock.sell)
+                    displayTaste["price"] = Stock.getPrice(stock, stock.sell)
                     displayTaste["description"] = stock.description
                     displayTaste["description2"] = stock.description2
                     cachedTaste[tasteId] = displayTaste
@@ -131,11 +132,12 @@ def getStock():
                 displayStock["extra"].append(extraId)
                 if extraId not in cachedExtra:
                     displayExtra = {}
-                    stock = Stock.getStockById(extraId)
+                    stock = Stock.getByStockId(extraId)
                     displayExtra["stockId"] = int(stock.stock_id)
                     displayExtra["custom1"] = stock.custom1
+                    displayExtra["cat2"] = stock.cat2
                     displayExtra["barcode"] = stock.barcode
-                    displayExtra["price"] = Stock.getStockPrice(stock, stock.sell)
+                    displayExtra["price"] = Stock.getPrice(stock, stock.sell)
                     displayExtra["description"] = stock.description
                     displayExtra["description2"] = stock.description2
                     cachedExtra[extraId] = displayExtra
@@ -296,7 +298,7 @@ def getSalesorder():
     salesorderLines = SalesorderLine.getBySalesorderId(salesorder.salesorder_id)
 
     for line in salesorderLines:
-        stock = Stock.getStockById(line.stock_id)
+        stock = Stock.getByStockId(line.stock_id)
         quantity = line.quantity
         newItem = fullfillStockMap(stock, quantity)
         newItem["price"] = float(round(line.print_inc,2))
@@ -351,7 +353,7 @@ def getSalesorderById():
     salesorderLines = SalesorderLine.getBySalesorderId(salesorder.salesorder_id)
 
     for line in salesorderLines:
-        stock = Stock.getStockById(line.stock_id)
+        stock = Stock.getByStockId(line.stock_id)
         quantity = line.quantity
         newItem = fullfillStockMap(stock, quantity)
         newItem["price"] = float(round(line.print_inc,2))

@@ -111,7 +111,7 @@ class salesorderLineService():
 				return ResponseUtil.errorWrongLogic(result, 'Incorrect content', code=3003)
 
 			stockId = line["stockId"]
-			stock = Stock.getStockById(stockId)
+			stock = Stock.getByStockId(stockId)
 			sizeLevel = line["sizeLevel"]
 			quantity = line["quantity"]
 			price = stock.sell
@@ -134,7 +134,7 @@ class salesorderLineService():
 			for extra in line["extra"]:
 				parentlineId = 2
 				sizeLevel = 0
-				price = Stock.getStockById(extra).sell
+				price = Stock.getByStockId(extra).sell
 				quantity = 1
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
@@ -143,7 +143,7 @@ class salesorderLineService():
 			for taste in line["taste"]:
 				parentlineId = 1
 				sizeLevel = 0
-				price = Stock.getStockById(taste).sell
+				price = Stock.getByStockId(taste).sell
 				quantity = 1
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
@@ -210,7 +210,7 @@ class salesorderLineService():
 		salesorderLines = SalesorderLine.getByOrderlineId(originalSalesorderLineId)
 
 		for salesorderLine in salesorderLines:
-			stock = Stock.getStockById(salesorderLine.stock_id)
+			stock = Stock.getByStockId(salesorderLine.stock_id)
 			for printer in printers:
 				# hotFIX
 				deliveryDocket = printer.delivery_docket

@@ -247,15 +247,15 @@ class Stock(Base):
     # supplier = relationship('Supplier')
 
     @classmethod
-    def getStockById(cls, stockId):
+    def getByStockId(cls, stockId):
         return cls.query.filter(cls.stock_id == stockId).one()
 
     @classmethod
-    def getStockByBarcode(cls, barcode):
+    def getByBarcode(cls, barcode):
         return cls.query.filter(cls.barcode == barcode).first()
 
     @staticmethod
-    def getStockPrice(stock, price):
+    def getPrice(stock, price):
         if stock.goods_tax == 'GST':
             return float(round(price*decimal.Decimal(1.1), 2))
         else:
@@ -266,10 +266,15 @@ class TasteStock(Base):
     __tablename__ = 'TasteStock'
     stock_id = Column(Integer, nullable=False, primary_key=True)
     taste_id = Column(Integer, nullable=False, primary_key=True)
+    visible_type = Column(SmallInteger)
 
     @classmethod
     def getAll(cls):
-        return cls.query.all()
+        try:
+            res = cls.query.filter(cls.visible_type == 1).all()
+            return res
+        except ProgrammingError:
+            return []
 
 
 
@@ -278,11 +283,15 @@ class ExtraStock(Base):
     __tablename__ = 'ExtraStock'
     stock_id = Column(Integer, nullable=False, primary_key=True)
     extra_id = Column(Integer, nullable=False, primary_key=True)
+    visible_type = Column(SmallInteger)
 
     @classmethod
     def getAll(cls):
-        return cls.query.all()
-
+        try:
+            res = cls.query.filter(cls.visible_type == 1).all()
+            return res
+        except ProgrammingError:
+            return []
 
 
 class Staff(Base):
@@ -519,6 +528,10 @@ class Kitchen(Base):
     salesorder_id = Column(Integer)
     status = Column(SmallInteger)
     original_line_id = Column(Integer)
+
+    @classmethod
+    def getByLineId(cls, lineId):
+        return cls.query.filter(cls.line_id == lineId).first()
 
     @classmethod
     def insertKitchen(cls, lineId, orderlineId, tableCode, staffName, cat1, description, description2, quantity,
