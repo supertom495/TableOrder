@@ -2,11 +2,13 @@ import flask
 from flask_cors import *
 from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import init_db, db_session, storeName
-from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site, Kitchen
+from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site, Kitchen
+from router import blueprint
 from service import salesorderService, salesorderLineService
 import time
 
 app = flask.Flask(__name__)
+for item in blueprint: app.register_blueprint(item)
 CORS(app, supports_credentials=True, resource=r'/*')
 app.config["DEBUG"] = True
 
