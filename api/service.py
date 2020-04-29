@@ -55,7 +55,7 @@ class salesorderService():
 												   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
 												   transaction, status)
 
-		ResponseUtil.success(result, {"salesorderId": salesorderId})
+		ResponseUtil.success(result, {"salesorderId": salesorderId, "tableCode":tableCode})
 
 		return result
 

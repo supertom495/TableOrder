@@ -214,15 +214,20 @@ def apiNewPrepaidSalesorder():
     result = salesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo,
                                               "isPaid":isPaid})
 
+
     if result['code'] != '0':
         return result
+
+    tableCode = result.get("data").get("tableCode")
+
+
     # if paid then go to kitchen else not
     salesorderId = result.get('data')['salesorderId']
     result = salesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
                                                         "salesorderId":salesorderId, "salesorderLines":salesorderLines,
                                                         "goToKitchen":isPaid})
 
-    ResponseUtil.success(result, {"salesorderId": salesorderId})
+    ResponseUtil.success(result, {"salesorderId": salesorderId, "tableCode":tableCode})
 
     return result
 
