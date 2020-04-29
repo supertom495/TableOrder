@@ -14,6 +14,8 @@ class UtilValidate:
 			return data is not None and len(data)!=0
 		if type(data) is str:
 			return bool(data and data.strip())
+		return data
+
 
 
 	@staticmethod

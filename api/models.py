@@ -81,6 +81,14 @@ class Keyboard(Base):
     def getActivateKeyboard(cls):
         return cls.query.filter(cls.kb_name2=='online').first()
 
+    @classmethod
+    def getAll(cls):
+        return cls.query.all()
+
+    @classmethod
+    def getById(cls, kbId):
+        return cls.query.filter(cls.kb_id==kbId).first()
+
 
 class KeyboardCat(Base):
     __tablename__ = 'KeyboardCat'
@@ -111,6 +119,11 @@ class KeyboardCat(Base):
             return res
         except ProgrammingError:
             return None
+
+    @classmethod
+    def getByKbId(cls, kbId):
+        res = cls.query.filter(cls.kb_id == kbId).all()
+        return res
 
     @classmethod
     def getByCatIdAndKbId(cls, catId, kbId):
@@ -150,6 +163,12 @@ class KeyboardItem(Base):
         res = cls.query.filter(cls.stock_id == stockId, cls.kb_id == kbId).first()
         return res
 
+    @classmethod
+    def getByCatIdAndKbId(cls, catId, kbId):
+        # res = cls.query.filter(cls.cat_id == catId, cls.kb_id == kbId).paginate(page=1, per_page=20, error_out=False)
+        res = KeyboardItem.paginate(page=1, per_page=20, error_out=False)
+        return res
+
 
 class Category(Base):
     __tablename__ = 'Category'
@@ -170,7 +189,7 @@ class Category(Base):
 
     @classmethod
     def getByCatCode(cls, catCode):
-        res = cls.query.filter(cls.cat_code == catCode).one()
+        res = cls.query.filter(cls.cat_code == catCode).first()
         return res
 
 
