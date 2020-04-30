@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import Sequence
+from sqlalchemy_pagination import paginate
 from sqlalchemy.sql import func
 from database import Base, db_session
 import decimal
@@ -164,10 +165,18 @@ class KeyboardItem(Base):
         return res
 
     @classmethod
-    def getByCatIdAndKbId(cls, catId, kbId):
-        # res = cls.query.filter(cls.cat_id == catId, cls.kb_id == kbId).paginate(page=1, per_page=20, error_out=False)
-        res = KeyboardItem.paginate(page=1, per_page=20, error_out=False)
-        return res
+    def getByCatIdAndKbIdPagination(cls, kbId, catId, page, pageSize):
+        query = cls.query.order_by(cls.item_id.desc())
+        if kbId:
+            query = query.filter(cls.kb_id == kbId)
+        if catId:
+            query = query.filter(cls.cat_id == catId)
+
+
+
+        pagination = paginate(query, page, pageSize)
+
+        return pagination
 
 
 class Category(Base):
@@ -295,6 +304,13 @@ class TasteStock(Base):
         except ProgrammingError:
             return []
 
+    @classmethod
+    def getByStockId(cls, stockId):
+        try:
+            res = cls.query.filter(cls.stock_id == stockId).filter(cls.visible_type == 1).all()
+            return res
+        except ProgrammingError:
+            return []
 
 
 
@@ -308,6 +324,14 @@ class ExtraStock(Base):
     def getAll(cls):
         try:
             res = cls.query.filter(cls.visible_type == 1).all()
+            return res
+        except ProgrammingError:
+            return []
+
+    @classmethod
+    def getByStockId(cls, stockId):
+        try:
+            res = cls.query.filter(cls.stock_id  == stockId).filter(cls.visible_type == 1).all()
             return res
         except ProgrammingError:
             return []
