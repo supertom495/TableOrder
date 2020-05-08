@@ -32,7 +32,8 @@ def getKeyboard():
 def getKeyboardCat():
     result = ServiceUtil.returnSuccess()
 
-    kbId = flask.request.args.get('kbId')
+    kbId = f
+    lask.request.args.get('kbId')
 
     keyboard = Keyboard.getById(kbId)
 
@@ -168,7 +169,6 @@ def getKeyboardItem():
             data["content"]["extra"] = [v for v in cachedExtra.values()]
             data["content"]["taste"] = [v for v in cachedTaste.values()]
             data["content"]["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
-
 
     ResponseUtil.success(result, data)
 

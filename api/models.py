@@ -425,7 +425,6 @@ class Salesorder(Base):
     exported = Column(BIT, nullable=False, server_default=text("(0)"))
     guest_no = Column(SmallInteger)
     customer_name = Column(Unicode(40))
-    origin = Column(Integer)
 
     customer = relationship('Customer')
     staff = relationship('Staff')
@@ -450,7 +449,7 @@ class Salesorder(Base):
         cls.query.session.add(newSalesorder)
         cls.query.session.commit()
 
-        return salesorder_id
+        return salesorder_id, tableCode
 
     @classmethod
     def getSalesorderById(cls, id):

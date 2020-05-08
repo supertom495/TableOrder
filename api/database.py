@@ -14,6 +14,16 @@ with open('./setting/flask.yaml') as f:
 	data = yaml.load(f, Loader=yaml.FullLoader)
 	if (len(data) != 5): sys.exit()
 
+
+def getPort():
+	if os.path.exists("./setting/port.yaml"):
+		with open('./setting/port.yaml') as f:
+			file = yaml.load(f, Loader=yaml.FullLoader)
+			port = file.get("port")
+			return port
+	else: return 5001
+
+
 storeName = data.get("StoreName")
 engine = create_engine('mssql+pymssql://{}:{}@{}/{}'.format(data.get("Login"), data.get("Password"), data.get("ServerName"), data.get("DBName")), convert_unicode=True)  # 创建数据库引擎( 当前目录下保存数据库文件)
 db_session = scoped_session(sessionmaker(autocommit=False,

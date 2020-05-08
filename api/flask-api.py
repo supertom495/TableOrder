@@ -1,7 +1,7 @@
 import flask
 from flask_cors import *
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from database import init_db, db_session, storeName
+from database import init_db, db_session, storeName, getPort
 from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site, Kitchen
 from router import blueprint
 from service import salesorderService, salesorderLineService
@@ -497,7 +497,9 @@ def fullfillStockMap(stock:Stock, quantity:int) -> dict:
 
     return stockMap
 
+
 if __name__ == '__main__':
     init_db()
     app.debug = True
-    app.run(host='0.0.0.0', port=5001)
+    port = getPort()
+    app.run(host='0.0.0.0', port=port)

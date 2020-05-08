@@ -42,16 +42,15 @@ class salesorderService():
 			transaction = 'DI'
 
 		else:
-			tableCode = 'TA-5'
 			transaction = 'TA'
 
 		if isPaid:
 			status = 11
 		else:
-			status = 0
+			status = 1
 
 		# insert a new salesorder
-		salesorderId = Salesorder.insertSalesorder(tableCode, guestNo, staffId,
+		salesorderId, tableCode = Salesorder.insertSalesorder(tableCode, guestNo, staffId,
 												   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
 												   transaction, status)
 
@@ -79,25 +78,25 @@ class salesorderLineService():
 		if not tokenValid:
 			return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
 
-		if tableCode:
-			table = Tables.getTableByTableCode(tableCode)
-			# test if table exists
-			if UtilValidate.isEmpty(table):
-				return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
+		# if tableCode:
+		# 	table = Tables.getTableByTableCode(tableCode)
+		# 	# test if table exists
+		# 	if UtilValidate.isEmpty(table):
+		# 		return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
+		#
+		# 	# test if table is closed
+		# 	if table.table_status == 0:
+		# 		return ResponseUtil.errorWrongLogic(result, 'Inactive table')
+		#
+		# 	# test if table occupied by POS
+		# 	if table.staff_id != 0 and table.staff_id is not None:
+		# 		return ResponseUtil.errorWrongLogic(result, 'Fail to add dishes, table is using by POS', code=3001)
 
-			# test if table is closed
-			if table.table_status == 0:
-				return ResponseUtil.errorWrongLogic(result, 'Inactive table')
-
-			# test if table occupied by POS
-			if table.staff_id != 0 and table.staff_id is not None:
-				return ResponseUtil.errorWrongLogic(result, 'Fail to add dishes, table is using by POS', code=3001)
-
-			# test if given sales order Id is the one attached to table
-			salesorder = Salesorder.getSalesorderByTableCode(tableCode)
-			if salesorder.salesorder_id != int(salesorderId):
-				return ResponseUtil.errorWrongLogic(result, 'Given salesorderId is not matched to table record',
-													code=3002)
+		# test if given sales order Id is the one attached to table
+		salesorder = Salesorder.getSalesorderByTableCode(tableCode)
+		if salesorder.salesorder_id != int(salesorderId):
+			return ResponseUtil.errorWrongLogic(result, 'Given salesorderId is not matched to table record',
+												code=3002)
 
 		salesorderLines = json.loads(salesorderLines)
 
@@ -163,6 +162,66 @@ class salesorderLineService():
 		ResponseUtil.success(result)
 
 		return result
+
+	@staticmethod
+	def calculateSalesorderLine(context: dict) -> dict:
+		result = ServiceUtil.returnSuccess()
+
+		token = context.get('token')
+		salesorderLines = context.get('salesorderLines')
+
+
+		if token is None or salesorderLines is None:
+			return ResponseUtil.errorMissingParameter(result)
+
+		tokenValid, staffId = UtilValidate.tokenValidation(token)
+		if not tokenValid:
+			return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
+
+		salesorderLines = json.loads(salesorderLines)
+
+		total = 0
+
+		for line in salesorderLines:
+			if len(line) != 5:
+				return ResponseUtil.errorWrongLogic(result, 'Incorrect content', code=3003)
+
+			stockId = line["stockId"]
+			stock = Stock.getByStockId(stockId)
+			sizeLevel = line["sizeLevel"]
+			quantity = line["quantity"]
+			price = stock.sell
+			if sizeLevel == 0 or sizeLevel == 1:
+				price = stock.sell
+			if sizeLevel == 2:
+				price = stock.sell2
+			if sizeLevel == 3:
+				price = stock.sell3
+			if sizeLevel == 4:
+				price = stock.sell4
+
+			total = total + Stock.getPrice(stock, price) * quantity
+
+
+			for extra in line["extra"]:
+				stock = Stock.getByStockId(extra)
+				price = stock.sell
+
+				quantity = 1
+				total = total + Stock.getPrice(stock, price) * quantity
+
+			for taste in line["taste"]:
+				stock = Stock.getByStockId(taste)
+				price = stock.sell
+				quantity = 1
+				total = total + Stock.getPrice(stock, price) * quantity
+
+		ResponseUtil.success(result, {"salesorderTrialPrice": total})
+
+		return result
+
+
+
 
 
 	@staticmethod
