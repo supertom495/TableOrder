@@ -201,6 +201,11 @@ class Category(Base):
         res = cls.query.filter(cls.cat_code == catCode).first()
         return res
 
+    @classmethod
+    def getByCatName(cls, catName):
+        res = cls.query.filter(cls.cat_name == catName).first()
+        return res
+
 
 class Stock(Base):
     __tablename__ = 'Stock'

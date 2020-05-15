@@ -32,8 +32,7 @@ def getKeyboard():
 def getKeyboardCat():
     result = ServiceUtil.returnSuccess()
 
-    kbId = f
-    lask.request.args.get('kbId')
+    kbId = flask.request.args.get('kbId')
 
     keyboard = Keyboard.getById(kbId)
 
@@ -44,19 +43,18 @@ def getKeyboardCat():
 
     data = []
 
-    # kbCatIds = [i.cat_id for i in kbCatList]
-    # kbCatCodes = [i.cat_code for i in kbCatList]
-
     # fill category information
     for item in kbCatList:
         kbCat = {}
-        category = Category.getByCatCode(item.cat_code)
+        category = Category.getByCatName(item.cat_name)
+        kbCat["catName"] = item.cat_name
         if UtilValidate.isNotEmpty(category):
-            kbCat["catName"] = category.cat_name
             kbCat["catName2"] = category.cat_name2
-            kbCat["catId"] = item.cat_id
-            kbCat["inactive"] = category.inactive
-            data.append(kbCat)
+        else:
+            kbCat["catName2"] = ""
+        kbCat["catId"] = item.cat_id
+        kbCat["inactive"] = item.invisible
+        data.append(kbCat)
 
     ResponseUtil.success(result, data)
 

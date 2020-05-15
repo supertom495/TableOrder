@@ -4,7 +4,7 @@ from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import init_db, db_session, storeName, getPort
 from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site, Kitchen
 from router import blueprint
-from service import salesorderService, salesorderLineService
+from service import SalesorderService, SalesorderLineService
 import time
 
 app = flask.Flask(__name__)
@@ -44,11 +44,10 @@ def getStock():
     kbCat = KeyboardCat.getActivateKeyboardCat()
 
     if UtilValidate.isEmpty(kbCat):
-        return ResponseUtil.errorDataNotFound(result, "Please check if keyboard'kb_name2 is online or keyboard cat has cat code")
+        return ResponseUtil.errorDataNotFound(result, "Please check if keyboard'kb_name2 is online")
 
     kbId = kbCat[0].kb_id
     kbCatIds = [i.cat_id for i in kbCat]
-    kbCatCodes = [i.cat_code for i in kbCat]
 
     # find relate keyboard Item by kbCatId and kbId
     kbItems = KeyboardItem.getAvtiveKeyboardItem(tuple(kbCatIds), kbId)
@@ -57,12 +56,16 @@ def getStock():
 
     stockMap = {}
     # fill category information
-    for i in range(len(kbCatIds)):
-        stockMap[kbCatIds[i]] = {}
-        category = Category.getByCatCode(kbCatCodes[i])
-        stockMap[kbCatIds[i]]["catName"] = category.cat_name
-        stockMap[kbCatIds[i]]["catName2"] = category.cat_name2
-        stockMap[kbCatIds[i]]["stocks"] = []
+    for item in kbCat:
+        stockMap[item.cat_id] = {}
+        category = Category.getByCatName(item.cat_name)
+        stockMap[item.cat_id]["catName"] = item.cat_name
+        if UtilValidate.isNotEmpty(category):
+            stockMap[item.cat_id]["catName2"] = category.cat_name2
+        else:
+            stockMap[item.cat_id]["catName2"] = ""
+
+        stockMap[item.cat_id]["stocks"] = []
 
     taste = TasteStock.getAll()
     extra = ExtraStock.getAll()
@@ -182,7 +185,7 @@ def apiNewSalesorder():
     tableCode = flask.request.form.get('tableCode')
     guestNo = flask.request.form.get('guestNo')
 
-    result = salesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo})
+    result = SalesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo})
 
     return result
 
@@ -213,7 +216,7 @@ def apiNewPrepaidSalesorder():
 
 
     # if table code then dine in else takeaway
-    result = salesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo,
+    result = SalesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo,
                                               "isPaid":isPaid})
 
 
@@ -225,7 +228,7 @@ def apiNewPrepaidSalesorder():
 
     # if paid then go to kitchen else not
     salesorderId = result.get('data')['salesorderId']
-    result = salesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
+    result = SalesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
                                                         "salesorderId":salesorderId, "salesorderLines":salesorderLines,
                                                         "goToKitchen":isPaid})
 
@@ -262,7 +265,7 @@ def apiInsertSalesorderLine():
     app.logger.info(salesorderId)
     app.logger.info(salesorderLines)
 
-    result = salesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
+    result = SalesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
                                                      "salesorderId":salesorderId, "salesorderLines":salesorderLines,
                                                      "goToKitchen":True})
 
