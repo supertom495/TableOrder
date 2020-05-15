@@ -529,7 +529,7 @@ class SalesorderLine(Base):
                                    sell_ex = price,
                                    sell_inc = round(price * decimal.Decimal(1.1), 2),
                                    rrp = round(price * decimal.Decimal(1.1), 2),
-                                   print_ex = round(price * decimal.Decimal(1.1), 2),
+                                   print_ex = price,
                                    print_inc = round(price * decimal.Decimal(1.1), 2),
                                    quantity = quantity,
                                    parentline_id = parentlineId,
@@ -836,11 +836,11 @@ class DocketLine(Base):
                                            sell_ex=price,
                                            sell_inc=round(price * decimal.Decimal(1.1), 2),
                                            rrp=round(price * decimal.Decimal(1.1), 2),
-                                           print_ex=round(price * decimal.Decimal(1.1), 2),
+                                           print_ex=price,
                                            print_inc=round(price * decimal.Decimal(1.1), 2),
                                            quantity=quantity,
                                            serial_no = 0,
-                                           gp=round(price * decimal.Decimal(1.1), 2),
+                                           gp=price,
                                            size_level=sizeLevel)
 
         cls.query.session.add(newDocketLine)
