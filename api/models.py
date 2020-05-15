@@ -542,7 +542,6 @@ class SalesorderLine(Base):
         cls.query.session.commit()
         return salesorderLineId
 
-
     @classmethod
     def getBySalesorderId(cls, salesorderId):
         return cls.query.filter(cls.salesorder_id == salesorderId).order_by(cls.line_id.asc()).all()
@@ -708,3 +707,143 @@ class Customer(Base):
 
     opened = relationship('Staff', primaryjoin='Customer.opened_id == Staff.staff_id')
     owner = relationship('Staff', primaryjoin='Customer.owner_id == Staff.staff_id')
+
+
+class Payment(Base):
+    __tablename__ = 'Payments'
+
+    payment_id = Column(Integer, primary_key=True, server_default=text("(0)"))
+    docket_id = Column(ForeignKey('Docket.docket_id'), nullable=False, index=True, server_default=text("(0)"))
+    docket_date = Column(DateTime, nullable=False, index=True, server_default=text("('9/24/2003 1:47:12')"))
+    paymenttype = Column(Unicode(15), nullable=False, index=True)
+    amount = Column(MONEY, nullable=False, server_default=text("(0)"))
+    drawer = Column(Unicode(1), nullable=False, index=True)
+    eft_method = Column(SmallInteger, nullable=False, server_default=text("(0)"))
+
+    docket = relationship('Docket')
+
+
+    @classmethod
+    def insertPayment(cls, docketId, docketDate, paymentType, amount):
+
+        max =  cls.query.session.query(func.max(cls.payment_id).label("max_id")).one()
+        payment_id = 1 if max.max_id is None else max.max_id + 1
+
+        newPayment = Payment(payment_id = payment_id,
+                           docket_id = docketId,
+                           docket_date = docketDate,
+                           paymenttype = paymentType,
+                           amount = amount,
+                           drawer = 'O')
+
+        cls.query.session.add(newPayment)
+        cls.query.session.commit()
+
+        return payment_id
+
+
+
+class Docket(Base):
+    __tablename__ = 'Docket'
+
+    docket_id = Column(Integer, primary_key=True, server_default=text("(0)"))
+    docket_date = Column(DateTime, nullable=False, index=True, server_default=text("('9/24/2003 1:47:12')"))
+    staff_id = Column(ForeignKey('Staff.staff_id'), nullable=False, index=True, server_default=text("(0)"))
+    customer_id = Column(ForeignKey('Customer.customer_id'), nullable=False, index=True, server_default=text("(0)"))
+    transaction = Column(Unicode(2), nullable=False, index=True)
+    custom = Column(Unicode(40))
+    payment_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
+    original_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
+    origin = Column(Integer, nullable=False, server_default=text("(0)"))
+    drawer = Column(Unicode(1), nullable=False, index=True)
+    comments = Column(Unicode(255), nullable=False)
+    subtotal = Column(MONEY, nullable=False, server_default=text("(0)"))
+    discount = Column(MONEY, nullable=False, server_default=text("(0)"))
+    rounding = Column(MONEY, nullable=False, server_default=text("(0)"))
+    total_ex = Column(MONEY, nullable=False, server_default=text("(0)"))
+    total_inc = Column(MONEY, nullable=False, server_default=text("(0)"))
+    gp = Column(MONEY, nullable=False, server_default=text("(0)"))
+    commission = Column(MONEY, nullable=False, server_default=text("(0)"))
+    bonus = Column(MONEY, nullable=False, server_default=text("(0)"))
+    archive = Column(BIT, nullable=False, server_default=text("(0)"))
+    actual_id = Column(Integer)
+    guest_no = Column(SmallInteger)
+    points_earned = Column(Integer)
+    member_barcode = Column(Unicode(15))
+
+    customer = relationship('Customer')
+    staff = relationship('Staff')
+
+    @classmethod
+    def insertDocket(cls, time, staffId, tableCode, amount, guestNo):
+
+        max =  cls.query.session.query(func.max(cls.docket_id).label("max_id")).one()
+        docket_id = 1 if max.max_id is None else max.max_id + 1
+
+        newDocket = Docket(docket_id = docket_id,
+                           docket_date = time,
+                           staff_id = staffId,
+                           transaction = "SA",
+                           custom = tableCode,
+                           drawer = 'O',
+                           comments = '',
+                           subtotal = amount,
+                           total_ex = amount/1.1,
+                           total_inc = amount,
+                           gp = amount/1.1,
+                           actual_id = docket_id,
+                           guest_no = guestNo)
+
+        cls.query.session.add(newDocket)
+        cls.query.session.commit()
+
+        return docket_id
+
+class DocketLine(Base):
+    __tablename__ = 'DocketLine'
+
+    line_id = Column(Integer, primary_key=True, server_default=text("(0)"))
+    docket_id = Column(ForeignKey('Docket.docket_id'), nullable=False, index=True, server_default=text("(0)"))
+    stock_id = Column(ForeignKey('Stock.stock_id'), nullable=False, index=True, server_default=text("(0)"))
+    cost_ex = Column(MONEY, nullable=False, server_default=text("(0)"))
+    cost_inc = Column(MONEY, nullable=False, server_default=text("(0)"))
+    sales_tax = Column(Unicode(3), nullable=False)
+    sell_ex = Column(MONEY, nullable=False, server_default=text("(0)"))
+    sell_inc = Column(MONEY, nullable=False, server_default=text("(0)"))
+    rrp = Column(MONEY, nullable=False, server_default=text("(0)"))
+    print_ex = Column(MONEY, nullable=False, server_default=text("(0)"))
+    print_inc = Column(MONEY, nullable=False, server_default=text("(0)"))
+    quantity = Column(Float(53), nullable=False, server_default=text("(0)"))
+    customer_id = Column(ForeignKey('Customer.customer_id'), nullable=False, index=True, server_default=text("(0)"))
+    serial_no = Column(Unicode(40), nullable=False)
+    package_id = Column(Float(53), nullable=False, index=True, server_default=text("(0)"))
+    gp = Column(MONEY, nullable=False, server_default=text("(0)"))
+    size_level = Column(SmallInteger)
+
+    customer = relationship('Customer')
+    docket = relationship('Docket')
+    stock = relationship('Stock')
+
+    @classmethod
+    def insertDocketLine(cls, docketId, stockId, sizeLevel, price, quantity):
+        max =  cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
+        lineId = 1 if max.max_id is None else max.max_id + 1
+
+        newDocketLine = DocketLine(line_id = lineId,
+                                           docket_id = docketId,
+                                           stock_id = stockId,
+                                           sales_tax='GST',
+                                           sell_ex=price,
+                                           sell_inc=round(price * decimal.Decimal(1.1), 2),
+                                           rrp=round(price * decimal.Decimal(1.1), 2),
+                                           print_ex=round(price * decimal.Decimal(1.1), 2),
+                                           print_inc=round(price * decimal.Decimal(1.1), 2),
+                                           quantity=quantity,
+                                           serial_no = 0,
+                                           gp=round(price * decimal.Decimal(1.1), 2),
+                                           size_level=sizeLevel)
+
+        cls.query.session.add(newDocketLine)
+        cls.query.session.commit()
+
+        return lineId

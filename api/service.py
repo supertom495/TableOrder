@@ -1,10 +1,10 @@
 from utils import ResponseUtil, ServiceUtil, UtilValidate
 from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, \
-	Salesorder, SalesorderLine, Site, StockPrint, CatPrint, KeyboardPrint, Kitchen
+	Salesorder, SalesorderLine, Site, StockPrint, CatPrint, KeyboardPrint, Kitchen, Docket, DocketLine, Payment
 import json
 
 
-class salesorderService():
+class SalesorderService():
 
 	@staticmethod
 	def newSalesorder(context: dict) -> dict:
@@ -59,7 +59,7 @@ class salesorderService():
 		return result
 
 
-class salesorderLineService():
+class SalesorderLineService():
 
 	@staticmethod
 	def insertSalesorderLine(context: dict) -> dict:
@@ -78,19 +78,6 @@ class salesorderLineService():
 		if not tokenValid:
 			return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
 
-		# if tableCode:
-		# 	table = Tables.getTableByTableCode(tableCode)
-		# 	# test if table exists
-		# 	if UtilValidate.isEmpty(table):
-		# 		return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
-		#
-		# 	# test if table is closed
-		# 	if table.table_status == 0:
-		# 		return ResponseUtil.errorWrongLogic(result, 'Inactive table')
-		#
-		# 	# test if table occupied by POS
-		# 	if table.staff_id != 0 and table.staff_id is not None:
-		# 		return ResponseUtil.errorWrongLogic(result, 'Fail to add dishes, table is using by POS', code=3001)
 
 		# test if given sales order Id is the one attached to table
 		salesorder = Salesorder.getSalesorderByTableCode(tableCode)
@@ -153,8 +140,8 @@ class salesorderLineService():
 
 			# TODO TEST
 			if goToKitchen:
-				printers = salesorderLineService.findPrinter(stockId)
-				salesorderLineService.insertKitchen(printers, originalSalesorderLineId, comments, tableCode)
+				printers = SalesorderLineService.findPrinter(stockId)
+				SalesorderLineService.insertKitchen(printers, originalSalesorderLineId, comments, tableCode)
 
 
 		Salesorder.updatePrice(salesorderId)
@@ -298,4 +285,59 @@ class salesorderLineService():
 								  quantity, printerName, orderTime, comments, stockType, cat2, salesorderId)
 
 
+class DocketService():
 
+	@staticmethod
+	def newDocket(context: dict) -> dict:
+		result = ServiceUtil.returnSuccess()
+
+		token = context.get('token')
+		tableCode = context.get('tableCode')
+		subtotal = context.get('subtotal')
+		guestNo = context.get('guestNo')
+
+		if token is None:
+			return ResponseUtil.errorMissingParameter(result)
+
+		# verifying token
+		tokenValid, staffId = UtilValidate.tokenValidation(token)
+		if not tokenValid:
+			return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
+
+
+
+		docketId = Docket.insertDocket(UtilValidate.tsToTime(UtilValidate.getCurrentTs()), staffId, tableCode, subtotal, guestNo)
+
+		ResponseUtil.success(result, {"docketId": docketId})
+
+		return result
+
+
+class DocketLineService():
+
+	@staticmethod
+	def insertDocketLine(context: dict) -> dict:
+		result = ServiceUtil.returnSuccess()
+
+		docketId = context.get('docketId')
+		salesorderId = context.get('salesorderId')
+
+		lines = SalesorderLine.getBySalesorderId(salesorderId)
+		for line in lines:
+			DocketLine.insertDocketLine(docketId, line.stock_id, line.size_level, line.sell_ex, line.quantity)
+
+
+		return result
+
+class PaymentService():
+
+	@staticmethod
+	def insertPayment(context: dict) -> dict:
+		result = ServiceUtil.returnSuccess()
+		docketId = context.get('docketId')
+		paymentDetail = context.get('paymentDetail')
+
+		for payment in paymentDetail:
+			Payment.insertPayment(docketId, UtilValidate.tsToTime(UtilValidate.getCurrentTs()), payment["paymentType"], float(payment["amount"]))
+
+		return result
