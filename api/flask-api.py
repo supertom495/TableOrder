@@ -96,8 +96,8 @@ def getStock():
         displayStock["show_taste"] = stock.show_taste
         displayStock["barcode"] = stock.barcode
         displayStock["btnBackColor"] = kbItem.btn_backcolor
-        displayStock["description"] = stock.description
-        displayStock["description2"] = stock.description2
+        displayStock["description"] = stock.description3
+        displayStock["description2"] = stock.description4
         displayStock["longdesc"] = stock.longdesc
         displayStock["taste"] = []
         displayStock["extra"] = []

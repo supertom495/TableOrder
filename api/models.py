@@ -111,7 +111,6 @@ class KeyboardCat(Base):
     pic_align = Column(SmallInteger)
     text_align = Column(SmallInteger)
     invisible = Column(BIT)
-    cat_code = Column(Unicode(15))
 
     @classmethod
     def getActivateKeyboardCat(cls):
@@ -171,8 +170,6 @@ class KeyboardItem(Base):
             query = query.filter(cls.kb_id == kbId)
         if catId:
             query = query.filter(cls.cat_id == catId)
-
-
 
         pagination = paginate(query, page, pageSize)
 

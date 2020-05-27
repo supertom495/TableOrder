@@ -21,6 +21,7 @@ def getKeyboard():
         keyboard["kbId"] = item.kb_id
         keyboard["kbName"] = item.kb_name
         keyboard["kbName2"] = item.kb_name2
+        keyboard["online"] = 1 if item.kb_name2 == 'online' else 0
 
         data.append(keyboard)
 
@@ -103,13 +104,15 @@ def getKeyboardItem():
 
             displayStock = {}
             displayStock["stockId"] = int(stock.stock_id)
+            displayStock["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format(storeName, kbItem.item_barcode)
             displayStock["inactive"] = stock.inactive
             displayStock["show_extra"] = stock.show_extra
             displayStock["show_taste"] = stock.show_taste
             displayStock["barcode"] = stock.barcode
+            displayStock["catId"] = kbItem.cat_id
             displayStock["btnBackColor"] = kbItem.btn_backcolor
-            displayStock["description"] = stock.description
-            displayStock["description2"] = stock.description2
+            displayStock["description"] = stock.description3
+            displayStock["description2"] = stock.description4
             displayStock["longdesc"] = stock.longdesc
             displayStock["taste"] = []
             displayStock["extra"] = []
@@ -166,7 +169,6 @@ def getKeyboardItem():
             data["content"]["stock"] = stockList
             data["content"]["extra"] = [v for v in cachedExtra.values()]
             data["content"]["taste"] = [v for v in cachedTaste.values()]
-            data["content"]["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
 
     ResponseUtil.success(result, data)
 
