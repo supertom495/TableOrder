@@ -1,6 +1,5 @@
 Login: sa
 Password: 1689
-ServerName: 127.0.0.1
+ServerName: 192.168.1.187
 DBName: Monster
 StoreName: bbqhot
-Version: 1.09

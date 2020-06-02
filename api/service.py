@@ -221,11 +221,10 @@ class SalesorderLineService():
 
 		# get keyboard Cat
 		keyboardCat = KeyboardCat.getByCatIdAndKbId(kbCatId, kbId)
-		catCode = keyboardCat.cat_code
+		catName = keyboardCat.cat_name
 
 		#get cat code from keyboard cat and find it from category's cat id TODO
-		catId = Category.getByCatCode(catCode).cat_id
-
+		catId = Category.Category.getByCatName(catName).cat_id
 
 		# try stock print
 		printer = StockPrint.getPrinter(stockId)
