@@ -155,7 +155,7 @@ class KeyboardItem(Base):
 
     @classmethod
     def getAvtiveKeyboardItem(cls, kbCatIds, kbId):
-        res = cls.query.filter(cls.cat_id.in_(kbCatIds), cls.kb_id == kbId).all()
+        res = cls.query.filter(cls.cat_id.in_(kbCatIds), cls.kb_id == kbId).order_by(cls.item_barcode.desc()).all()
         return res
 
     @classmethod
