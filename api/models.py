@@ -287,9 +287,9 @@ class Stock(Base):
     @staticmethod
     def getPrice(stock, price):
         if stock.goods_tax == 'GST':
-            return float(round(price*decimal.Decimal(1.1), 2))
+            return float(round(price*decimal.Decimal(1.1), 1))
         else:
-            return float(round(price, 2))
+            return float(round(price, 1))
 
 
 class TasteStock(Base):
@@ -524,10 +524,10 @@ class SalesorderLine(Base):
                                    stock_id = stockId,
                                    sales_tax = 'GST',
                                    sell_ex = price,
-                                   sell_inc = round(price * decimal.Decimal(1.1), 2),
-                                   rrp = round(price * decimal.Decimal(1.1), 2),
+                                   sell_inc = round(price * decimal.Decimal(1.1), 1),
+                                   rrp = round(price * decimal.Decimal(1.1), 1),
                                    print_ex = price,
-                                   print_inc = round(price * decimal.Decimal(1.1), 2),
+                                   print_inc = round(price * decimal.Decimal(1.1), 1),
                                    quantity = quantity,
                                    parentline_id = parentlineId,
                                    status = status,
@@ -831,10 +831,10 @@ class DocketLine(Base):
                                            stock_id = stockId,
                                            sales_tax='GST',
                                            sell_ex=price,
-                                           sell_inc=round(price * decimal.Decimal(1.1), 2),
-                                           rrp=round(price * decimal.Decimal(1.1), 2),
+                                           sell_inc=round(price * decimal.Decimal(1.1), 1),
+                                           rrp=round(price * decimal.Decimal(1.1), 1),
                                            print_ex=price,
-                                           print_inc=round(price * decimal.Decimal(1.1), 2),
+                                           print_inc=round(price * decimal.Decimal(1.1), 1),
                                            quantity=quantity,
                                            serial_no = 0,
                                            gp=price,
