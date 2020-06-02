@@ -121,7 +121,6 @@ class SalesorderLineService():
 				parentlineId = 2
 				sizeLevel = 0
 				price = Stock.getByStockId(extra).sell
-				quantity = 1
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
@@ -130,7 +129,6 @@ class SalesorderLineService():
 				parentlineId = 1
 				sizeLevel = 0
 				price = Stock.getByStockId(taste).sell
-				quantity = 1
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
