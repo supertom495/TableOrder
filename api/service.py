@@ -70,6 +70,7 @@ class SalesorderLineService():
 		salesorderId = context.get('salesorderId')
 		salesorderLines = context.get('salesorderLines')
 		goToKitchen = context.get('goToKitchen')
+		freeId = context.get('freeId')
 
 		if token is None or salesorderId is None or salesorderLines is None:
 			return ResponseUtil.errorMissingParameter(result)
@@ -96,6 +97,12 @@ class SalesorderLineService():
 			if len(line) != 6:
 				return ResponseUtil.errorWrongLogic(result, 'Incorrect content', code=3003)
 
+			# check the free cup for kiosk
+			if UtilValidate.isNotEmpty(freeId):
+				try: float(freeId)
+				except:
+					pass
+
 			stockId = line["stockId"]
 			stock = Stock.getByStockId(stockId)
 			sizeLevel = line["sizeLevel"]
@@ -121,7 +128,6 @@ class SalesorderLineService():
 				parentlineId = 2
 				sizeLevel = 0
 				price = Stock.getByStockId(extra).sell
-				quantity = 1
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
@@ -130,7 +136,6 @@ class SalesorderLineService():
 				parentlineId = 1
 				sizeLevel = 0
 				price = Stock.getByStockId(taste).sell
-				quantity = 1
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)

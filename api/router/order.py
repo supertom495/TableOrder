@@ -26,6 +26,7 @@ def apiNewPrepaidSalesorder():
     isPaid = flask.request.form.get('isPaid')
     gotoKitchen = flask.request.form.get('gotoKitchen')
     paymentDetail = flask.request.form.get('paymentDetail')
+    freeId = flask.request.form.get('freeId')
 
     result = ServiceUtil.returnSuccess()
 
@@ -66,7 +67,7 @@ def apiNewPrepaidSalesorder():
     salesorderId = result.get('data')['salesorderId']
     result = SalesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
                                                         "salesorderId":salesorderId, "salesorderLines":salesorderLines,
-                                                        "goToKitchen":gotoKitchen})
+                                                        "goToKitchen":gotoKitchen, "freeId": freeId})
     if result['code'] != '0':
         return result
 
