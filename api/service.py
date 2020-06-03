@@ -81,34 +81,28 @@ class SalesorderLineService():
 
 		# test if given sales order Id is the one attached to table
 		salesorder = Salesorder.getSalesorderByTableCode(tableCode)
+		if UtilValidate.isEmpty(salesorder):
+			return ResponseUtil.errorDataNotFound(result, "No such table/order")
+
 		if salesorder.salesorder_id != int(salesorderId):
 			return ResponseUtil.errorWrongLogic(result, 'Given salesorderId is not matched to table record',
 												code=3002)
 
 		salesorderLines = json.loads(salesorderLines)
-
 		if goToKitchen:
 			status = 1
 		else:
 			status = 0
 
 		for line in salesorderLines:
-			if len(line) != 6:
+			if len(line) != 7:
 				return ResponseUtil.errorWrongLogic(result, 'Incorrect content', code=3003)
 
 			stockId = line["stockId"]
 			stock = Stock.getByStockId(stockId)
 			sizeLevel = line["sizeLevel"]
 			quantity = line["quantity"]
-			price = stock.sell
-			if sizeLevel == 0 or sizeLevel == 1:
-				price = stock.sell
-			if sizeLevel == 2:
-				price = stock.sell2
-			if sizeLevel == 3:
-				price = stock.sell3
-			if sizeLevel == 4:
-				price = stock.sell4
+			price = line["price"]
 
 			parentlineId = 0
 			originalSalesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, stockId, sizeLevel, price,
@@ -120,16 +114,20 @@ class SalesorderLineService():
 			for extra in line["extra"]:
 				parentlineId = 2
 				sizeLevel = 0
-				price = Stock.getByStockId(extra).sell
-				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extra, sizeLevel, price, quantity,
+				quantity = extra["quantity"]
+				price = extra["price"]
+				extraId = extra["stockId"]
+				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extraId, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
 
 			for taste in line["taste"]:
 				parentlineId = 1
 				sizeLevel = 0
-				price = Stock.getByStockId(taste).sell
-				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, taste, sizeLevel, price, quantity,
+				quantity = taste["quantity"]
+				price = taste["price"]
+				extraId = taste["stockId"]
+				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extraId, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
 
@@ -321,8 +319,7 @@ class DocketLineService():
 
 		lines = SalesorderLine.getBySalesorderId(salesorderId)
 		for line in lines:
-			DocketLine.insertDocketLine(docketId, line.stock_id, line.size_level, line.sell_ex, line.quantity)
-
+			DocketLine.insertDocketLine(docketId, line.stock_id, line.size_level, float(line.sell_inc), line.quantity)
 
 		return result
 
