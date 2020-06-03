@@ -1,33 +1,43 @@
 import flask
 from flask_cors import *
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from database import init_db, db_session, storeName, getPort
-from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, SalesorderLine, Site, Kitchen
+from database import init_db, db_session, storeName, getPort, debug
+from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, \
+    SalesorderLine, Site, Kitchen
 from router import blueprint
 from service import SalesorderService, SalesorderLineService
 import time
-
+import traceback
 app = flask.Flask(__name__)
 for item in blueprint: app.register_blueprint(item)
 CORS(app, supports_credentials=True, resource=r'/*')
-app.config["DEBUG"] = True
 
 
 @app.teardown_request
 def shutdown_session(exception=None):
     db_session.remove()
 
+
 @app.before_request
 def logTime():
-    app.logger.info("START: "+ str(time.time()))
+    app.logger.info("START: " + str(time.time()))
 
 
 @app.after_request
 def commit_session(response):
     db_session.commit()
     app.logger.info('RESPONSE - %s', response.data)
-    app.logger.info("END  : "+ str(time.time()))
+    app.logger.info("END  : " + str(time.time()))
     return response
+
+
+@app.errorhandler(Exception)
+def errorHandler(e):
+    if app.config['DEBUG']:
+        raise e
+    else:
+        app.logger.error(str(e) + "\n\n" + traceback.format_exc())
+        return str(e) + "\n\n" + traceback.format_exc(), 500
 
 
 @app.route('/', methods=['GET'])
@@ -37,7 +47,6 @@ def home():
 
 @app.route('/stock', methods=['GET'])
 def getStock():
-
     result = ServiceUtil.returnSuccess()
 
     # find activate keyboard categories
@@ -160,7 +169,6 @@ def getStock():
     return result
 
 
-
 @app.route('/stafftoken', methods=['PUT'])
 def getStaffToken():
     result = ServiceUtil.returnSuccess()
@@ -170,7 +178,7 @@ def getStaffToken():
     if staff == None:
         return ResponseUtil.errorDataNotFound(result, "no such a staff")
 
-    toBeEncrypted = barcode+str(int(time.time())+3600)
+    toBeEncrypted = barcode + str(int(time.time()) + 3600)
     app.logger.info('Before encryption:%s', toBeEncrypted)
 
     cipherText = UtilValidate.encryption(toBeEncrypted).decode('UTF-8')
@@ -180,19 +188,17 @@ def getStaffToken():
 
 @app.route('/salesorder', methods=['POST'])
 def apiNewSalesorder():
-
     token = flask.request.form.get('token')
     tableCode = flask.request.form.get('tableCode')
     guestNo = flask.request.form.get('guestNo')
 
-    result = SalesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo})
+    result = SalesorderService.newSalesorder({"token": token, "tableCode": tableCode, "guestNo": guestNo})
 
     return result
 
 
 @app.route('/salesorder-prepay', methods=['POST'])
 def apiNewPrepaidSalesorder():
-
     token = flask.request.form.get('token')
     tableCode = flask.request.form.get('tableCode')
     guestNo = flask.request.form.get('guestNo') or 0
@@ -208,31 +214,23 @@ def apiNewPrepaidSalesorder():
     else:
         isPaid = False
 
-    app.logger.info(token)
-    app.logger.info(tableCode)
-    app.logger.info(guestNo)
-    app.logger.info(salesorderLines)
-    app.logger.info(isPaid)
-
-
     # if table code then dine in else takeaway
-    result = SalesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo,
-                                              "isPaid":isPaid})
-
+    result = SalesorderService.newSalesorder({"token": token, "tableCode": tableCode, "guestNo": guestNo,
+                                              "isPaid": isPaid})
 
     if result['code'] != '0':
         return result
 
     tableCode = result.get("data").get("tableCode")
 
-
     # if paid then go to kitchen else not
     salesorderId = result.get('data')['salesorderId']
-    result = SalesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
-                                                        "salesorderId":salesorderId, "salesorderLines":salesorderLines,
-                                                        "goToKitchen":isPaid})
+    result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
+                                                         "salesorderId": salesorderId,
+                                                         "salesorderLines": salesorderLines,
+                                                         "goToKitchen": isPaid})
 
-    ResponseUtil.success(result, {"salesorderId": salesorderId, "tableCode":tableCode})
+    ResponseUtil.success(result, {"salesorderId": salesorderId, "tableCode": tableCode})
 
     return result
 
@@ -254,29 +252,26 @@ def resetTable():
 
 @app.route('/salesorderline', methods=['POST'])
 def apiInsertSalesorderLine():
-
     token = flask.request.form.get('token')
     tableCode = flask.request.form.get('tableCode')
     salesorderId = flask.request.form.get('salesorderId')
     salesorderLines = flask.request.form.get('salesorderLines')
 
-    app.logger.info(token)
-    app.logger.info(tableCode)
-    app.logger.info(salesorderId)
-    app.logger.info(salesorderLines)
 
-    result = SalesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
-                                                     "salesorderId":salesorderId, "salesorderLines":salesorderLines,
-                                                     "goToKitchen":True})
+    result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
+                                                         "salesorderId": salesorderId,
+                                                         "salesorderLines": salesorderLines,
+                                                         "goToKitchen": True})
 
     return result
+
 
 @app.route('/salesorder', methods=['GET'])
 def getSalesorder():
     result = ServiceUtil.returnSuccess()
     tableCode = flask.request.args.get('tableCode')
     if tableCode is None:
-        return  ResponseUtil.errorMissingParameter(result)
+        return ResponseUtil.errorMissingParameter(result)
     table = Tables.getTableByTableCode(tableCode)
 
     # test if table exists
@@ -311,12 +306,12 @@ def getSalesorder():
         stock = Stock.getByStockId(line.stock_id)
         quantity = line.quantity
         newItem = fullfillStockMap(stock, quantity)
-        newItem["price"] = float(round(line.print_inc,2))
+        newItem["price"] = float(round(line.print_inc, 2))
 
         if line.parentline_id == 0:
             newItem["timeOrdered"] = line.time_ordered
             kitchenLine = Kitchen.getByLineId(line.line_id)
-            newItem["comments"] = kitchenLine.comments if kitchenLine  else ""
+            newItem["comments"] = kitchenLine.comments if kitchenLine else ""
             newItem["option"] = []
             newItem["other"] = []
             if line.size_level == 0: newItem["custom"] = ""
@@ -327,13 +322,12 @@ def getSalesorder():
 
             data["salesorderLines"][line.line_id] = newItem
         else:
-            if line.parentline_id  == 1 or line.parentline_id == 2:
+            if line.parentline_id == 1 or line.parentline_id == 2:
                 data["salesorderLines"][line.orderline_id]["option"].append(newItem)
             else:
                 data["salesorderLines"][line.orderline_id]["other"].append(newItem)
 
     data["salesorderLines"] = [v for v in data["salesorderLines"].values()]
-
 
     ResponseUtil.success(result, data)
 
@@ -366,7 +360,7 @@ def getSalesorderById():
         stock = Stock.getByStockId(line.stock_id)
         quantity = line.quantity
         newItem = fullfillStockMap(stock, quantity)
-        newItem["price"] = float(round(line.print_inc,2))
+        newItem["price"] = float(round(line.print_inc, 2))
 
         if line.parentline_id == 0:
             newItem["timeOrdered"] = line.time_ordered
@@ -381,13 +375,12 @@ def getSalesorderById():
 
             data["salesorderLines"][line.line_id] = newItem
         else:
-            if line.parentline_id  == 1 or line.parentline_id == 2:
+            if line.parentline_id == 1 or line.parentline_id == 2:
                 data["salesorderLines"][line.orderline_id]["option"].append(newItem)
             else:
                 data["salesorderLines"][line.orderline_id]["other"].append(newItem)
 
     data["salesorderLines"] = [v for v in data["salesorderLines"].values()]
-
 
     ResponseUtil.success(result, data)
 
@@ -434,6 +427,10 @@ def getTable():
     return result
 
 
+@app.route('/favicon.ico')
+def favicon():
+    return ""
+
 @app.route('/table', methods=['PUT'])
 def swapTable():
     result = ServiceUtil.returnSuccess()
@@ -442,15 +439,12 @@ def swapTable():
     toTableCode = flask.request.form.get('toTableCode')
     token = flask.request.form.get('token')
 
-
     if token is None or toTableCode is None or toTableCode is None:
         return ResponseUtil.errorMissingParameter(result)
-
 
     tokenValid, staffId = UtilValidate.tokenValidation(token)
     if not tokenValid:
         return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
-
 
     fromTable = Tables.getTableByTableCode(fromTableCode)
     toTable = Tables.getTableByTableCode(toTableCode)
@@ -459,17 +453,15 @@ def swapTable():
     if UtilValidate.isEmpty(fromTable) or UtilValidate.isEmpty(toTable):
         return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
 
-
     # test if table occupied by POS
-    if fromTable.staff_id != 0 and fromTable.staff_id is not None\
+    if fromTable.staff_id != 0 and fromTable.staff_id is not None \
             and toTable.staff_id != 0 and toTable.staff_id is not None:
         return ResponseUtil.errorWrongLogic(result, 'Table is using by POS')
 
-
     # only approve the table have people to table without people
     if fromTable.table_status == 0 or toTable.table_status != 0:
-        return ResponseUtil.errorWrongLogic(result, 'Not allowed, only approve the occupied table to vacant table', code=3001)
-
+        return ResponseUtil.errorWrongLogic(result, 'Not allowed, only approve the occupied table to vacant table',
+                                            code=3001)
 
     fromSalesorder = Salesorder.getSalesorderByTableCode(fromTable.table_code)
     if UtilValidate.isEmpty(fromSalesorder) or fromSalesorder.status == 11:
@@ -477,7 +469,7 @@ def swapTable():
 
     # swap the table contents
     tempTableStatus = fromTable.table_status
-    tempTableStartTime =  fromTable.start_time
+    tempTableStartTime = fromTable.start_time
     fromTable.table_status = toTable.table_status
     fromTable.start_time = toTable.start_time
     toTable.table_status = tempTableStatus
@@ -489,7 +481,7 @@ def swapTable():
     return result
 
 
-def fullfillStockMap(stock:Stock, quantity:int) -> dict:
+def fullfillStockMap(stock: Stock, quantity: int) -> dict:
     stockMap = {}
     stockMap["barcode"] = stock.barcode
     stockMap["description"] = stock.description
@@ -503,6 +495,15 @@ def fullfillStockMap(stock:Stock, quantity:int) -> dict:
 
 if __name__ == '__main__':
     init_db()
-    app.debug = True
+    app.debug = debug
     port = getPort()
+
+    import logging, logging.config, yaml
+    logging.config.dictConfig(yaml.load(open('./setting/logging.yaml'), Loader=yaml.FullLoader))
+
+    logfile = logging.getLogger('file')
+    logconsole = logging.getLogger('console')
+    logfile.debug("Debug FILE")
+    logconsole.debug("Debug CONSOLE")
+
     app.run(host='0.0.0.0', port=port)
