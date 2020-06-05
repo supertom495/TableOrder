@@ -94,6 +94,8 @@ class SalesorderLineService():
 		else:
 			status = 0
 
+		purchaseQuantity = 1
+
 		for line in salesorderLines:
 			if len(line) != 7:
 				return ResponseUtil.errorWrongLogic(result, 'Incorrect content', code=3003)
@@ -102,6 +104,7 @@ class SalesorderLineService():
 			stock = Stock.getByStockId(stockId)
 			sizeLevel = line["sizeLevel"]
 			quantity = line["quantity"]
+			purchaseQuantity = int(quantity)
 			price = line["price"]
 
 			parentlineId = 0
@@ -114,7 +117,7 @@ class SalesorderLineService():
 			for extra in line["extra"]:
 				parentlineId = 2
 				sizeLevel = 0
-				quantity = extra["quantity"]
+				quantity = extra["quantity"] * purchaseQuantity
 				price = extra["price"]
 				extraId = extra["stockId"]
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extraId, sizeLevel, price, quantity,
@@ -124,7 +127,7 @@ class SalesorderLineService():
 			for taste in line["taste"]:
 				parentlineId = 1
 				sizeLevel = 0
-				quantity = taste["quantity"]
+				quantity = taste["quantity"] * purchaseQuantity
 				price = taste["price"]
 				extraId = taste["stockId"]
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extraId, sizeLevel, price, quantity,
