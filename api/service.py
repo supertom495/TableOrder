@@ -266,6 +266,22 @@ class SalesorderLineService():
 				cat1 = stock.cat1
 				description = stock.description
 				description2 = stock.description2
+				if salesorderLine.size_level == 1:
+					description = stock.custom1 + " " + description
+					description2 = stock.custom1 + " " +  description2
+
+				if salesorderLine.size_level == 2:
+					description = stock.custom2 + " " +  description
+					description2 = stock.custom2 + " " +  description2
+
+				if salesorderLine.size_level == 3:
+					description = stock.custom3 + " " +  description
+					description2 = stock.custom3 + " " +  description2
+
+				if salesorderLine.size_level == 4:
+					description = stock.custom4 + " " +  description
+					description2 = stock.custom4 + " " +  description2
+
 				quantity = salesorderLine.quantity
 				orderTime = salesorderLine.time_ordered
 				cat2 = stock.cat2

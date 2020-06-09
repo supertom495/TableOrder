@@ -101,8 +101,8 @@ def getStock():
         displayStock = {}
         displayStock["stockId"] = int(stock.stock_id)
         displayStock["inactive"] = stock.inactive
-        displayStock["show_extra"] = stock.show_extra
-        displayStock["show_taste"] = stock.show_taste
+        displayStock["show_extra"] = True
+        displayStock["show_taste"] = True
         displayStock["barcode"] = stock.barcode
         displayStock["btnBackColor"] = kbItem.btn_backcolor
         displayStock["description"] = stock.description3

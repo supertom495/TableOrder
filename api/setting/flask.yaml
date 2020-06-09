@@ -1,6 +1,6 @@
 Login: sa
 Password: 1689
 ServerName: 192.168.1.4
-DBName: GONGCHA
+DBName: Monster
 StoreName: bbqhot
 Debug: True
