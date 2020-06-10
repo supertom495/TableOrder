@@ -101,8 +101,8 @@ def getStock():
         displayStock = {}
         displayStock["stockId"] = int(stock.stock_id)
         displayStock["inactive"] = stock.inactive
-        displayStock["show_extra"] = True
-        displayStock["show_taste"] = True
+        displayStock["show_extra"] = stock.show_extra
+        displayStock["show_taste"] = stock.show_taste
         displayStock["barcode"] = stock.barcode
         displayStock["btnBackColor"] = kbItem.btn_backcolor
         displayStock["description"] = stock.description3
@@ -296,7 +296,7 @@ def getSalesorder():
     data["salesorderId"] = salesorder.salesorder_id
     data["startTime"] = salesorder.salesorder_date
     data["guestNo"] = salesorder.guest_no
-    data["imageUrl"] = "https://pos-static.redpayments.com.au/bbqhot/img/"
+    data["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
     data["total"] = float(salesorder.total_inc)
     data["salesorderLines"] = {}
 
@@ -350,7 +350,7 @@ def getSalesorderById():
     data["salesorderId"] = salesorder.salesorder_id
     data["startTime"] = salesorder.salesorder_date
     data["guestNo"] = salesorder.guest_no
-    data["imageUrl"] = "https://pos-static.redpayments.com.au/bbqhot/img/"
+    data["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
     data["total"] = float(salesorder.total_inc)
     data["salesorderLines"] = {}
 

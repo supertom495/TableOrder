@@ -169,7 +169,7 @@ class SalesorderLineService():
 		total = 0
 
 		for line in salesorderLines:
-			if len(line) != 5:
+			if len(line) != 7:
 				return ResponseUtil.errorWrongLogic(result, 'Incorrect content', code=3003)
 
 			stockId = line["stockId"]
@@ -190,16 +190,16 @@ class SalesorderLineService():
 
 
 			for extra in line["extra"]:
-				stock = Stock.getByStockId(extra)
+				stock = Stock.getByStockId(extra["stockId"])
 				price = stock.sell
 
-				quantity = 1
+				quantity = extra["quantity"]
 				total = total + Stock.getPrice(stock, price) * quantity
 
 			for taste in line["taste"]:
-				stock = Stock.getByStockId(taste)
+				stock = Stock.getByStockId(taste["stockId"])
 				price = stock.sell
-				quantity = 1
+				quantity = taste["quantity"]
 				total = total + Stock.getPrice(stock, price) * quantity
 
 		ResponseUtil.success(result, {"salesorderTrialPrice": total})
