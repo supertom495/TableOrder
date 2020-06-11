@@ -78,6 +78,9 @@ class SalesorderLineService():
 		if not tokenValid:
 			return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
 
+		if UtilValidate.isEmpty(salesorderId):
+			return ResponseUtil.errorMissingParameter(result, 'salesorderId')
+
 
 		# test if given sales order Id is the one attached to table
 		salesorder = Salesorder.getSalesorderByTableCode(tableCode)
@@ -139,8 +142,15 @@ class SalesorderLineService():
 
 			# TODO TEST
 			if goToKitchen:
-				printers = SalesorderLineService.findPrinter(stockId)
-				SalesorderLineService.insertKitchen(printers, originalSalesorderLineId, comments, tableCode)
+				try:
+					printers = SalesorderLineService.findPrinter(stockId)
+				except Exception as inst:
+					return ResponseUtil.errorDataNotFound(result, inst.args[0])
+
+				today = UtilValidate.tsToToday(UtilValidate.getCurrentTs())
+				firstOrder = Salesorder.getFirstOrderToday(today)
+				unit = int(salesorderId) - firstOrder.salesorder_id + 1
+				SalesorderLineService.insertKitchen(printers, originalSalesorderLineId, comments, tableCode, unit)
 
 
 		Salesorder.updatePrice(salesorderId)
@@ -245,12 +255,11 @@ class SalesorderLineService():
 
 		if printer: return printer
 
-		# TODO FIX THIS FORCE CRASH
 		raise Exception('Stock的printer没有正确配置. Stock id = {}'.format(stockId))
 
 
 	@staticmethod
-	def insertKitchen(printers, originalSalesorderLineId, comments, tableCode):
+	def insertKitchen(printers, originalSalesorderLineId, comments, tableCode, unit):
 		# salesorderLine is the original food
 		# salesorderLines including the extra and taste, but all them need to go to kitchen
 
@@ -299,7 +308,7 @@ class SalesorderLineService():
 					printerName = "+" + printerName
 
 				lineId = Kitchen.insertKitchen(lineId, orderlineId, tableCode, staffName, cat1, description, description2,
-								  quantity, printerName, orderTime, comments, stockType, cat2, salesorderId)
+											   unit, quantity, printerName, orderTime, comments, stockType, cat2, salesorderId)
 
 
 class DocketService():
