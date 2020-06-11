@@ -626,7 +626,7 @@ class CatPrint(Base):
     __tablename__ = 'CatPrint'
     Cat_id = Column(Integer, nullable=False, primary_key=True)
     site_id = Column(Integer, nullable=False)
-    printer = Column(Unicode(60), nullable=False)
+    printer = Column(Unicode(60), nullable=False, primary_key=True)
     printer2 = Column(Unicode(60), nullable=False)
     delivery_docket = Column(BIT)
 
