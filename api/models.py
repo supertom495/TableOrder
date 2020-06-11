@@ -115,7 +115,7 @@ class KeyboardCat(Base):
     @classmethod
     def getActivateKeyboardCat(cls):
         try:
-            res = cls.query.join(Keyboard, Keyboard.kb_id == cls.kb_id).filter(Keyboard.kb_name2 == 'online').all()
+            res = cls.query.join(Keyboard, Keyboard.kb_id == cls.kb_id).filter(Keyboard.kb_name2 == 'online').order_by(cls.cat_id.asc()).all()
             return res
         except ProgrammingError:
             return None
