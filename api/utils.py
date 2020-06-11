@@ -30,6 +30,12 @@ class UtilValidate:
 	def getCurrentTs():
 		return int(round(time.time()))
 
+	@staticmethod
+	def tsToToday(ts):
+		ts = int(ts)
+		t = time.localtime(ts)
+		docketDate = time.strftime("%Y-%m-%d", t)
+		return docketDate
 
 	@staticmethod
 	def tsToTime(ts):

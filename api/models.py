@@ -462,6 +462,10 @@ class Salesorder(Base):
         return cls.query.filter(cls.custom == tableCode).order_by(cls.salesorder_date.desc()).first()
 
     @classmethod
+    def getFirstOrderToday(cls, today):
+        return cls.query.filter(cls.salesorder_date > today).order_by(cls.salesorder_date.asc()).first()
+
+    @classmethod
     def updatePrice(cls, salesorderId):
         salesorder = cls.query.filter(cls.salesorder_id == salesorderId).one()
         salesOrderLines = SalesorderLine.query.filter(SalesorderLine.salesorder_id == salesorderId).all()
@@ -577,7 +581,7 @@ class Kitchen(Base):
         return cls.query.filter(cls.line_id == lineId).first()
 
     @classmethod
-    def insertKitchen(cls, lineId, orderlineId, tableCode, staffName, cat1, description, description2, quantity,
+    def insertKitchen(cls, lineId, orderlineId, tableCode, staffName, cat1, description, description2, unit, quantity,
                       printerName, orderTime, comments, stockType, cat2, salesorderId):
 
         newKitchen = Kitchen(line_id = lineId,
@@ -587,6 +591,7 @@ class Kitchen(Base):
                              cat1 = cat1,
                              description = description,
                              description2 = description2,
+                             unit = unit,
                              quantity = quantity,
                              printer = printerName,
                              printer2 = printerName,
