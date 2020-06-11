@@ -164,6 +164,11 @@ class KeyboardItem(Base):
         return res
 
     @classmethod
+    def getByBarcodeAndKbId(cls, barcode, kbId):
+        res = cls.query.filter(cls.item_barcode == barcode, cls.kb_id == kbId).first()
+        return res
+
+    @classmethod
     def getByCatIdAndKbIdPagination(cls, kbId, catId, page, pageSize):
         query = cls.query.order_by(cls.item_id.desc())
         if kbId:
