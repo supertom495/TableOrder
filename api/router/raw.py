@@ -5,7 +5,7 @@ from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import storeName
 from service import SalesorderService, SalesorderLineService
 import time
-
+from deprecated import deprecated
 
 raw_blueprint = flask.Blueprint(
     'raw',
@@ -170,41 +170,42 @@ def apiNewSalesorder():
 
 
 @raw_blueprint.route('/salesorder-prepay', methods=['POST'])
+@deprecated(version='', reason="You should use /api/v1/order/salesorderprepay function")
 def apiNewPrepaidSalesorder():
-    token = flask.request.form.get('token')
-    tableCode = flask.request.form.get('tableCode')
-    guestNo = flask.request.form.get('guestNo') or 0
-    salesorderLines = flask.request.form.get('salesorderLines')
-    isPaid = flask.request.form.get('isPaid')
+    # token = flask.request.form.get('token')
+    # tableCode = flask.request.form.get('tableCode')
+    # guestNo = flask.request.form.get('guestNo') or 0
+    # salesorderLines = flask.request.form.get('salesorderLines')
+    # isPaid = flask.request.form.get('isPaid')
+    #
+    # if (UtilValidate.isNotEmpty(isPaid)):
+    #     if isPaid.lower() == 'true':
+    #         isPaid = True
+    #     else:
+    #
+    #         isPaid = False
+    # else:
+    #     isPaid = False
+    #
+    # # if table code then dine in else takeaway
+    # result = SalesorderService.newSalesorder({"token": token, "tableCode": tableCode, "guestNo": guestNo,
+    #                                           "isPaid": isPaid})
+    #
+    # if result['code'] != '0':
+    #     return result
+    #
+    # tableCode = result.get("data").get("tableCode")
+    #
+    # # if paid then go to kitchen else not
+    # salesorderId = result.get('data')['salesorderId']
+    # result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
+    #                                                      "salesorderId": salesorderId,
+    #                                                      "salesorderLines": salesorderLines,
+    #                                                      "goToKitchen": isPaid})
+    #
+    # ResponseUtil.success(result, {"salesorderId": salesorderId, "tableCode": tableCode})
 
-    if (UtilValidate.isNotEmpty(isPaid)):
-        if isPaid.lower() == 'true':
-            isPaid = True
-        else:
-
-            isPaid = False
-    else:
-        isPaid = False
-
-    # if table code then dine in else takeaway
-    result = SalesorderService.newSalesorder({"token": token, "tableCode": tableCode, "guestNo": guestNo,
-                                              "isPaid": isPaid})
-
-    if result['code'] != '0':
-        return result
-
-    tableCode = result.get("data").get("tableCode")
-
-    # if paid then go to kitchen else not
-    salesorderId = result.get('data')['salesorderId']
-    result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
-                                                         "salesorderId": salesorderId,
-                                                         "salesorderLines": salesorderLines,
-                                                         "goToKitchen": isPaid})
-
-    ResponseUtil.success(result, {"salesorderId": salesorderId, "tableCode": tableCode})
-
-    return result
+    return "You should use /api/v1/order/salesorderprepay function"
 
 
 # TODO delete this method, this is for test only
