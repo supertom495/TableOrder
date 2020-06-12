@@ -8,3 +8,4 @@ dist/
 *.pyo
 api/errors.log
 api/log/errors.log
+api/testing.py
