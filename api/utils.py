@@ -46,6 +46,12 @@ class UtilValidate:
 		# docketDate += ".000"
 		return docketDate
 
+	@staticmethod
+	def dateToTs(date):
+		timestamp2 = time.mktime(date.timetuple())  # DO NOT USE IT WITH UTC DATE
+		return timestamp2
+
+
 
 	@staticmethod
 	def encryption(privateInfo):

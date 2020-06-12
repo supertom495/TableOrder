@@ -114,6 +114,7 @@ def getKeyboardItem():
             displayStock["description"] = stock.description3
             displayStock["description2"] = stock.description4
             displayStock["longdesc"] = stock.longdesc
+            displayStock["dateModified"] = UtilValidate.dateToTs(stock.date_modified)
             displayStock["taste"] = []
             displayStock["extra"] = []
             # put different size level price
