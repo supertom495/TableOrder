@@ -397,7 +397,8 @@ class SaleID(Base):
     def updateSalesorderId(cls):
         sale = cls.query.filter(cls.sale_type == 1).one()
         sale.sale_id = sale.sale_id + 1
-        cls.query.session.commit()
+        cls.query.session.flush()
+        # cls.query.session.commit()
 
         return sale.sale_id
 
@@ -405,7 +406,8 @@ class SaleID(Base):
     def updateTakeawayId(cls):
         sale = cls.query.filter(cls.sale_type == 2).one()
         sale.sale_id = sale.sale_id + 1
-        cls.query.session.commit()
+        cls.query.session.flush()
+        # cls.query.session.commit()
 
         return sale.sale_id
 
@@ -439,7 +441,6 @@ class Salesorder(Base):
     @classmethod
     def insertSalesorder(cls, tableCode, guestNo, staffId, time, transaction, status):
 
-        # max =  cls.query.session.query(func.max(cls.salesorder_id).label("max_id")).one()
         salesorder_id = SaleID.updateSalesorderId()
         if transaction == 'TA':
             tableCode = 'TA' + '-OL-' + str(SaleID.updateTakeawayId())
@@ -454,7 +455,8 @@ class Salesorder(Base):
                                    status = status,
                                    comments = '')
         cls.query.session.add(newSalesorder)
-        cls.query.session.commit()
+        cls.query.session.flush()
+        # cls.query.session.commit()
 
         return salesorder_id, tableCode
 
@@ -545,7 +547,8 @@ class SalesorderLine(Base):
                                    staff_id = staffId,
                                    time_ordered = time)
         cls.query.session.add(newSalesorderLine)
-        cls.query.session.commit()
+        cls.query.session.flush()
+        # cls.query.session.commit()
         return salesorderLineId
 
     @classmethod
@@ -609,7 +612,8 @@ class Kitchen(Base):
                              salesorder_id = salesorderId)
 
         cls.query.session.add(newKitchen)
-        cls.query.session.commit()
+        cls.query.session.flush()
+        # cls.query.session.commit()
 
         return lineId
 
@@ -744,7 +748,8 @@ class Payment(Base):
                            drawer = 'O')
 
         cls.query.session.add(newPayment)
-        cls.query.session.commit()
+        cls.query.session.flush()
+        # cls.query.session.commit()
 
         return payment_id
 
@@ -802,7 +807,8 @@ class Docket(Base):
                            guest_no = guestNo)
 
         cls.query.session.add(newDocket)
-        cls.query.session.commit()
+        cls.query.session.flush()
+        # cls.query.session.commit()
 
         return docket_id
 
@@ -851,6 +857,7 @@ class DocketLine(Base):
                                            size_level=sizeLevel)
 
         cls.query.session.add(newDocketLine)
-        cls.query.session.commit()
+        cls.query.session.flush()
+        # cls.query.session.commit()
 
         return lineId

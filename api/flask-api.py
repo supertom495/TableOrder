@@ -29,10 +29,10 @@ def commit_session(response):
 
 @app.errorhandler(Exception)
 def errorHandler(e):
+    db_session.rollback()
     if app.config['DEBUG']:
         raise e
     else:
-        db_session.rollback()
         app.logger.error(str(e) + "\n\n" + traceback.format_exc())
         return str(e) + "\n\n" + traceback.format_exc(), 500
 
