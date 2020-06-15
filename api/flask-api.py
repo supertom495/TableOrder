@@ -21,7 +21,11 @@ def logTime():
 
 @app.after_request
 def commit_session(response):
-    db_session.commit()
+    if response.status_code == 200:
+        db_session.commit()
+    else:
+        db_session.rollback()
+        app.logger.error(response)
     app.logger.info('RESPONSE - %s', response.data)
     app.logger.info("END  : " + str(time.time()))
     return response

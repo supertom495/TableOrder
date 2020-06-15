@@ -296,6 +296,7 @@ def getSalesorder():
             data["salesorderLines"][line.line_id] = newItem
         else:
             if line.parentline_id == 1 or line.parentline_id == 2:
+                # FIXME BUG - need more testing
                 data["salesorderLines"][line.orderline_id]["option"].append(newItem)
             else:
                 data["salesorderLines"][line.orderline_id]["other"].append(newItem)

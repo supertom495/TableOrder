@@ -255,7 +255,7 @@ class SalesorderLineService():
 
 		if printer: return printer
 
-		raise Exception('Stock的printer没有正确配置. Stock id = {}'.format(stockId))
+		raise Exception('Stock printer did not setup. Stock id = {}'.format(stockId))
 
 
 	@staticmethod
