@@ -20,13 +20,13 @@ def home():
 
 @raw_blueprint.route('/stock', methods=['GET'])
 def getStock():
-    result = ServiceUtil.returnSuccess()
+    # result = ServiceUtil.returnSuccess()
 
     # find activate keyboard categories
     kbCat = KeyboardCat.getActivateKeyboardCat()
 
     if UtilValidate.isEmpty(kbCat):
-        return ResponseUtil.errorDataNotFound(result, "Please check if keyboard'kb_name2 is online")
+        return ResponseUtil.error(ServiceUtil.errorDataNotFound("Please check if keyboard'kb_name2 is online"))
 
     kbId = kbCat[0].kb_id
     kbCatIds = [i.cat_id for i in kbCat]
@@ -34,7 +34,8 @@ def getStock():
     # find relate keyboard Item by kbCatId and kbId
     kbItems = KeyboardItem.getAvtiveKeyboardItem(tuple(kbCatIds), kbId)
     if len(kbItems) == 0:
-        return ResponseUtil.errorDataNotFound(result, "未找到激活的keyboard item")
+        return ResponseUtil.error(ServiceUtil.errorDataNotFound("未找到激活的keyboard item"))
+
 
     stockMap = {}
     # fill category information
@@ -137,25 +138,27 @@ def getStock():
     data["taste"] = [v for v in cachedTaste.values()]
     data["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
 
-    ResponseUtil.success(result, data)
+    result = ServiceUtil.returnSuccess(data)
 
-    return result
+    return ResponseUtil.success(result)
+
 
 
 @raw_blueprint.route('/stafftoken', methods=['PUT'])
 def getStaffToken():
-    result = ServiceUtil.returnSuccess()
+    # result = ServiceUtil.returnSuccess()
 
     barcode = flask.request.form.get('barcode')
     staff = Staff.getStaffByBarcode(barcode)
     if staff == None:
-        return ResponseUtil.errorDataNotFound(result, "no such a staff")
+        return ResponseUtil.error(ServiceUtil.errorDataNotFound("no such a staff"))
 
     toBeEncrypted = barcode + str(int(time.time()) + 3600)
 
     cipherText = UtilValidate.encryption(toBeEncrypted).decode('UTF-8')
-    ResponseUtil.success(result, cipherText)
-    return result
+
+    result = ServiceUtil.returnSuccess(cipherText)
+    return ResponseUtil.success(result)
 
 
 @raw_blueprint.route('/salesorder', methods=['POST'])
@@ -166,62 +169,24 @@ def apiNewSalesorder():
 
     result = SalesorderService.newSalesorder({"token": token, "tableCode": tableCode, "guestNo": guestNo})
 
-    return result
+    if result["code"] != "0":
+        return ResponseUtil.error(result)
+
+    return ResponseUtil.success(result)
 
 
-@raw_blueprint.route('/salesorder-prepay', methods=['POST'])
-@deprecated(version='', reason="You should use /api/v1/order/salesorderprepay function")
-def apiNewPrepaidSalesorder():
-    # token = flask.request.form.get('token')
-    # tableCode = flask.request.form.get('tableCode')
-    # guestNo = flask.request.form.get('guestNo') or 0
-    # salesorderLines = flask.request.form.get('salesorderLines')
-    # isPaid = flask.request.form.get('isPaid')
-    #
-    # if (UtilValidate.isNotEmpty(isPaid)):
-    #     if isPaid.lower() == 'true':
-    #         isPaid = True
-    #     else:
-    #
-    #         isPaid = False
-    # else:
-    #     isPaid = False
-    #
-    # # if table code then dine in else takeaway
-    # result = SalesorderService.newSalesorder({"token": token, "tableCode": tableCode, "guestNo": guestNo,
-    #                                           "isPaid": isPaid})
-    #
-    # if result['code'] != '0':
-    #     return result
-    #
-    # tableCode = result.get("data").get("tableCode")
-    #
-    # # if paid then go to kitchen else not
-    # salesorderId = result.get('data')['salesorderId']
-    # result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
-    #                                                      "salesorderId": salesorderId,
-    #                                                      "salesorderLines": salesorderLines,
-    #                                                      "goToKitchen": isPaid})
-    #
-    # ResponseUtil.success(result, {"salesorderId": salesorderId, "tableCode": tableCode})
-
-    return "You should use /api/v1/order/salesorderprepay function"
-
-
-# TODO delete this method, this is for test only
-@raw_blueprint.route('/salesorder', methods=['PUT'])
-def resetTable():
-    result = ServiceUtil.returnSuccess()
-    tableCode = flask.request.form.get('tableCode')
-    # salesorderId = flask.request.form.get('salesorderId')
-    table = Tables.getTableByTableCode(tableCode)
-    salesorder = Salesorder.getSalesorderByTableCode(tableCode)
-    table.staff_id = 0
-    table.table_status = 0
-    salesorder.status = 11
-    ResponseUtil.success(result, "salesoder {} closed".format(salesorder.salesorder_id))
-    return result
-
+# @raw_blueprint.route('/salesorder', methods=['PUT'])
+# def resetTable():
+#     result = ServiceUtil.returnSuccess()
+#     tableCode = flask.request.form.get('tableCode')
+#     # salesorderId = flask.request.form.get('salesorderId')
+#     table = Tables.getTableByTableCode(tableCode)
+#     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
+#     table.staff_id = 0
+#     table.table_status = 0
+#     salesorder.status = 11
+#     ResponseUtil.success(result, "salesoder {} closed".format(salesorder.salesorder_id))
+#     return result
 
 @raw_blueprint.route('/salesorderline', methods=['POST'])
 def apiInsertSalesorderLine():
@@ -235,34 +200,38 @@ def apiInsertSalesorderLine():
                                                          "salesorderId": salesorderId,
                                                          "salesorderLines": salesorderLines,
                                                          "goToKitchen": True})
+    if result["code"] != "0":
+        return ResponseUtil.error(result)
 
-    return result
+    return ResponseUtil.success(result)
 
 
 @raw_blueprint.route('/salesorder', methods=['GET'])
 def getSalesorder():
-    result = ServiceUtil.returnSuccess()
+    # result = ServiceUtil.returnSuccess()
     tableCode = flask.request.args.get('tableCode')
     if tableCode is None:
-        return ResponseUtil.errorMissingParameter(result)
+        return ResponseUtil.error(ServiceUtil.errorMissingParameter())
     table = Tables.getTableByTableCode(tableCode)
 
     # test if table exists
     if UtilValidate.isEmpty(table):
-        return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
+        return ResponseUtil.error(ServiceUtil.errorDataNotFound('Wrong table code'))
 
     # test if table is closed
     if table.table_status == 0:
-        return ResponseUtil.errorWrongLogic(result, 'Inactive table')
+        return ResponseUtil.error(ServiceUtil.errorWrongLogic('Inactive table'))
 
     # find the Salesorder
     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
     if UtilValidate.isEmpty(salesorder):
-        return ResponseUtil.errorWrongLogic(result, 'No order found', code=3001)
+        return ResponseUtil.error(ServiceUtil.errorWrongLogic('No order found', code=3001))
+
 
     # do not return invalid salesorder (when status is 10, 11)
     if salesorder.status == 10 or salesorder.status == 11:
-        return ResponseUtil.errorWrongLogic(result, 'No order found', code=3001)
+        return ResponseUtil.error(ServiceUtil.errorWrongLogic('No order found', code=3001))
+
 
     # put Salesorder lines to data
     data = {}
@@ -295,29 +264,30 @@ def getSalesorder():
 
             data["salesorderLines"][line.line_id] = newItem
         else:
-            if line.parentline_id == 1 or line.parentline_id == 2:
-                # FIXME BUG - need more testing
-                data["salesorderLines"][line.orderline_id]["option"].append(newItem)
-            else:
-                data["salesorderLines"][line.orderline_id]["other"].append(newItem)
+            orderline = data["salesorderLines"].get(line.orderline_id)
+            if orderline:
+                if line.parentline_id == 1 or line.parentline_id == 2:
+                    orderline["option"].append(newItem)
+                else:
+                    orderline["option"].append(newItem)
 
     data["salesorderLines"] = [v for v in data["salesorderLines"].values()]
 
-    ResponseUtil.success(result, data)
+    result = ServiceUtil.returnSuccess(data)
 
-    return result
+    return ResponseUtil.success(result)
 
 
 # TODO delete this method, this is for test only
 @raw_blueprint.route('/salesorderById', methods=['GET'])
 def getSalesorderById():
-    result = ServiceUtil.returnSuccess()
+    # result = ServiceUtil.returnSuccess()
     salesorderId = flask.request.args.get('salesorderId')
 
     # find the Salesorder
     salesorder = Salesorder.getSalesorderById(salesorderId)
     if UtilValidate.isEmpty(salesorder):
-        return ResponseUtil.errorWrongLogic(result, 'No order found', code=3001)
+        return ResponseUtil.error(ServiceUtil.errorWrongLogic('No order found', code=3001))
 
     # put Salesorder lines to data
     data = {}
@@ -356,14 +326,14 @@ def getSalesorderById():
 
     data["salesorderLines"] = [v for v in data["salesorderLines"].values()]
 
-    ResponseUtil.success(result, data)
+    result = ServiceUtil.returnSuccess(data)
 
-    return result
+    return ResponseUtil.success(result)
 
 
 @raw_blueprint.route('/table', methods=['GET'])
 def getTable():
-    result = ServiceUtil.returnSuccess()
+    # result = ServiceUtil.returnSuccess()
     tables = Tables.getTableAll()
     data = {}
     data["tables"] = []
@@ -396,9 +366,10 @@ def getTable():
         mappedSite["inactive"] = site.inactive
         data["sites"].append(mappedSite)
 
-    ResponseUtil.success(result, data)
+    result = ServiceUtil.returnSuccess(data)
 
-    return result
+    return ResponseUtil.success(result)
+
 
 
 @raw_blueprint.route('/favicon.ico')
@@ -407,39 +378,41 @@ def favicon():
 
 @raw_blueprint.route('/table', methods=['PUT'])
 def swapTable():
-    result = ServiceUtil.returnSuccess()
+    #
 
     fromTableCode = flask.request.form.get('fromTableCode')
     toTableCode = flask.request.form.get('toTableCode')
     token = flask.request.form.get('token')
 
     if token is None or toTableCode is None or toTableCode is None:
-        return ResponseUtil.errorMissingParameter(result)
+        return ResponseUtil.error(ServiceUtil.errorMissingParameter())
 
     tokenValid, staffId = UtilValidate.tokenValidation(token)
     if not tokenValid:
-        return ResponseUtil.errorSecurityNotLogin(result, 'Invalid token')
+        return ResponseUtil.error(ServiceUtil.errorSecurityNotLogin('Invalid token'))
 
     fromTable = Tables.getTableByTableCode(fromTableCode)
     toTable = Tables.getTableByTableCode(toTableCode)
 
     # test if table exists
     if UtilValidate.isEmpty(fromTable) or UtilValidate.isEmpty(toTable):
-        return ResponseUtil.errorDataNotFound(result, 'Wrong table code')
+        return ResponseUtil.error(ServiceUtil.errorDataNotFound('Wrong table code'))
 
     # test if table occupied by POS
     if fromTable.staff_id != 0 and fromTable.staff_id is not None \
             and toTable.staff_id != 0 and toTable.staff_id is not None:
-        return ResponseUtil.errorWrongLogic(result, 'Table is using by POS')
+        return ResponseUtil.error(ServiceUtil.errorWrongLogic('Table is using by POS'))
 
     # only approve the table have people to table without people
     if fromTable.table_status == 0 or toTable.table_status != 0:
-        return ResponseUtil.errorWrongLogic(result, 'Not allowed, only approve the occupied table to vacant table',
-                                            code=3001)
+        return ResponseUtil.error(ServiceUtil.errorWrongLogic('Not allowed, only approve the occupied table to vacant table',
+                                            code=3001))
+
 
     fromSalesorder = Salesorder.getSalesorderByTableCode(fromTable.table_code)
     if UtilValidate.isEmpty(fromSalesorder) or fromSalesorder.status == 11:
-        return ResponseUtil.errorDataAccess(result, 'Order is paid or not exist')
+        return ResponseUtil.error(ServiceUtil.errorDataAccess('Order is paid or not exist'))
+
 
     # swap the table contents
     tempTableStatus = fromTable.table_status
@@ -452,7 +425,8 @@ def swapTable():
     # update the given salesorder to given tableCode
     fromSalesorder.custom = toTable.table_code
 
-    return result
+    result = ServiceUtil.returnSuccess()
+    return ResponseUtil.success(result)
 
 
 def fullfillStockMap(stock: Stock, quantity: int) -> dict:

@@ -11,7 +11,7 @@ menu_blueprint = flask.Blueprint(
 
 @menu_blueprint.route('/keyboard', methods=['GET'])
 def getKeyboard():
-    result = ServiceUtil.returnSuccess()
+
 
     keyboardList = Keyboard.getAll()
 
@@ -25,20 +25,19 @@ def getKeyboard():
 
         data.append(keyboard)
 
-    ResponseUtil.success(result, data)
+    result = ServiceUtil.returnSuccess(data)
 
-    return result
+    return ResponseUtil.success(result)
 
 @menu_blueprint.route('/keyboardcat', methods=['GET'])
 def getKeyboardCat():
-    result = ServiceUtil.returnSuccess()
 
     kbId = flask.request.args.get('kbId')
 
     keyboard = Keyboard.getById(kbId)
 
     if UtilValidate.isEmpty(keyboard):
-        return ResponseUtil.errorDataNotFound(result, 'No such keyboard')
+        return ResponseUtil.error(ServiceUtil.errorDataNotFound('No such keyboard'))
 
     kbCatList = KeyboardCat.getByKbId(kbId)
 
@@ -57,14 +56,13 @@ def getKeyboardCat():
         kbCat["inactive"] = item.invisible
         data.append(kbCat)
 
-    ResponseUtil.success(result, data)
+    result = ServiceUtil.returnSuccess(data)
 
-    return result
+    return ResponseUtil.success(result)
 
 
 @menu_blueprint.route('/keyboarditem', methods=['GET'])
 def getKeyboardItem():
-    result = ServiceUtil.returnSuccess()
 
     kbId = flask.request.args.get('kbId')
     catId = flask.request.args.get('catId')
@@ -137,33 +135,11 @@ def getKeyboardItem():
                 for item in taste:
                     tasteId = item.taste_id
                     displayStock["taste"].append(tasteId)
-                    # if tasteId not in cachedTaste:
-                    #     displayTaste = {}
-                    #     stock = Stock.getByStockId(tasteId)
-                    #     displayTaste["stockId"] = int(stock.stock_id)
-                    #     displayTaste["custom1"] = stock.custom1
-                    #     displayTaste["cat2"] = stock.cat2
-                    #     displayTaste["barcode"] = stock.barcode
-                    #     displayTaste["price"] = Stock.getPrice(stock, stock.sell)
-                    #     displayTaste["description"] = stock.description
-                    #     displayTaste["description2"] = stock.description2
-                    #     cachedTaste[tasteId] = displayTaste
 
             if extra:
                 for item in extra:
                     extraId = item.extra_id
                     displayStock["extra"].append(extraId)
-                    # if extraId not in cachedExtra:
-                    #     displayExtra = {}
-                    #     stock = Stock.getByStockId(extraId)
-                    #     displayExtra["stockId"] = int(stock.stock_id)
-                    #     displayExtra["custom1"] = stock.custom1
-                    #     displayExtra["cat2"] = stock.cat2
-                    #     displayExtra["barcode"] = stock.barcode
-                    #     displayExtra["price"] = Stock.getPrice(stock, stock.sell)
-                    #     displayExtra["description"] = stock.description
-                    #     displayExtra["description2"] = stock.description2
-                    #     cachedExtra[extraId] = displayExtra
 
             stockList.append(displayStock)
 
@@ -171,15 +147,13 @@ def getKeyboardItem():
             # data["content"]["extra"] = [v for v in cachedExtra.values()]
             # data["content"]["taste"] = [v for v in cachedTaste.values()]
 
-    ResponseUtil.success(result, data)
+    result = ServiceUtil.returnSuccess(data)
 
-    return result
-
+    return ResponseUtil.success(result)
 
 
 @menu_blueprint.route('/option', methods=['GET'])
 def getOption():
-    result = ServiceUtil.returnSuccess()
 
     option = flask.request.args.get('option')
     stockId = flask.request.args.get('stockId')
@@ -200,7 +174,7 @@ def getOption():
         else:
             taste = TasteStock.getAll()
     else:
-        return ResponseUtil.errorInvalidParameter(result, "wrong option")
+        return ResponseUtil.error(ServiceUtil.errorInvalidParameter('wrong option'))
 
 
     if UtilValidate.isNotEmpty(extra):
@@ -222,6 +196,6 @@ def getOption():
         optionList.append(optionDict)
 
 
-    ResponseUtil.success(result, optionList)
+    result = ServiceUtil.returnSuccess(optionList)
 
-    return result
+    return ResponseUtil.success(result)

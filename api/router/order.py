@@ -27,38 +27,36 @@ def apiNewPrepaidSalesorder():
     gotoKitchen = flask.request.form.get('gotoKitchen')
     paymentDetail = flask.request.form.get('paymentDetail')
 
-    result = ServiceUtil.returnSuccess()
 
     if UtilValidate.isEmpty(isPaid):
-        return ResponseUtil.errorMissingParameter(result, "isPaid")
+        return ResponseUtil.error(ServiceUtil.errorMissingParameter("isPaid"))
 
     if UtilValidate.isEmpty(gotoKitchen):
-        return ResponseUtil.errorMissingParameter(result, "gotoKitchen")
+        return ResponseUtil.error(ServiceUtil.errorMissingParameter("gotoKitchen"))
 
     # is this order paid
     if isPaid.lower() in ['true', 'false']:
         isPaid = isPaid.lower() == 'true'
     else:
-        return ResponseUtil.errorInvalidParameter(result, "isPaid")
+        return ResponseUtil.error(ServiceUtil.errorInvalidParameter("isPaid"))
 
     # should this order go to kitchen
     if gotoKitchen.lower() in ['true', 'false']:
         gotoKitchen = gotoKitchen.lower() == 'true'
     else:
-        return ResponseUtil.errorInvalidParameter(result, "gotoKitchen")
+        return ResponseUtil.error(ServiceUtil.errorInvalidParameter("gotoKitchen"))
 
     # if it is paid, does it include payment detail
     if isPaid:
         if UtilValidate.isEmpty(paymentDetail):
-            ResponseUtil.errorMissingParameter(result, "paymentDetail")
-
+            return ResponseUtil.error(ServiceUtil.errorMissingParameter("paymentDetail"))
 
     # if table code then dine in else takeaway
     result = SalesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo,
                                               "isPaid":isPaid})
 
-    if result['code'] != '0':
-        return result
+    if result["code"] != "0":
+        return ResponseUtil.error(result)
 
     tableCode = result.get("data").get("tableCode")
 
@@ -67,10 +65,8 @@ def apiNewPrepaidSalesorder():
     result = SalesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
                                                         "salesorderId":salesorderId, "salesorderLines":salesorderLines,
                                                         "goToKitchen":gotoKitchen})
-    if result['code'] != '0':
-        return result
-
-    ResponseUtil.success(result, {"salesorderId": salesorderId, "tableCode":tableCode})
+    if result["code"] != "0":
+        return ResponseUtil.error(result)
 
 
     if isPaid:
@@ -84,18 +80,29 @@ def apiNewPrepaidSalesorder():
         # insert into docket
         docketResult = DocketService.newDocket({"token":token, "tableCode":tableCode,
                                                         "subtotal":subtotal, "guestNo":guestNo})
-        if docketResult['code'] != '0':
-            return docketResult
+        if docketResult["code"] != "0":
+            return ResponseUtil.error(docketResult)
+
 
         docketId = docketResult['data']['docketId']
 
         # insert into docket line
-        DocketLineService.insertDocketLine({"docketId": docketId, "salesorderId": salesorderId})
+        docketLineResult = DocketLineService.insertDocketLine({"docketId": docketId, "salesorderId": salesorderId})
+
+        if docketLineResult["code"] != "0":
+            return ResponseUtil.error(docketLineResult)
+
 
         # insert into payments
-        PaymentService.insertPayment({"docketId": docketId, "paymentDetail": paymentDetail})
+        paymentResult = PaymentService.insertPayment({"docketId": docketId, "paymentDetail": paymentDetail})
 
-    return result
+        if paymentResult["code"] != "0":
+            return ResponseUtil.error(paymentResult)
+
+
+    result = ServiceUtil.returnSuccess({"salesorderId": salesorderId, "tableCode":tableCode})
+
+    return ResponseUtil.success(result)
 
 
 @order_blueprint.route('/salesordertrial', methods=['POST'])
@@ -106,5 +113,7 @@ def calculateSalesorderTotal():
 
     result = SalesorderLineService.calculateSalesorderLine({"token":token, "salesorderLines":salesorderLines})
 
+    if result["code"] != "0":
+        return ResponseUtil.error(result)
 
-    return result
+    return ResponseUtil.success(result)

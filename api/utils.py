@@ -93,13 +93,17 @@ class UtilValidate:
 
 	@staticmethod
 	def tokenValidation(token):
-		plainText = UtilValidate.decryption(token).decode('UTF-8')
-		timestamp = plainText[-10:]
-		staffBarcode = plainText[:-10]
-		if timestamp < str(int(time.time())):
-			return False, None
-		staff = Staff.getStaffByBarcode(staffBarcode)
-		if staff == None:
+		try:
+			plainText = UtilValidate.decryption(token).decode('UTF-8')
+			timestamp = plainText[-10:]
+			staffBarcode = plainText[:-10]
+			if timestamp < str(int(time.time())):
+				return False, None
+			staff = Staff.getStaffByBarcode(staffBarcode)
+			if staff == None:
+				return False, None
+
+		except Exception:
 			return False, None
 
 		return True, staff.staff_id
@@ -108,19 +112,7 @@ class UtilValidate:
 
 
 class ServiceUtil:
-	def __init__(self):
-		pass
-
-	@staticmethod
-	def returnSuccess() -> dict:
-		result = {}
-		result["code"] = "0"
-		result["message"] = "success"
-		return result
-
-
-
-class ResponseUtil:
+	SUCCESS = "0"
 	ERROR_MISSING_PARAMETER = "1000"
 	ERROR_INVALID_PARAMETER = "1001"
 	ERROR_DATA_NOT_FOUND = "2000"
@@ -133,45 +125,70 @@ class ResponseUtil:
 		pass
 
 	@staticmethod
-	def success(result:dict, data=None) -> dict:
-		result["code"] = "0"
+	def returnSuccess(data=None) -> dict:
+		result = {}
+		result["code"] = ServiceUtil.SUCCESS
 		result["message"] = "success"
 		if data is not None:
 			result["data"] = data
 		return result
 
 	@staticmethod
-	def errorDataNotFound(result:dict, message) -> dict:
-		result["code"] = ResponseUtil.ERROR_DATA_NOT_FOUND
+	def errorDataNotFound(message):
+		result = {}
+		result["code"] = ServiceUtil.ERROR_DATA_NOT_FOUND
 		result["message"] = "ERROR_DATA_NOT_FOUND" + " : " + message
 		return result
 
+
 	@staticmethod
-	def errorDataAccess(result:dict, message) -> dict:
-		result["code"] = ResponseUtil.ERROR_DATA_ACCESS
+	def errorDataAccess(message):
+		result = {}
+		result["code"] = ServiceUtil.ERROR_DATA_ACCESS
 		result["message"] = "ERROR_DATA_ACCESS" + " : " + message
 		return result
 
 	@staticmethod
-	def errorWrongLogic(result:dict, message, code=ERROR_WRONG_LOGIC) -> dict:
+	def errorWrongLogic(message, code=ERROR_WRONG_LOGIC):
+		result = {}
 		result["code"] = code
 		result["message"] = "ERROR_WRONG_LOGIC" + " : " + message
 		return result
 
 	@staticmethod
-	def errorSecurityNotLogin(result:dict, message) -> dict:
-		result["code"] = ResponseUtil.ERROR_SECURITY_NOT_LOGIN
+	def errorSecurityNotLogin(message):
+		result = {}
+		result["code"] = ServiceUtil.ERROR_SECURITY_NOT_LOGIN
 		result["message"] = "ERROR_SECURITY_NOT_LOGIN" + " : " + message
 		return result
 
 	@staticmethod
-	def errorMissingParameter(result:dict, message="") -> dict:
-		result["code"] = ResponseUtil.ERROR_MISSING_PARAMETER
+	def errorMissingParameter(message=""):
+		result = {}
+		result["code"] = ServiceUtil.ERROR_MISSING_PARAMETER
 		result["message"] = "ERROR_MISSING_PARAMETER" + " : " + message
 		return result
 
 	@staticmethod
-	def errorInvalidParameter(result:dict, message) -> dict:
-		result["code"] = ResponseUtil.ERROR_INVALID_PARAMETER
+	def errorInvalidParameter(message):
+		result = {}
+		result["code"] = ServiceUtil.ERROR_INVALID_PARAMETER
 		result["message"] = "ERROR_INVALID_PARAMETER" + " : " + message
 		return result
+
+
+class ResponseUtil:
+	HTTP_OK = 200
+	HTTP_BAD_REQUEST = 400
+
+	def __init__(self):
+		pass
+
+	@staticmethod
+	def success(result:dict):
+		return result, ResponseUtil.HTTP_OK
+
+	@staticmethod
+	def error(result:dict):
+		return  result, ResponseUtil.HTTP_BAD_REQUEST
+
