@@ -151,7 +151,10 @@ class SalesorderLineService():
 
 				today = UtilValidate.tsToToday(UtilValidate.getCurrentTs())
 				firstOrder = Salesorder.getFirstOrderToday(today)
-				unit = int(salesorderId) - firstOrder.salesorder_id + 1
+				if UtilValidate.isNotEmpty(firstOrder):
+					unit = int(salesorderId) - firstOrder.salesorder_id + 1
+				else: 
+					unit = 1
 				SalesorderLineService.insertKitchen(printers, originalSalesorderLineId, comments, tableCode, unit)
 
 
