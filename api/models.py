@@ -1,5 +1,6 @@
 # coding: utf-8
-from sqlalchemy import Column, DateTime, Float, ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary, NCHAR, SmallInteger, String, Table, Unicode, UnicodeText, text
+import sqlalchemy
+from sqlalchemy import Column, DateTime, Float, ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary, NCHAR, SmallInteger, String, Table, Unicode, UnicodeText, text, or_
 from sqlalchemy.dialects.mssql import BIT, MONEY
 from sqlalchemy.orm import relationship
 from sqlalchemy.exc import ProgrammingError
@@ -395,7 +396,12 @@ class SaleID(Base):
 
     @classmethod
     def updateSalesorderId(cls):
-        sale = cls.query.filter(cls.sale_type == 1).one()
+        # FIXME can be null
+        try:
+            sale = cls.query.filter(cls.sale_type == 1).one()
+        except sqlalchemy.orm.exc.NoResultFound:
+            return None
+
         sale.sale_id = sale.sale_id + 1
         cls.query.session.flush()
         # cls.query.session.commit()
@@ -441,11 +447,14 @@ class Salesorder(Base):
     @classmethod
     def insertSalesorder(cls, tableCode, guestNo, staffId, time, transaction, status):
 
-        salesorder_id = SaleID.updateSalesorderId()
+        salesorderId = SaleID.updateSalesorderId()
+        if salesorderId is None:
+            max = cls.query.session.query(func.max(cls.salesorder_id).label("max_id")).one()
+            salesorderId = 1 if max.max_id is None else max.max_id + 1
         if transaction == 'TA':
             tableCode = 'TA' + '-OL-' + str(SaleID.updateTakeawayId())
 
-        newSalesorder = Salesorder(salesorder_id = salesorder_id,
+        newSalesorder = Salesorder(salesorder_id = salesorderId,
                                    salesorder_date = time,
                                    expiry_date = time,
                                    staff_id = staffId,
@@ -458,7 +467,7 @@ class Salesorder(Base):
         cls.query.session.flush()
         # cls.query.session.commit()
 
-        return salesorder_id, tableCode
+        return salesorderId, tableCode
 
     @classmethod
     def getSalesorderById(cls, id):
@@ -627,8 +636,8 @@ class StockPrint(Base):
     delivery_docket = Column(BIT)
 
     @classmethod
-    def getPrinter(cls, stockId):
-        return cls.query.filter(cls.stock_id == stockId).all()
+    def getPrinter(cls, stockId, siteId):
+        return cls.query.filter(cls.stock_id == stockId).filter(or_(cls.site_id == -1, cls.site_id == siteId)).all()
 
 
 class CatPrint(Base):
@@ -640,8 +649,8 @@ class CatPrint(Base):
     delivery_docket = Column(BIT)
 
     @classmethod
-    def getPrinter(cls, catId):
-        return cls.query.filter(cls.Cat_id == catId).all()
+    def getPrinter(cls, catId, siteId):
+        return cls.query.filter(cls.Cat_id == catId).filter(or_(cls.site_id == -1, cls.site_id == siteId)).all()
 
 
 class KeyboardPrint(Base):
@@ -653,8 +662,8 @@ class KeyboardPrint(Base):
     delivery_docket =  Column(BIT)
 
     @classmethod
-    def getPrinter(cls, kbId):
-        return cls.query.filter(cls.kb_id == kbId).all()
+    def getPrinter(cls, kbId, siteId):
+        return cls.query.filter(cls.kb_id == kbId).filter(or_(cls.site_id == -1, cls.site_id == siteId)).all()
 
 
 class Customer(Base):

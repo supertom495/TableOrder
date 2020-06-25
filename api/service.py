@@ -99,6 +99,10 @@ class SalesorderLineService():
 
 		purchaseQuantity = 1
 
+		# get the table site for print
+		tableSiteId = Tables.getTableByTableCode(tableCode).site_id
+
+
 		for line in salesorderLines:
 			if len(line) != 7:
 				return ServiceUtil.errorWrongLogic('Incorrect content', code=3003)
@@ -143,7 +147,7 @@ class SalesorderLineService():
 			# TODO TEST
 			if goToKitchen:
 				# try:
-				printers = SalesorderLineService.findPrinter(stockId)
+				printers = SalesorderLineService.findPrinter(stockId, tableSiteId)
 				# except Exception as inst:
 				# 	return ServiceUtil.errorDataNotFound(inst.args[0])
 				if printers is None:
@@ -153,7 +157,7 @@ class SalesorderLineService():
 				firstOrder = Salesorder.getFirstOrderToday(today)
 				if UtilValidate.isNotEmpty(firstOrder):
 					unit = int(salesorderId) - firstOrder.salesorder_id + 1
-				else: 
+				else:
 					unit = 1
 				SalesorderLineService.insertKitchen(printers, originalSalesorderLineId, comments, tableCode, unit)
 
@@ -224,7 +228,7 @@ class SalesorderLineService():
 
 
 	@staticmethod
-	def findPrinter(stockId):
+	def findPrinter(stockId, siteId):
 		# find activate keyboard
 		keyboard = Keyboard.getActivateKeyboard()
 		kbId = keyboard.kb_id
@@ -244,17 +248,17 @@ class SalesorderLineService():
 		catId = Category.getByCatName(catName).cat_id
 
 		# try stock print
-		printer = StockPrint.getPrinter(stockId)
+		printer = StockPrint.getPrinter(stockId, siteId)
 
 		if printer: return printer
 
 		# try category printer
-		printer = CatPrint.getPrinter(catId)
+		printer = CatPrint.getPrinter(catId, siteId)
 
 		if printer: return printer
 
 		# try keyboard printer
-		printer = KeyboardPrint.getPrinter(kbId)
+		printer = KeyboardPrint.getPrinter(kbId, siteId)
 
 		if printer: return printer
 
