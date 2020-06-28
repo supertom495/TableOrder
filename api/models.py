@@ -96,7 +96,7 @@ class KeyboardCat(Base):
     __tablename__ = 'KeyboardCat'
     cat_id = Column(Integer, nullable=False, primary_key=True)
     cat_name = Column(Unicode(64), nullable=False)
-    kb_id = Column(Integer, nullable=False)
+    kb_id = Column(Integer, nullable=False, primary_key=True)
     btn_page = Column(Integer, nullable=False)
     btn_left = Column(Integer, nullable=False)
     btn_top = Column(Integer, nullable=False)
@@ -123,7 +123,11 @@ class KeyboardCat(Base):
 
     @classmethod
     def getByKbId(cls, kbId):
-        res = cls.query.filter(cls.kb_id == kbId).all()
+        query = cls.query.order_by(cls.kb_id.asc(), cls.cat_id.asc())
+        if kbId:
+            query = query.filter(cls.kb_id == kbId)
+
+        res = query.all()
         return res
 
     @classmethod

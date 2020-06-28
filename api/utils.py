@@ -70,12 +70,10 @@ class UtilValidate:
 		EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
 		# generate a randomized secret key with urandom
 		secret = b'\xdb\xb1?\xe2\xeb7\x9b\xa5b\x9erA\xfcP\xbb='
-		print('encryption key:', secret)
 		# creates the cipher obj using the key
 		cipher = AES.new(secret)
 		# encodes you private info!
 		encoded = EncodeAES(cipher, privateInfo)
-		print('Encrypted string:', encoded)
 		return encoded
 
 	@staticmethod

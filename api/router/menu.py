@@ -34,10 +34,12 @@ def getKeyboardCat():
 
     kbId = flask.request.args.get('kbId')
 
-    keyboard = Keyboard.getById(kbId)
+    if UtilValidate.isNotEmpty(kbId):
+        keyboard = Keyboard.getById(kbId)
 
-    if UtilValidate.isEmpty(keyboard):
-        return ResponseUtil.error(ServiceUtil.errorDataNotFound('No such keyboard'))
+        if UtilValidate.isEmpty(keyboard):
+            return ResponseUtil.error(ServiceUtil.errorDataNotFound('No such keyboard'))
+
 
     kbCatList = KeyboardCat.getByKbId(kbId)
 
@@ -53,6 +55,7 @@ def getKeyboardCat():
         else:
             kbCat["catName2"] = ""
         kbCat["catId"] = item.cat_id
+        kbCat["kbId"] = item.kb_id
         kbCat["inactive"] = item.invisible
         data.append(kbCat)
 
@@ -102,6 +105,7 @@ def getKeyboardItem():
 
             displayStock = {}
             displayStock["stockId"] = int(stock.stock_id)
+            displayStock["kbId"] = kbItem.kb_id
             displayStock["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format(storeName, kbItem.item_barcode)
             displayStock["inactive"] = stock.inactive
             displayStock["show_extra"] = stock.show_extra
