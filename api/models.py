@@ -1,6 +1,6 @@
 # coding: utf-8
 import sqlalchemy
-from sqlalchemy import Column, DateTime, Float, ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary, NCHAR, SmallInteger, String, Table, Unicode, UnicodeText, text, or_
+from sqlalchemy import Column, DateTime, Float, ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary, NCHAR, SmallInteger, String, Table, Unicode, UnicodeText, text, or_, and_
 from sqlalchemy.dialects.mssql import BIT, MONEY
 from sqlalchemy.orm import relationship
 from sqlalchemy.exc import ProgrammingError
@@ -31,7 +31,7 @@ class Tables(Base):
 
     @classmethod
     def getTableAll(cls):
-        return cls.query.all()
+        return cls.query.filter(cls.inactive == 0).all()
 
     @classmethod
     def getTableByTableCode(cls, tableCode):
@@ -746,6 +746,16 @@ class Payment(Base):
 
     docket = relationship('Docket')
 
+    @classmethod
+    def getAll(cls, date):
+        query = cls.query.order_by(cls.payment_id.asc())
+        if date:
+            # query = query.filter(and_(cls.docket_date >= date, cls.docket_date <= '2012-10-26'))
+            query = query.filter(cls.docket_date.between(date + ' 00:00:00', date + ' 23:59:59'))
+
+        res = query.all()
+        return res
+
 
     @classmethod
     def insertPayment(cls, docketId, docketDate, paymentType, amount):
@@ -800,6 +810,21 @@ class Docket(Base):
     staff = relationship('Staff')
 
     @classmethod
+    def getAll(cls, date):
+        query = cls.query.order_by(cls.docket_id.asc())
+        if date:
+            # query = query.filter(and_(cls.docket_date >= date, cls.docket_date <= '2012-10-26'))
+            query = query.filter(cls.docket_date.between(date + ' 00:00:00', date + ' 23:59:59'))
+
+        res = query.all()
+        return res
+
+    @classmethod
+    def getByDocketId(cls, docketId):
+        res = cls.query.filter(cls.docket_id == docketId).first()
+        return res
+
+    @classmethod
     def insertDocket(cls, time, staffId, tableCode, amount, guestNo):
 
         max =  cls.query.session.query(func.max(cls.docket_id).label("max_id")).one()
@@ -849,6 +874,15 @@ class DocketLine(Base):
     customer = relationship('Customer')
     docket = relationship('Docket')
     stock = relationship('Stock')
+
+    @classmethod
+    def getByDocketId(cls, docketId):
+
+        query = cls.query.order_by(cls.docket_id.asc())
+        query = query.filter(cls.docket_id.in_(docketId))
+        res = query.all()
+
+        return res
 
     @classmethod
     def insertDocketLine(cls, docketId, stockId, sizeLevel, price, quantity):
