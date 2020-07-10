@@ -41,6 +41,9 @@ class Tables(Base):
     def activateTable(cls, tableCode, time):
         return cls.query.filter(cls.table_code == tableCode).update({"table_status": 2, "start_time": time})
 
+    @classmethod
+    def deactivateTable(cls, tableCode):
+        return cls.query.filter(cls.table_code == tableCode).update({"table_status": 0})
 
 class Site(Base):
     __tablename__ = 'Site'

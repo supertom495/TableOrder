@@ -1,6 +1,6 @@
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Staff
+from models import Staff, Tables
 from database import init_db, db_session, storeName
 import time, json
 from service import SalesorderService, SalesorderLineService, PaymentService, DocketService, DocketLineService
@@ -99,6 +99,8 @@ def apiNewPrepaidSalesorder():
         if paymentResult["code"] != "0":
             return ResponseUtil.error(paymentResult)
 
+        # shut the table down
+        Tables.deactivateTable(tableCode)
 
     result = ServiceUtil.returnSuccess({"salesorderId": salesorderId, "tableCode":tableCode})
 
