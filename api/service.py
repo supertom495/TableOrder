@@ -100,7 +100,11 @@ class SalesorderLineService():
 		purchaseQuantity = 1
 
 		# get the table site for print
-		tableSiteId = Tables.getTableByTableCode(tableCode).site_id
+		table = Tables.getTableByTableCode(tableCode)
+		if UtilValidate.isNotEmpty(table):
+			tableSiteId = table.site_id
+		else:
+			tableSiteId = -1
 
 
 		for line in salesorderLines:
