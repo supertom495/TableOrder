@@ -14,26 +14,30 @@
 ##### api\
 
 run_server.py : production entry  
-<br />
+ 
 flask_api.py: development entry  
-<br />
+ 
 models.py : database ORM  
-<br />
-database.py: connection pool  <br />
-router: controller  <br />
-
+ 
+database.py: connection pool  
+ 
+router: controller  
+ 
 
 ### pyinstaller
 
 目前32和64位程序不兼容，32位程序在vmware运行32位Windows下编译完成
 
 编译方法：
-1. 打开命令行
-  <code> conda activate webapi-ngrok </code>  
-  <br><code>  cd C:\Users\SUPERTOM\Documents\TableOrder\packing </code>  <br>
- <code>  pyinstaller --onefile --clean --name FlaskApi --icon=iconfinder_shrimp-prawn-seafood-animal-marine_3558097.ico ../api/run_server.py </code> 
+1. 打开命令行  
 
-<br>
+  ```conda activate webapi-ngrok```
+  
+  ```  cd C:\Users\SUPERTOM\Documents\TableOrder\packing ```
+  
+ ```  pyinstaller --onefile --clean --name FlaskApi --icon=iconfinder_shrimp-prawn-seafood-animal-marine_3558097.ico ../api/run_server.py ``` 
+
+ 
  
 
 
