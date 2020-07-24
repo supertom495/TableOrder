@@ -13,11 +13,14 @@
 
 ##### api\
 
-run_server.py : production entry  <br>
-flask_api.py: development entry  <br>
-models.py : database ORM  <br>
-database.py: connection pool  <br>
-router: controller  <br>
+run_server.py : production entry  
+<br />
+flask_api.py: development entry  
+<br />
+models.py : database ORM  
+<br />
+database.py: connection pool  <br />
+router: controller  <br />
 
 
 ### pyinstaller
