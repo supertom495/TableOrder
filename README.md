@@ -13,11 +13,11 @@
 
 ##### api\
 
-run_server.py : production entry
-flask_api.py: development entry
-models.py : database ORM
-database.py: connection pool
-router: controller
+run_server.py : production entry  
+flask_api.py: development entry  
+models.py : database ORM  
+database.py: connection pool  
+router: controller  
 
 
 ### pyinstaller
@@ -26,16 +26,14 @@ router: controller
 
 编译方法：
 1. 打开命令行
-  ```
-  conda activate webapi-ngrok
-  ```
-  ```
+  <code> conda activate webapi-ngrok </code>  
+  <code>
   cd C:\Users\SUPERTOM\Documents\TableOrder\packing
-  ```
-  ```
+</code>  
+ <code>
   pyinstaller --onefile --clean --name FlaskApi --icon=iconfinder_shrimp-prawn-seafood-animal-marine_3558097.ico ../api/run_server.py
 
-  ```
+</code>  
 
 
 https://blog.csdn.net/zhoury/article/details/86104105
