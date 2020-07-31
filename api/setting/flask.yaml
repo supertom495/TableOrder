@@ -4,3 +4,4 @@ ServerName: 172.16.11.251
 DBName: Dolar
 StoreName: bbqhot
 Debug: True
+Version: 1.22
