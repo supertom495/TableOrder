@@ -107,6 +107,34 @@ def apiNewPrepaidSalesorder():
     return ResponseUtil.success(result)
 
 
+@order_blueprint.route('/salesorderline', methods=['POST'])
+def apiInsertSalesorderLine():
+    token = flask.request.form.get('token')
+    tableCode = flask.request.form.get('tableCode')
+    salesorderId = flask.request.form.get('salesorderId')
+    salesorderLines = flask.request.form.get('salesorderLines')
+    gotoKitchen = flask.request.form.get('gotoKitchen')
+
+    if UtilValidate.isEmpty(gotoKitchen):
+        return ResponseUtil.error(ServiceUtil.errorMissingParameter("gotoKitchen"))
+
+    # should this order go to kitchen
+    if gotoKitchen.lower() in ['true', 'false']:
+        gotoKitchen = gotoKitchen.lower() == 'true'
+    else:
+        return ResponseUtil.error(ServiceUtil.errorInvalidParameter("gotoKitchen"))
+
+
+    result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
+                                                         "salesorderId": salesorderId,
+                                                         "salesorderLines": salesorderLines,
+                                                         "goToKitchen": gotoKitchen})
+    if result["code"] != "0":
+        return ResponseUtil.error(result)
+
+    return ResponseUtil.success(result)
+
+
 @order_blueprint.route('/salesordertrial', methods=['POST'])
 def calculateSalesorderTotal():
 

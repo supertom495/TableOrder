@@ -175,19 +175,20 @@ def apiNewSalesorder():
     return ResponseUtil.success(result)
 
 
-# @raw_blueprint.route('/salesorder', methods=['PUT'])
-# def resetTable():
-#     result = ServiceUtil.returnSuccess()
-#     tableCode = flask.request.form.get('tableCode')
-#     # salesorderId = flask.request.form.get('salesorderId')
-#     table = Tables.getTableByTableCode(tableCode)
-#     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
-#     table.staff_id = 0
-#     table.table_status = 0
-#     salesorder.status = 11
-#     ResponseUtil.success(result, "salesoder {} closed".format(salesorder.salesorder_id))
-#     return result
+@raw_blueprint.route('/salesorder', methods=['PUT'])
+def resetTable():
+    result = ServiceUtil.returnSuccess()
+    tableCode = flask.request.form.get('tableCode')
+    # salesorderId = flask.request.form.get('salesorderId')
+    table = Tables.getTableByTableCode(tableCode)
+    salesorder = Salesorder.getSalesorderByTableCode(tableCode)
+    table.staff_id = 0
+    table.table_status = 0
+    salesorder.status = 11
+    result = ServiceUtil.returnSuccess({"status" : "salesoder {} closed".format(salesorder.salesorder_id)})
+    return ResponseUtil.success(result)
 
+@deprecated()
 @raw_blueprint.route('/salesorderline', methods=['POST'])
 def apiInsertSalesorderLine():
     token = flask.request.form.get('token')
