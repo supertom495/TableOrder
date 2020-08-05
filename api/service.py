@@ -241,7 +241,7 @@ class SalesorderLineService():
 		# find keyboard item
 		keyboardItem = KeyboardItem.getByBarcodeAndKbId(stock.barcode, kbId)
 		if UtilValidate.isEmpty(keyboardItem):
-			raise Exception('keyboardItem does not have matched item.')
+			raise Exception('keyboardItem does not have matched item. (NO item_barcode matched)')
 		kbCatId = keyboardItem.cat_id
 
 		# get keyboard Cat
@@ -249,7 +249,10 @@ class SalesorderLineService():
 		catName = keyboardCat.cat_name
 
 		#get cat name from keyboard cat and find it from category's cat id
-		catId = Category.getByCatName(catName).cat_id
+		category = Category.getByCatName(catName)
+		if UtilValidate.isEmpty(category):
+			raise Exception('keyboardItem does not have matched category. (keyboardItem\'s category does not exist in Category)')
+		catId = category.cat_id
 
 		# try stock print
 		printer = StockPrint.getPrinter(stockId, siteId)
