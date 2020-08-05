@@ -9,10 +9,9 @@ menu_blueprint = flask.Blueprint(
     url_prefix='/api/v1/menu'
 )
 
+
 @menu_blueprint.route('/keyboard', methods=['GET'])
 def getKeyboard():
-
-
     keyboardList = Keyboard.getAll()
 
     data = []
@@ -29,9 +28,9 @@ def getKeyboard():
 
     return ResponseUtil.success(result)
 
+
 @menu_blueprint.route('/keyboardcat', methods=['GET'])
 def getKeyboardCat():
-
     kbId = flask.request.args.get('kbId')
 
     if UtilValidate.isNotEmpty(kbId):
@@ -39,7 +38,6 @@ def getKeyboardCat():
 
         if UtilValidate.isEmpty(keyboard):
             return ResponseUtil.error(ServiceUtil.errorDataNotFound('No such keyboard'))
-
 
     kbCatList = KeyboardCat.getByKbId(kbId)
 
@@ -66,7 +64,6 @@ def getKeyboardCat():
 
 @menu_blueprint.route('/keyboarditem', methods=['GET'])
 def getKeyboardItem():
-
     kbId = flask.request.args.get('kbId')
     catId = flask.request.args.get('catId')
     page = flask.request.args.get('page', type=int)
@@ -106,7 +103,8 @@ def getKeyboardItem():
             displayStock = {}
             displayStock["stockId"] = int(stock.stock_id)
             displayStock["kbId"] = kbItem.kb_id
-            displayStock["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format(storeName, kbItem.item_barcode)
+            displayStock["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/{}.jpg".format(storeName,
+                                                                                                    kbItem.item_barcode)
             displayStock["inactive"] = stock.inactive
             displayStock["show_extra"] = stock.show_extra
             displayStock["show_taste"] = stock.show_taste
@@ -158,7 +156,6 @@ def getKeyboardItem():
 
 @menu_blueprint.route('/option', methods=['GET'])
 def getOption():
-
     option = flask.request.args.get('option')
     stockId = flask.request.args.get('stockId')
 
@@ -180,7 +177,6 @@ def getOption():
     else:
         return ResponseUtil.error(ServiceUtil.errorInvalidParameter('wrong option'))
 
-
     if UtilValidate.isNotEmpty(extra):
         optionSet = {item.extra_id for item in extra}
     if UtilValidate.isNotEmpty(taste):
@@ -199,7 +195,21 @@ def getOption():
         optionDict["description2"] = stock.description2
         optionList.append(optionDict)
 
-
     result = ServiceUtil.returnSuccess(optionList)
 
     return ResponseUtil.success(result)
+
+
+
+# def return_img_stream(img_local_path):
+#   import base64
+#   img_stream = ''
+#   with open(img_local_path, 'rb') as img_f:
+#     img_stream = img_f.read()
+#     img_stream = base64.b64encode(img_stream)
+#   return img_stream
+#
+# @menu_blueprint.route('/image', methods=['GET'])
+# def index():
+#     img = return_img_stream('./image/Image-1.jpeg')
+#     return img

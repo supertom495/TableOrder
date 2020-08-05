@@ -2,7 +2,7 @@ import flask
 from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, \
     SalesorderLine, Site, Kitchen
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from database import storeName
+from database import storeName, serverName
 from service import SalesorderService, SalesorderLineService
 import time
 from deprecated import deprecated
@@ -20,7 +20,6 @@ def home():
 
 @raw_blueprint.route('/stock', methods=['GET'])
 def getStock():
-    # result = ServiceUtil.returnSuccess()
 
     # find activate keyboard categories
     kbCat = KeyboardCat.getActivateKeyboardCat()
@@ -136,7 +135,10 @@ def getStock():
     data["stock"] = [v for v in stockMap.values()]
     data["extra"] = [v for v in cachedExtra.values()]
     data["taste"] = [v for v in cachedTaste.values()]
-    data["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
+
+    # image url
+    data["imageUrl"] = getImageUrl(flask.request.host)
+
 
     result = ServiceUtil.returnSuccess(data)
 
@@ -239,7 +241,7 @@ def getSalesorder():
     data["salesorderId"] = salesorder.salesorder_id
     data["startTime"] = salesorder.salesorder_date
     data["guestNo"] = salesorder.guest_no
-    data["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
+    data["imageUrl"] = getImageUrl(flask.request.host)
     data["total"] = float(salesorder.total_inc)
     data["salesorderLines"] = {}
 
@@ -295,7 +297,7 @@ def getSalesorderById():
     data["salesorderId"] = salesorder.salesorder_id
     data["startTime"] = salesorder.salesorder_date
     data["guestNo"] = salesorder.guest_no
-    data["imageUrl"] = "https://pos-static.redpayments.com.au/{}/img/".format(storeName)
+    data["imageUrl"] = getImageUrl(flask.request.host)
     data["total"] = float(salesorder.total_inc)
     data["salesorderLines"] = {}
 
@@ -321,11 +323,11 @@ def getSalesorderById():
             data["salesorderLines"][line.line_id] = newItem
         else:
             if line.parentline_id == 1 or line.parentline_id == 2:
-                data["salesorderLines"][line.orderline_id]["option"].append(newItem)
+                data["salesorderLines"][line.orderline_id]['option'].append(newItem)
             else:
-                data["salesorderLines"][line.orderline_id]["other"].append(newItem)
+                data["salesorderLines"][line.orderline_id]['other'].append(newItem)
 
-    data["salesorderLines"] = [v for v in data["salesorderLines"].values()]
+    data["salesorderLines"] = [v for v in data['salesorderLines'].values()]
 
     result = ServiceUtil.returnSuccess(data)
 
@@ -440,3 +442,10 @@ def fullfillStockMap(stock: Stock, quantity: int) -> dict:
     stockMap["quantity"] = quantity
 
     return stockMap
+
+def getImageUrl(host):
+    if host.split('.')[0] == 'www':
+        return 'https://pos-static.redpayments.com.au/{}/img/'.format(storeName)
+    else:
+        return 'http://{}/img/'.format(serverName)
+    

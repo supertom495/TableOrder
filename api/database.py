@@ -25,6 +25,7 @@ def getPort():
 
 
 storeName = data.get("StoreName")
+serverName = data.get("ServerName")
 debug = data.get("Debug")
 engine = create_engine('mssql+pymssql://{}:{}@{}/{}'.format(data.get("Login"), data.get("Password"), data.get("ServerName"), data.get("DBName")), convert_unicode=True)  # 创建数据库引擎( 当前目录下保存数据库文件)
 db_session = scoped_session(sessionmaker(autocommit=False,
