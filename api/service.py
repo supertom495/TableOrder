@@ -30,8 +30,8 @@ class SalesorderService():
 				return ServiceUtil.errorDataNotFound('Wrong table code')
 
 			# test if table occupied by POS
-			if table.staff_id != 0 and table.staff_id is not None:
-				return ServiceUtil.errorWrongLogic('Fail to open table, table is using by POS')
+			# if table.staff_id != 0 and table.staff_id is not None:
+			# 	return ServiceUtil.errorWrongLogic('Fail to open table, table is using by POS')
 
 			# test if table is already opened
 			if table.table_status != 0:
