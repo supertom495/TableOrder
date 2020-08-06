@@ -219,11 +219,11 @@ def getSalesorder():
 
     # test if table exists
     if UtilValidate.isEmpty(table):
-        return ResponseUtil.error(ServiceUtil.errorDataNotFound('Wrong table code'))
+        return ResponseUtil.success(ServiceUtil.errorDataNotFound('Wrong table code'))
 
     # test if table is closed
     if table.table_status == 0:
-        return ResponseUtil.error(ServiceUtil.errorWrongLogic('Inactive table'))
+        return ResponseUtil.success(ServiceUtil.errorWrongLogic('Inactive table'))
 
     # find the Salesorder
     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
@@ -280,6 +280,20 @@ def getSalesorder():
 
     return ResponseUtil.success(result)
 
+
+@raw_blueprint.route('/testing', methods=['GET'])
+def testing():
+    items = KeyboardItem.getAllById(2)
+    for item in items:
+        # find keyboard item
+        keyboardItem = KeyboardItem.getByBarcodeAndKbId(item.item_barcode, 2)
+        if UtilValidate.isEmpty(keyboardItem):
+            raise Exception('keyboardItem does not have matched item. (NO item_barcode matched)')
+    return 'ok'
+
+@raw_blueprint.route('/testing2', methods=['GET'])
+def testing2():
+    raise Exception('testing exc')
 
 # TODO delete this method, this is for test only
 @raw_blueprint.route('/salesorderById', methods=['GET'])
@@ -445,7 +459,7 @@ def fullfillStockMap(stock: Stock, quantity: int) -> dict:
 
 def getImageUrl(host):
     hostRange = host.split('.')[0]
-    if hostRange == '10' or '172' or '192' or '127':
+    if hostRange == '10' or hostRange == '172' or hostRange == '192' or hostRange == '127':
         return 'http://{}/img/'.format(serverName)
     else:
         return 'https://pos-static.redpayments.com.au/{}/img/'.format(storeName)

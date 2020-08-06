@@ -2,7 +2,7 @@ import flask
 from flask_cors import *
 from database import init_db, db_session, getPort, debug
 from router import blueprint
-import time
+import time, json
 import traceback
 app = flask.Flask(__name__)
 for item in blueprint: app.register_blueprint(item)
@@ -14,32 +14,29 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 
-@app.before_request
-def logTime():
-    app.logger.info("START: " + str(time.time()))
-
-
 @app.after_request
 def commit_session(response):
     if response.status_code == 200:
         db_session.commit()
     else:
         db_session.rollback()
-        app.logger.error(response)
-    app.logger.info('RESPONSE - %s', response.data)
-    app.logger.info("END  : " + str(time.time()))
+
+        requestBody = json.dumps(flask.request.values.dicts[1].to_dict(flat=False))
+        body = '[{}] \n {} \n\n'.format(time.asctime(time.localtime()), requestBody)
+        app.logger.error(body)
+
     return response
 
 
 @app.errorhandler(Exception)
 def errorHandler(e):
-    db_session.rollback()
+
     if app.config['DEBUG']:
         raise e
     else:
-        app.logger.error(str(e) + "\n\n" + traceback.format_exc())
-        return str(e) + "\n\n" + traceback.format_exc(), 500
-
+        error = '[{}] \n{} \n'.format(time.asctime(time.localtime()), traceback.format_exc())
+        app.logger.error(error)
+        return 'error', 500
 
 
 
@@ -55,5 +52,6 @@ if __name__ == '__main__':
     logconsole = logging.getLogger('console')
     logfile.debug("Debug FILE")
     logconsole.debug("Debug CONSOLE")
+
 
     app.run(host='0.0.0.0', port=port)

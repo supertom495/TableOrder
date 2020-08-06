@@ -188,6 +188,11 @@ class KeyboardItem(Base):
 
         return pagination
 
+    @classmethod
+    def getAllById(cls, kbId):
+        res = cls.query.filter(cls.kb_id == kbId).order_by(cls.item_barcode.desc()).all()
+        return res
+
 
 class Category(Base):
     __tablename__ = 'Category'
