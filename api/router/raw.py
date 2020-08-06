@@ -444,8 +444,8 @@ def fullfillStockMap(stock: Stock, quantity: int) -> dict:
     return stockMap
 
 def getImageUrl(host):
-    if host.split('.')[0] == 'www':
-        return 'https://pos-static.redpayments.com.au/{}/img/'.format(storeName)
-    else:
+    hostRange = host.split('.')[0]
+    if hostRange == '10' or '172' or '192' or '127':
         return 'http://{}/img/'.format(serverName)
-    
+    else:
+        return 'https://pos-static.redpayments.com.au/{}/img/'.format(storeName)
