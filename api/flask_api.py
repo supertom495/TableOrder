@@ -22,7 +22,9 @@ def commit_session(response):
         db_session.rollback()
 
         requestBody = json.dumps(flask.request.values.dicts[1].to_dict(flat=False))
-        body = '[{}] \n {} \n\n'.format(time.asctime(time.localtime()), requestBody)
+        responseBody = json.dumps(response.json)
+        msg = requestBody + '\n' + responseBody
+        body = '[{}] \n {} \n\n'.format(time.asctime(time.localtime()), msg)
         app.logger.error(body)
 
     return response
