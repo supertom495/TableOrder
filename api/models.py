@@ -565,7 +565,7 @@ class SalesorderLine(Base):
                                    status = status,
                                    orderline_id = orderlineId,
                                    size_level = sizeLevel,
-                                   staff_id = staffId,
+                                   staff_id = staffId + 100,
                                    time_ordered = time)
         cls.query.session.add(newSalesorderLine)
         cls.query.session.flush()
