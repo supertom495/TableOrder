@@ -39,7 +39,7 @@ class Tables(Base):
 
     @classmethod
     def activateTable(cls, tableCode, time):
-        return cls.query.filter(cls.table_code == tableCode).update({"table_status": 2, "start_time": time})
+        return cls.query.filter(cls.table_code == tableCode).update({"table_status": 2, "start_time": time, "staff_id": 0})
 
     @classmethod
     def deactivateTable(cls, tableCode):
