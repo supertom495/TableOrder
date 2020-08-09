@@ -37,6 +37,7 @@ class SalesorderService():
 			if table.table_status != 0:
 				return ServiceUtil.errorWrongLogic('Fail to open table, table is already opened', code=3001)
 
+
 			# Activate Table
 			Tables.activateTable(tableCode, UtilValidate.tsToTime(UtilValidate.getCurrentTs()))
 			transaction = 'DI'
@@ -91,6 +92,16 @@ class SalesorderLineService():
 			return ServiceUtil.errorWrongLogic('Given salesorderId is not matched to table record',
 												code=3002)
 
+		table = Tables.getTableByTableCode(tableCode)
+		# test if table exists
+		if UtilValidate.isEmpty(table):
+			return ServiceUtil.errorDataNotFound('Wrong table code')
+
+		# test if table occupied by POS
+		if table.staff_id != 0 and table.staff_id is not None:
+			return ServiceUtil.errorWrongLogic('Fail to add dish, table is using by POS')
+
+
 		salesorderLines = json.loads(salesorderLines)
 		if goToKitchen:
 			status = 1
@@ -100,7 +111,6 @@ class SalesorderLineService():
 		purchaseQuantity = 1
 
 		# get the table site for print
-		table = Tables.getTableByTableCode(tableCode)
 		if UtilValidate.isNotEmpty(table):
 			tableSiteId = table.site_id
 		else:
