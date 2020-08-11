@@ -163,7 +163,7 @@ class KeyboardItem(Base):
 
     @classmethod
     def getAvtiveKeyboardItem(cls, kbCatIds, kbId):
-        res = cls.query.filter(cls.cat_id.in_(kbCatIds), cls.kb_id == kbId).order_by(cls.item_barcode.desc()).all()
+        res = cls.query.filter(cls.cat_id.in_(kbCatIds), cls.kb_id == kbId).order_by(cls.item_id.asc()).all()
         return res
 
     @classmethod
@@ -565,7 +565,7 @@ class SalesorderLine(Base):
                                    status = status,
                                    orderline_id = orderlineId,
                                    size_level = sizeLevel,
-                                   staff_id = staffId + 100,
+                                   staff_id = staffId,
                                    time_ordered = time)
         cls.query.session.add(newSalesorderLine)
         cls.query.session.flush()
