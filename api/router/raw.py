@@ -81,6 +81,7 @@ def getStock():
         displayStock["description"] = stock.description3
         displayStock["description2"] = stock.description4
         displayStock["longdesc"] = stock.longdesc
+        displayStock["longdesc2"] = stock.longdesc2
         displayStock["taste"] = []
         displayStock["extra"] = []
         # put different size level price
