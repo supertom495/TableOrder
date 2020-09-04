@@ -2,7 +2,7 @@ import base64
 from Crypto.Cipher import AES
 import time
 from models import Staff
-
+from database import flaskConfig
 
 class UtilValidate:
 	def __init__(self):
@@ -15,8 +15,6 @@ class UtilValidate:
 		if type(data) is str:
 			return bool(data and data.strip())
 		return data
-
-
 
 	@staticmethod
 	def isEmpty(data) -> bool:
@@ -107,6 +105,27 @@ class UtilValidate:
 		return True, staff.staff_id
 
 
+	@staticmethod
+	def addSign(data:dict) -> dict:
+		data['timestamp'] = UtilValidate.getCurrentTs()
+
+		sign = UtilValidate.getSign(data)
+
+		data['sign'] = sign
+
+		return data
+
+	@staticmethod
+	def getSign(data:dict) -> str:
+		from urllib.parse import urlencode
+		import hashlib
+
+		sorted_items = sorted(data.items())
+		secret = flaskConfig.get('PiselSecret')
+		urlencoded = urlencode(sorted_items) + '&' + secret
+		sign = hashlib.md5(urlencoded.encode('utf-8'))
+
+		return sign.hexdigest()
 
 
 class ServiceUtil:
@@ -182,8 +201,14 @@ class ResponseUtil:
 	def __init__(self):
 		pass
 
+	# @staticmethod
+	# def success():
+	# 	return {'code': 0, 'message': 'success'}, ResponseUtil.HTTP_OK
+
 	@staticmethod
-	def success(result:dict):
+	def success(result:dict = None):
+		if result is None:
+			return {'code': 0, 'message': 'success'}, ResponseUtil.HTTP_OK
 		return result, ResponseUtil.HTTP_OK
 
 	@staticmethod

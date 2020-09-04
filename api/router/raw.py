@@ -2,7 +2,7 @@ import flask
 from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, \
     SalesorderLine, Site, Kitchen
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from database import storeName, serverName
+from database import storeName, serverName, flaskConfig
 from service import SalesorderService, SalesorderLineService
 import time
 from deprecated import deprecated
@@ -15,7 +15,7 @@ raw_blueprint = flask.Blueprint(
 
 @raw_blueprint.route('/', methods=['GET'])
 def home():
-    return "<h1>RPOS online order</h1><p>This site has API for self-ordering.</p>"
+    return "<h1>RPOS online order</h1><h3>Store name: {}</h3><p>This site has API for self-ordering.</p>".format(flaskConfig.get('StoreName'))
 
 
 @raw_blueprint.route('/stock', methods=['GET'])

@@ -4,4 +4,6 @@ ServerName: 172.16.11.241
 DBName: Jackpot
 StoreName: jackpothotpot
 Debug: True
-Version: 1.25f
+PiselUrl: https://etest.pisel.com.au
+PiselSecret: MTORFFCRyzx6856xDl
+Version: 1.27

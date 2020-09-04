@@ -1,6 +1,6 @@
 from utils import ResponseUtil, ServiceUtil, UtilValidate
 from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, \
-	Salesorder, SalesorderLine, Site, StockPrint, CatPrint, KeyboardPrint, Kitchen, Docket, DocketLine, Payment
+	Salesorder, SalesorderLine, Site, StockPrint, CatPrint, KeyboardPrint, Kitchen, Docket, DocketLine, Payment, SalesorderOnline, SalesorderLineOnline, DocketOnline
 import json
 
 
@@ -14,6 +14,8 @@ class SalesorderService():
 		tableCode = context.get('tableCode')
 		guestNo = context.get('guestNo')
 		isPaid = context.get('isPaid')
+		remark = context.get('remark')
+		actualId = context.get('actualId')
 
 		if token is None:
 			return ServiceUtil.errorMissingParameter()
@@ -55,6 +57,9 @@ class SalesorderService():
 												   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
 												   transaction, status)
 
+		SalesorderOnline.insertSalesorderOnline(salesorderId, actualId, remark, status)
+
+
 		result = ServiceUtil.returnSuccess({"salesorderId": salesorderId, "tableCode":tableCode})
 
 		return result
@@ -71,6 +76,7 @@ class SalesorderLineService():
 		salesorderId = context.get('salesorderId')
 		salesorderLines = context.get('salesorderLines')
 		goToKitchen = context.get('goToKitchen')
+		actualId = context.get('actualId')
 
 		if token is None or salesorderId is None or salesorderLines is None:
 			return ServiceUtil.errorMissingParameter()
@@ -134,6 +140,8 @@ class SalesorderLineService():
 																		   UtilValidate.tsToTime(
 																			   UtilValidate.getCurrentTs()),
 																		   parentlineId, status)
+			# 线上记录
+			SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, stockId, quantity, sizeLevel, status, 'main')
 
 			for extra in line["extra"]:
 				parentlineId = 2
@@ -144,16 +152,20 @@ class SalesorderLineService():
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extraId, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
+				SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, extraId, quantity, sizeLevel, status, 'extra')
+
 
 			for taste in line["taste"]:
 				parentlineId = 1
 				sizeLevel = 0
 				quantity = taste["quantity"] * purchaseQuantity
 				price = taste["price"]
-				extraId = taste["stockId"]
-				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extraId, sizeLevel, price, quantity,
+				tasteId = taste["stockId"]
+				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, tasteId, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
+				SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, tasteId, quantity, sizeLevel, status, 'taste')
+
 
 
 			comments = line["comments"]
@@ -345,6 +357,8 @@ class DocketService():
 		tableCode = context.get('tableCode')
 		subtotal = context.get('subtotal')
 		guestNo = context.get('guestNo')
+		remark = context.get('remark')
+		actualId = context.get('actualId')
 
 		if token is None:
 			return ServiceUtil.errorMissingParameter()
@@ -357,6 +371,7 @@ class DocketService():
 
 
 		docketId = Docket.insertDocket(UtilValidate.tsToTime(UtilValidate.getCurrentTs()), staffId, tableCode, subtotal, guestNo)
+		DocketOnline.insert(docketId, actualId, remark)
 
 		result = ServiceUtil.returnSuccess({"docketId": docketId})
 

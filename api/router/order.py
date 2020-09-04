@@ -1,10 +1,10 @@
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Staff, Tables
-from database import init_db, db_session, storeName
+from models import Staff, Tables, Docket, DocketOnline, RecordedDate
+from database import init_db, db_session, flaskConfig
 import time, json
-from service import SalesorderService, SalesorderLineService, PaymentService, DocketService, DocketLineService
-
+from service import SalesorderService, SalesorderLineService, PaymentService, DocketService, DocketLineService, SalesorderOnline, Salesorder, SalesorderLine, SalesorderLineOnline
+import requests
 
 order_blueprint = flask.Blueprint(
     'order',
@@ -26,7 +26,8 @@ def apiNewPrepaidSalesorder():
     isPaid = flask.request.form.get('isPaid')
     gotoKitchen = flask.request.form.get('gotoKitchen')
     paymentDetail = flask.request.form.get('paymentDetail')
-
+    remark = flask.request.form.get('remark')
+    actualId = flask.request.form.get('actualId')
 
     if UtilValidate.isEmpty(isPaid):
         return ResponseUtil.error(ServiceUtil.errorMissingParameter("isPaid"))
@@ -53,7 +54,7 @@ def apiNewPrepaidSalesorder():
 
     # if table code then dine in else takeaway
     result = SalesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo,
-                                              "isPaid":isPaid})
+                                              "isPaid":isPaid, "remark":remark, "actualId":actualId})
 
     if result["code"] != "0":
         return ResponseUtil.error(result)
@@ -64,7 +65,7 @@ def apiNewPrepaidSalesorder():
     salesorderId = result.get('data')['salesorderId']
     result = SalesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
                                                         "salesorderId":salesorderId, "salesorderLines":salesorderLines,
-                                                        "goToKitchen":gotoKitchen})
+                                                        "goToKitchen":gotoKitchen, "actualId":actualId})
     if result["code"] != "0":
         return ResponseUtil.error(result)
 
@@ -79,7 +80,7 @@ def apiNewPrepaidSalesorder():
 
         # insert into docket
         docketResult = DocketService.newDocket({"token":token, "tableCode":tableCode,
-                                                        "subtotal":subtotal, "guestNo":guestNo})
+                                                        "subtotal":subtotal, "guestNo":guestNo, "remark":remark, "actualId":actualId})
         if docketResult["code"] != "0":
             return ResponseUtil.error(docketResult)
 
@@ -114,6 +115,7 @@ def apiInsertSalesorderLine():
     salesorderId = flask.request.form.get('salesorderId')
     salesorderLines = flask.request.form.get('salesorderLines')
     gotoKitchen = flask.request.form.get('gotoKitchen')
+    actualId = flask.request.form.get('actualId')
 
     if UtilValidate.isEmpty(gotoKitchen):
         return ResponseUtil.error(ServiceUtil.errorMissingParameter("gotoKitchen"))
@@ -125,10 +127,12 @@ def apiInsertSalesorderLine():
         return ResponseUtil.error(ServiceUtil.errorInvalidParameter("gotoKitchen"))
 
 
-    result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
+    result = SalesorderLineService.insertSalesorderLine({"token": token,
+                                                         "tableCode": tableCode,
                                                          "salesorderId": salesorderId,
                                                          "salesorderLines": salesorderLines,
-                                                         "goToKitchen": gotoKitchen})
+                                                         "goToKitchen": gotoKitchen,
+                                                         "actualId": actualId})
     if result["code"] != "0":
         return ResponseUtil.error(result)
 
@@ -147,3 +151,117 @@ def calculateSalesorderTotal():
         return ResponseUtil.error(result)
 
     return ResponseUtil.success(result)
+
+
+@order_blueprint.route('/docket', methods=['DELETE'])
+def scanDeletedDocket():
+    """用于已经付款的订单删除"""
+    nowTime = UtilValidate.tsToTime(UtilValidate.getCurrentTs())
+    recordedDate = RecordedDate.get(1)
+    dockets = Docket.getByDate(recordedDate.date_modified)
+    for docket in dockets:
+        if docket.subtotal < 0:
+            # 检查该单是否在记录单中
+            refundDocketId = docket.original_id
+            refundDocket = DocketOnline.getByDocketId(refundDocketId)
+            if UtilValidate.isNotEmpty(refundDocket):
+                response = cancelOrderRequest(refundDocket.docket_id, refundDocket.actual_id)
+                print(response.text)
+
+    RecordedDate.update(1, nowTime)
+
+    db_session.commit()
+    return ResponseUtil.success()
+
+
+
+@order_blueprint.route('/salesorder', methods=['DELETE'])
+def scanDeletedSalesorder():
+    """用于没有付款的订单删除"""
+    activeOrders = SalesorderOnline.getActivateOrder()
+    for order in activeOrders:
+        salesorderId = order.salesorder_id
+        salesorder = Salesorder.getSalesorderById(salesorderId)
+        if UtilValidate.isEmpty(salesorder):
+            response = cancelOrderRequest(order.salesorder_id, order.actual_id)
+            if response.status_code == 200:
+                order.status = -1
+            print(response.text)
+        else:
+            if salesorder.status == 11:
+                order.status = 11
+            else:
+                scanDeletedSalesorderLine(salesorderId, order.actual_id)
+
+    db_session.commit()
+    return ResponseUtil.success()
+
+
+
+def scanDeletedSalesorderLine(salesorderId, actualId):
+    """用于没有付款的订单菜品删除"""
+
+    # 只检查main dish
+    salesorderLinesOnline = SalesorderLineOnline.getBySalesorderId(salesorderId)
+
+    for lineOnline in salesorderLinesOnline:
+        if lineOnline.status != -1:
+            salesorderLine = SalesorderLine.get(lineOnline.line_id)
+            if UtilValidate.isEmpty(salesorderLine):
+                extra = []
+                taste = []
+                # 检查包括extra/taste的lines
+                lines = SalesorderLineOnline.getLineId(lineOnline.line_id, salesorderId)
+                for line in lines:
+                    if line.type == 'extra':
+                        extra.append(line.stock_id)
+                    if line.type == 'taste':
+                        taste.append(line.stock_id)
+
+                refundGoods = {
+                    'stockId': lineOnline.stock_id,
+                    'extra': extra,
+                    'taste': taste,
+                    'quantity': lineOnline.quantity,
+                    'sizeLevel': lineOnline.size_level
+                }
+                response = cancelDishRequest(lineOnline.salesorder_id, actualId, refundGoods)
+                if response.status_code == 200:
+                    lineOnline.status = -1
+                print(response.text)
+
+
+def cancelDishRequest(salesorderId, actualId, refundGoods):
+    PiselUrl = flaskConfig.get('PiselUrl')
+    url = '{}/api/pos/au/notify/order/goods_change'.format(PiselUrl)
+
+    form = {
+        "salesorderId": salesorderId,
+        "relatedOrderNo": actualId,
+        "refund_goods": json.dumps(refundGoods)
+    }
+    form = UtilValidate.addSign(form)
+
+    print(form)
+    response = requests.post(url, data=form)
+
+    return response
+
+
+def cancelOrderRequest(salesorderId, actualId):
+    PiselUrl = flaskConfig.get('PiselUrl')
+    url = '{}/api/pos/au/notify/order/cancel'.format(PiselUrl)
+
+    form = {
+        "salesorderId": salesorderId,
+        "relatedOrderNo": actualId
+    }
+
+    form = UtilValidate.addSign(form)
+
+    print(form)
+    response = requests.post(url, data=form)
+
+    return response
+
+

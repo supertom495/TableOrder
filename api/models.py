@@ -9,7 +9,8 @@ from sqlalchemy.schema import Sequence
 from sqlalchemy_pagination import paginate
 from sqlalchemy.sql import func
 from database import Base, db_session
-import decimal
+import decimal, uuid
+
 
 
 class Tables(Base):
@@ -399,6 +400,46 @@ class Staff(Base):
         return cls.query.filter(cls.barcode == barcode).first()
 
 
+class RecordedDate(Base):
+    __tablename__ = 'RecordedDate'
+    date_type = Column(Integer, nullable=False, primary_key=True)
+    date_modified = Column(DateTime, nullable=False)
+    remark = Column(Unicode(50))
+
+    @classmethod
+    def get(cls, dateType):
+        try:
+            recordedDate = cls.query.filter(cls.date_type == dateType).one()
+            return recordedDate
+        except sqlalchemy.orm.exc.NoResultFound:
+            return RecordedDate.insert(dateType, 0)
+
+    @classmethod
+    def insert(cls, dateType, dateModified):
+        remark = ''
+        if dateType == 1:
+            remark = 'DocketOnline polling datetime'
+
+        recordedDate = RecordedDate(date_type = dateType,
+                                   date_modified = dateModified,
+                                   remark = remark)
+
+        cls.query.session.add(recordedDate)
+        cls.query.session.flush()
+
+        return recordedDate
+
+    @classmethod
+    def update(cls, dateType, dateModified):
+        """更新记录时间"""
+        recordedDate = cls.query.filter(cls.date_type == dateType).one()
+        recordedDate.date_modified = dateModified
+        cls.query.session.flush()
+        return recordedDate.date_modified
+
+
+
+
 
 class SaleID(Base):
     __tablename__ = 'SaleID'
@@ -483,7 +524,12 @@ class Salesorder(Base):
 
     @classmethod
     def getSalesorderById(cls, id):
-        return cls.query.filter(cls.salesorder_id == id).one()
+        try:
+            salesorder = cls.query.filter(cls.salesorder_id == id).one()
+            return salesorder
+        except sqlalchemy.orm.exc.NoResultFound:
+            return None
+
 
     @classmethod
     def getSalesorderByTableCode(cls, tableCode):
@@ -511,7 +557,37 @@ class Salesorder(Base):
 
         return
 
+class SalesorderOnline(Base):
+    __tablename__ = 'SalesOrderOnline'
 
+    uuid = Column(Unicode(40), primary_key=True)
+    salesorder_id = Column(Integer, server_default=text("(0)"))
+    actual_id = Column(Unicode(40))
+    remark = Column(Unicode(40))
+    status = Column(SmallInteger, nullable=False, server_default=text("(0)"))
+
+
+    @classmethod
+    def getActivateOrder(cls):
+        return cls.query.filter(and_(cls.status != 11, cls.status != -1)).all()
+
+    @classmethod
+    def getBySalesorderId(cls, salesorderId):
+        return cls.query.filter(cls.salesorder_id == salesorderId).first()
+
+    @classmethod
+    def insertSalesorderOnline(cls, salesorderId, actualId, remark, status):
+
+        newSalesorderOnline = SalesorderOnline(uuid = uuid.uuid1().hex,
+                                               salesorder_id = salesorderId,
+                                   actual_id = actualId,
+                                   remark = remark,
+                                   status = status)
+        cls.query.session.add(newSalesorderOnline)
+        cls.query.session.flush()
+        # cls.query.session.commit()
+
+        return salesorderId
 
 class SalesorderLine(Base):
     __tablename__ = 'SalesOrderLine'
@@ -543,6 +619,23 @@ class SalesorderLine(Base):
     salesorder = relationship('Salesorder')
     stock = relationship('Stock')
 
+
+    @classmethod
+    def get(cls, lineId):
+        try:
+            salesorderLine = cls.query.filter(cls.line_id == lineId).one()
+            return salesorderLine
+        except sqlalchemy.orm.exc.NoResultFound:
+            return None
+
+    @classmethod
+    def getBySalesorderId(cls, salesorderId):
+        return cls.query.filter(cls.salesorder_id == salesorderId).order_by(cls.line_id.asc()).all()
+
+    @classmethod
+    def getByOrderlineId(cls, orderlineId):
+        return cls.query.filter(cls.orderline_id == orderlineId).order_by(cls.line_id.asc()).all()
+
     @classmethod
     def insertSalesorderLine(cls, salesorderId, stockId, sizeLevel, price, quantity, staffId, time, parentlineId,
                              status, orderlineId=None):
@@ -569,16 +662,46 @@ class SalesorderLine(Base):
                                    time_ordered = time)
         cls.query.session.add(newSalesorderLine)
         cls.query.session.flush()
-        # cls.query.session.commit()
         return salesorderLineId
+
+
+
+class SalesorderLineOnline(Base):
+    __tablename__ = 'SalesOrderLineOnline'
+
+    uuid = Column(Unicode(40), primary_key=True)
+    line_id = Column(Integer, server_default=text("(0)"))
+    salesorder_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
+    actual_id = Column(Unicode(40))
+    stock_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
+    quantity = Column(Float(53), nullable=False, server_default=text("(0)"))
+    size_level = Column(SmallInteger)
+    status = Column(SmallInteger, nullable=False, server_default=text("(0)"))
+    type = Column(Unicode(40))
 
     @classmethod
     def getBySalesorderId(cls, salesorderId):
-        return cls.query.filter(cls.salesorder_id == salesorderId).order_by(cls.line_id.asc()).all()
+        return cls.query.filter(and_(cls.salesorder_id == salesorderId, cls.type == 'main')).all()
 
     @classmethod
-    def getByOrderlineId(cls, orderlineId):
-        return cls.query.filter(cls.orderline_id == orderlineId).order_by(cls.line_id.asc()).all()
+    def getLineId(cls, lineId, salesorderId):
+        return cls.query.filter(and_(cls.line_id == lineId, cls.status != -1, cls.salesorder_id == salesorderId)).all()
+
+    @classmethod
+    def insertSalesorderLineOnline(cls, lineId, salesorderId, actualId, stockId, quantity, sizeLevel, status, type):
+
+        newSalesorderLineOnline = SalesorderLineOnline(uuid = uuid.uuid1().hex,
+                                                    line_id = lineId,
+                                                    salesorder_id = salesorderId,
+                                                    actual_id = actualId,
+                                                    stock_id = stockId,
+                                                    quantity = quantity,
+                                                    size_level = sizeLevel,
+                                                    status = status,
+                                                    type = type)
+        cls.query.session.add(newSalesorderLineOnline)
+        cls.query.session.flush()
+        return lineId
 
 
 class Kitchen(Base):
@@ -819,10 +942,21 @@ class Docket(Base):
 
     @classmethod
     def getAll(cls, date):
-        query = cls.query.order_by(cls.docket_id.asc())
+        """获得今天的所有订单"""
+        query = cls.query.order_by(cls.docket_date.asc())
         if date:
             # query = query.filter(and_(cls.docket_date >= date, cls.docket_date <= '2012-10-26'))
             query = query.filter(cls.docket_date.between(date + ' 00:00:00', date + ' 23:59:59'))
+
+        res = query.all()
+        return res
+
+    @classmethod
+    def getByDate(cls, date):
+        """获得日期大于给出日子的所有订单"""
+        query = cls.query.order_by(cls.docket_date.desc())
+        if date:
+            query = query.filter(cls.docket_date >= date)
 
         res = query.all()
         return res
@@ -857,6 +991,32 @@ class Docket(Base):
         # cls.query.session.commit()
 
         return docket_id
+
+
+class DocketOnline(Base):
+    __tablename__ = 'DocketOnline'
+
+    uuid = Column(Unicode(40), primary_key=True)
+    docket_id = Column(Integer, server_default=text("(0)"))
+    actual_id = Column(Unicode(40))
+    remark = Column(Unicode(40))
+
+    @classmethod
+    def getByDocketId(cls, docketId):
+        return cls.query.filter(cls.docket_id == docketId).first()
+
+    @classmethod
+    def insert(cls, docketId, actualId, remark):
+
+        newSalesorderOnline = DocketOnline(uuid = uuid.uuid1().hex,
+                                           docket_id = docketId,
+                                   actual_id = actualId,
+                                   remark = remark)
+        cls.query.session.add(newSalesorderOnline)
+        cls.query.session.flush()
+
+        return docketId
+
 
 class DocketLine(Base):
     __tablename__ = 'DocketLine'
