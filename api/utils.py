@@ -1,8 +1,10 @@
-import base64
+import base64, hashlib, hmac
 from Crypto.Cipher import AES
 import time
 from models import Staff
 from database import flaskConfig
+import flask
+import json
 
 class UtilValidate:
 	def __init__(self):
@@ -115,6 +117,7 @@ class UtilValidate:
 
 		return data
 
+
 	@staticmethod
 	def getSign(data:dict) -> str:
 		from urllib.parse import urlencode
@@ -126,6 +129,14 @@ class UtilValidate:
 		sign = hashlib.md5(urlencoded.encode('utf-8'))
 
 		return sign.hexdigest()
+
+
+	@staticmethod
+	def _hmac_sha1(input_str):
+		raw = input_str.encode("ISO-8859-1")
+		key = 'p@ssphr@se'.encode('ISO-8859-1')
+		hashed = hmac.new(key, raw, hashlib.sha1)
+		return base64.encodebytes(hashed.digest()).decode('ISO-8859-1').replace('\n','')
 
 
 class ServiceUtil:
@@ -212,7 +223,16 @@ class ResponseUtil:
 		return result, ResponseUtil.HTTP_OK
 
 	@staticmethod
-	def error(result:dict):
-		return  result, ResponseUtil.HTTP_BAD_REQUEST
+	def error(result:dict, errorCode=HTTP_BAD_REQUEST):
+		return  result, errorCode
 
+	@staticmethod
+	def tyroResponse(result:dict = None):
+		response = flask.Response()
+		message = json.dumps(result)
+		response.set_data(message)
+		# response.headers["Access-Control-Allow-Origin"] = "*"
+		response.headers["x-tyro-mac"] = UtilValidate._hmac_sha1(message)
+		response.status_code = 200
+		return response
 
