@@ -7,6 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 import yaml
 import os, sys
 import pymssql
+import socket
 
 if not os.path.exists("./setting/flask.yaml"):
 	print("did not found setting file")
@@ -27,8 +28,10 @@ def getPort():
 
 storeName = flaskConfig.get("StoreName")
 serverName = flaskConfig.get("ServerName")
+if serverName is None:
+	serverName = socket.gethostbyname(socket.gethostname())
 debug = flaskConfig.get("Debug")
-engine = create_engine('mssql+pymssql://{}:{}@{}/{}'.format(flaskConfig.get("Login"), flaskConfig.get("Password"), flaskConfig.get("ServerName"), flaskConfig.get("DBName")), convert_unicode=True)  # 创建数据库引擎( 当前目录下保存数据库文件)
+engine = create_engine('mssql+pymssql://{}:{}@{}/{}'.format(flaskConfig.get("Login"), flaskConfig.get("Password"), serverName, flaskConfig.get("DBName")), convert_unicode=True)  # 创建数据库引擎( 当前目录下保存数据库文件)
 db_session = scoped_session(sessionmaker(autocommit=False,
 										 autoflush=False,
 										 bind=engine))

@@ -399,6 +399,10 @@ class Staff(Base):
     def getStaffByBarcode(cls, barcode):
         return cls.query.filter(cls.barcode == barcode).first()
 
+    @classmethod
+    def getTyroSecret(cls):
+        return cls.query.filter(cls.surname == 'Tyro').first()
+
 
 class RecordedDate(Base):
     __tablename__ = 'RecordedDate'

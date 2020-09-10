@@ -138,7 +138,7 @@ def getStock():
     data["taste"] = [v for v in cachedTaste.values()]
 
     # image url
-    data["imageUrl"] = getImageUrl(flask.request.host)
+    data["imageUrl"] = UtilValidate.getImageUrl(flask.request.host)
 
 
     result = ServiceUtil.returnSuccess(data)
@@ -242,7 +242,7 @@ def getSalesorder():
     data["salesorderId"] = salesorder.salesorder_id
     data["startTime"] = salesorder.salesorder_date
     data["guestNo"] = salesorder.guest_no
-    data["imageUrl"] = getImageUrl(flask.request.host)
+    data["imageUrl"] = UtilValidate.getImageUrl(flask.request.host)
     data["total"] = float(salesorder.total_inc)
     data["salesorderLines"] = {}
 
@@ -312,7 +312,7 @@ def getSalesorderById():
     data["salesorderId"] = salesorder.salesorder_id
     data["startTime"] = salesorder.salesorder_date
     data["guestNo"] = salesorder.guest_no
-    data["imageUrl"] = getImageUrl(flask.request.host)
+    data["imageUrl"] = UtilValidate.getImageUrl(flask.request.host)
     data["total"] = float(salesorder.total_inc)
     data["salesorderLines"] = {}
 
@@ -458,9 +458,3 @@ def fullfillStockMap(stock: Stock, quantity: int) -> dict:
 
     return stockMap
 
-def getImageUrl(host):
-    hostRange = host.split('.')[0]
-    if hostRange == '10' or hostRange == '172' or hostRange == '192' or hostRange == '127':
-        return 'http://{}/img/'.format(serverName)
-    else:
-        return 'https://pos-static.redpayments.com.au/{}/img/'.format(storeName)

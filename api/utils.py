@@ -1,14 +1,22 @@
-import base64, hashlib, hmac
+import base64, hashlib, hmac,binascii
 from Crypto.Cipher import AES
 import time
 from models import Staff
-from database import flaskConfig
+from database import flaskConfig, serverName
 import flask
 import json
 
 class UtilValidate:
 	def __init__(self):
 		pass
+
+	@staticmethod
+	def getImageUrl(host):
+		hostRange = host.split('.')[0]
+		if hostRange == '10' or hostRange == '172' or hostRange == '192' or hostRange == '127':
+			return 'http://{}/img/'.format(serverName)
+		else:
+			return 'https://pos-static.redpayments.com.au/{}/img/'.format(flaskConfig.get('StoreName'))
 
 	@staticmethod
 	def isNotEmpty(data) -> bool:
@@ -133,10 +141,14 @@ class UtilValidate:
 
 	@staticmethod
 	def _hmac_sha1(input_str):
-		raw = input_str.encode("ISO-8859-1")
-		key = 'p@ssphr@se'.encode('ISO-8859-1')
-		hashed = hmac.new(key, raw, hashlib.sha1)
-		return base64.encodebytes(hashed.digest()).decode('ISO-8859-1').replace('\n','')
+
+		raw = input_str
+		tyroStaff = Staff.getTyroSecret()
+		key = b'p@ssphr@se'
+		if UtilValidate.isNotEmpty(tyroStaff):
+			key = tyroStaff.barcode.encode('ISO-8859-1')
+		mac = hmac.new(key, raw, hashlib.sha1).digest()
+		return binascii.hexlify(mac)
 
 
 class ServiceUtil:
@@ -227,12 +239,16 @@ class ResponseUtil:
 		return  result, errorCode
 
 	@staticmethod
-	def tyroResponse(result:dict = None):
+	def tyro_success(result = None):
 		response = flask.Response()
-		message = json.dumps(result)
-		response.set_data(message)
+		if type(result) is dict:
+			result = json.dumps(result)
+		result = result.encode('ISO-8859-1')
+		response.set_data(result)
 		# response.headers["Access-Control-Allow-Origin"] = "*"
-		response.headers["x-tyro-mac"] = UtilValidate._hmac_sha1(message)
+		response.headers["x-tyro-mac"] = UtilValidate._hmac_sha1(result)
+		response.headers['Content-Type'] = 'application/json'
+
 		response.status_code = 200
 		return response
 

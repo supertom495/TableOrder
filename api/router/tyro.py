@@ -3,13 +3,20 @@ from utils import ServiceUtil, ResponseUtil, UtilValidate
 from models import Staff, Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, \
     SalesorderLine, Site, Kitchen
 from database import init_db, db_session, storeName
-import time
+import json
 
 tyro_blueprint = flask.Blueprint(
     'tyro',
     __name__,
     url_prefix='/api/v1/tyro'
 )
+
+@tyro_blueprint.route('/diagnostic', methods=['GET'])
+def diagnostic():
+    data = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+
+
+    return ResponseUtil.tyro_success(data)
 
 @tyro_blueprint.route('/open-sales', methods=['GET'])
 def getOpenSales():
@@ -67,4 +74,46 @@ def getOpenSales():
     }
     data['open-sales'].append(salesorderJson)
 
-    return ResponseUtil.tyroResponse(data)
+    return ResponseUtil.tyro_success(data)
+
+
+@tyro_blueprint.route('/transaction-result', methods=['POST'])
+def transactionResult():
+
+    transactionResult = json.loads(flask.request.data)
+
+    result = transactionResult.get('result')
+    mid = transactionResult.get('mid')
+    tid = transactionResult.get('tid')
+    operatorId = transactionResult.get('operator-id')
+    table = transactionResult.get('table')
+    approvalCode = transactionResult.get('approval-code')
+    posReference = transactionResult.get('pos-reference')
+    issuerActionCode = transactionResult.get('issuer-action-code')
+    responseMessage = transactionResult.get('response-message')
+    tipAmount = transactionResult.get('tip-amount')
+    baseAmount = transactionResult.get('base-amount')
+    baseCurrency = transactionResult.get('base-currency ')
+    cardCurrency = transactionResult.get('card-currency ')
+    cardType = transactionResult.get('card-type ')
+    elidedPan = transactionResult.get('elided-pan ')
+    gstPercentage = transactionResult.get('gst-percentage')
+    operatorId = transactionResult.get('operator-id ')
+    panLength = transactionResult.get('pan-length ')
+    rrn = transactionResult.get('rrn ')
+    surchargeAmount = transactionResult.get('surcharge-amount ')
+    terminalTransactionLocalDateTime = transactionResult.get('terminal-transaction-local-date-time ')
+    transactionReference = transactionResult.get('transaction-reference ')
+    transactionType = transactionResult.get('transaction-type ')
+    transmissionDateTime = transactionResult.get('transmission-date-time ')
+    transactionAmount = transactionResult.get('transaction-amount ')
+    transactionCurrency = transactionResult.get('transaction-currency ')
+    exchangeRate = transactionResult.get('exchange-rate ')
+    receiptBlock = transactionResult.get('receipt-block ')
+
+
+
+    data = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+
+
+    return ResponseUtil.tyro_success(data)

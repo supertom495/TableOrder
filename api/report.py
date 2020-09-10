@@ -2,11 +2,12 @@ import xlwt
 import requests
 import json
 import yaml
+from database import serverName
 
 with open('./setting/flask.yaml') as f:
 	data = yaml.load(f, Loader=yaml.FullLoader)
 
-api_url_base = 'http://' + data['ServerName'] + ':5001/api/v1/report/report?date=20200630'
+api_url_base = 'http://' + serverName + ':5001/api/v1/report/report?date=20200630'
 
 headers = {'Content-Type': 'application/json'}
 
