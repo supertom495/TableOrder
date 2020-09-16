@@ -1,9 +1,8 @@
 Login: sa
 Password: 1689
 ServerName:
-DBName: Jackpot
-StoreName: jackpothotpot
+DBName: xiaochuanyue
+StoreName: xiaochuanyue
 Debug: True
 PiselUrl: https://etest.pisel.com.au
-PiselSecret: MTORFFCRyzx6856xDl
 Version: 1.28

@@ -132,7 +132,10 @@ class UtilValidate:
 		import hashlib
 
 		sorted_items = sorted(data.items())
-		secret = flaskConfig.get('PiselSecret')
+		secret = ''
+		PiselStaff = Staff.getPiselSecret()
+		if UtilValidate.isNotEmpty(PiselStaff):
+			secret = PiselStaff.barcode
 		urlencoded = urlencode(sorted_items) + '&' + secret
 		sign = hashlib.md5(urlencoded.encode('utf-8'))
 

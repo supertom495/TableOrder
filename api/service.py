@@ -124,10 +124,11 @@ class SalesorderLineService():
 
 
 		for line in salesorderLines:
-			if len(line) != 7:
+			if len(line) < 7:
 				return ServiceUtil.errorWrongLogic('Incorrect content', code=3003)
 
 			stockId = line["stockId"]
+			actualLineId = line.get('actualLineId')
 			stock = Stock.getByStockId(stockId)
 			sizeLevel = line["sizeLevel"]
 			quantity = line["quantity"]
@@ -141,7 +142,7 @@ class SalesorderLineService():
 																			   UtilValidate.getCurrentTs()),
 																		   parentlineId, status)
 			# 线上记录
-			SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, stockId, quantity, sizeLevel, status, 'main')
+			SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, actualLineId, stockId, quantity, sizeLevel, status, 'main')
 
 			for extra in line["extra"]:
 				parentlineId = 2
@@ -152,7 +153,7 @@ class SalesorderLineService():
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, extraId, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
-				SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, extraId, quantity, sizeLevel, status, 'extra')
+				# SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, extraId, quantity, sizeLevel, status, 'extra')
 
 
 			for taste in line["taste"]:
@@ -164,7 +165,7 @@ class SalesorderLineService():
 				salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, tasteId, sizeLevel, price, quantity,
 																	   staffId, UtilValidate.tsToTime(
 						UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
-				SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, tasteId, quantity, sizeLevel, status, 'taste')
+				# SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, tasteId, quantity, sizeLevel, status, 'taste')
 
 
 

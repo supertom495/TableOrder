@@ -4,8 +4,6 @@ from sqlalchemy import Column, DateTime, Float, ForeignKey, ForeignKeyConstraint
 from sqlalchemy.dialects.mssql import BIT, MONEY
 from sqlalchemy.orm import relationship
 from sqlalchemy.exc import ProgrammingError
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.schema import Sequence
 from sqlalchemy_pagination import paginate
 from sqlalchemy.sql import func
 from database import Base, db_session
@@ -403,6 +401,9 @@ class Staff(Base):
     def getTyroSecret(cls):
         return cls.query.filter(cls.surname == 'Tyro').first()
 
+    @classmethod
+    def getPiselSecret(cls):
+        return cls.query.filter(cls.surname == 'Pisel').first()
 
 class RecordedDate(Base):
     __tablename__ = 'RecordedDate'
@@ -677,6 +678,7 @@ class SalesorderLineOnline(Base):
     line_id = Column(Integer, server_default=text("(0)"))
     salesorder_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
     actual_id = Column(Unicode(40))
+    actual_line_id = Column(Unicode(40))
     stock_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
     quantity = Column(Float(53), nullable=False, server_default=text("(0)"))
     size_level = Column(SmallInteger)
@@ -685,19 +687,20 @@ class SalesorderLineOnline(Base):
 
     @classmethod
     def getBySalesorderId(cls, salesorderId):
-        return cls.query.filter(and_(cls.salesorder_id == salesorderId, cls.type == 'main')).all()
+        return cls.query.filter(and_(cls.salesorder_id == salesorderId)).all()
 
     @classmethod
     def getLineId(cls, lineId, salesorderId):
         return cls.query.filter(and_(cls.line_id == lineId, cls.status != -1, cls.salesorder_id == salesorderId)).all()
 
     @classmethod
-    def insertSalesorderLineOnline(cls, lineId, salesorderId, actualId, stockId, quantity, sizeLevel, status, type):
+    def insertSalesorderLineOnline(cls, lineId, salesorderId, actualId, actualLineId, stockId, quantity, sizeLevel, status, type):
 
         newSalesorderLineOnline = SalesorderLineOnline(uuid = uuid.uuid1().hex,
                                                     line_id = lineId,
                                                     salesorder_id = salesorderId,
                                                     actual_id = actualId,
+                                                    actual_line_id = actualLineId,
                                                     stock_id = stockId,
                                                     quantity = quantity,
                                                     size_level = sizeLevel,

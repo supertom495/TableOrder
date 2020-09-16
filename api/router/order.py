@@ -1,8 +1,8 @@
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Staff, Tables, Docket, DocketOnline, RecordedDate
-from database import init_db, db_session, flaskConfig
-import time, json
+from models import Tables, Docket, DocketOnline, RecordedDate
+from database import db_session, flaskConfig
+import json
 from service import SalesorderService, SalesorderLineService, PaymentService, DocketService, DocketLineService, SalesorderOnline, Salesorder, SalesorderLine, SalesorderLineOnline
 import requests
 
@@ -11,6 +11,7 @@ order_blueprint = flask.Blueprint(
     __name__,
     url_prefix='/api/v1/order'
 )
+
 
 @order_blueprint.route('/salesorderprepay', methods=['POST'])
 def apiNewPrepaidSalesorder():
@@ -166,7 +167,10 @@ def scanDeletedDocket():
             refundDocket = DocketOnline.getByDocketId(refundDocketId)
             if UtilValidate.isNotEmpty(refundDocket):
                 response = cancelOrderRequest(refundDocket.docket_id, refundDocket.actual_id)
-                print(response.text)
+                # 如果取消失败 直接返回结果
+                # 不更新记录时间
+                if response.status_code != 200:
+                    return response
 
     RecordedDate.update(1, nowTime)
 
@@ -201,29 +205,17 @@ def scanDeletedSalesorder():
 def scanDeletedSalesorderLine(salesorderId, actualId):
     """用于没有付款的订单菜品删除"""
 
-    # 只检查main dish
+    # 只检查 main dish
     salesorderLinesOnline = SalesorderLineOnline.getBySalesorderId(salesorderId)
 
     for lineOnline in salesorderLinesOnline:
         if lineOnline.status != -1:
             salesorderLine = SalesorderLine.get(lineOnline.line_id)
             if UtilValidate.isEmpty(salesorderLine):
-                extra = []
-                taste = []
-                # 检查包括extra/taste的lines
-                lines = SalesorderLineOnline.getLineId(lineOnline.line_id, salesorderId)
-                for line in lines:
-                    if line.type == 'extra':
-                        extra.append(line.stock_id)
-                    if line.type == 'taste':
-                        taste.append(line.stock_id)
-
                 refundGoods = {
                     'stockId': lineOnline.stock_id,
-                    'extra': extra,
-                    'taste': taste,
+                    'actualLineId': lineOnline.actual_line_id,
                     'quantity': lineOnline.quantity,
-                    'sizeLevel': lineOnline.size_level
                 }
                 response = cancelDishRequest(lineOnline.salesorder_id, actualId, refundGoods)
                 if response.status_code == 200:
