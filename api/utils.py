@@ -14,7 +14,10 @@ class UtilValidate:
 	def getImageUrl(host):
 		hostRange = host.split('.')[0]
 		if hostRange == '10' or hostRange == '172' or hostRange == '192' or hostRange == '127':
-			return 'http://{}/img/'.format(serverName)
+			if flaskConfig.get('ImageUrl'):
+				return 'http://{}/img/'.format(flaskConfig.get('ImageUrl'))
+			else:
+				return 'http://{}/img/'.format(serverName)
 		else:
 			return 'https://pos-static.redpayments.com.au/{}/img/'.format(flaskConfig.get('StoreName'))
 
@@ -250,7 +253,7 @@ class ResponseUtil:
 		response.set_data(result)
 		# response.headers["Access-Control-Allow-Origin"] = "*"
 		response.headers["x-tyro-mac"] = UtilValidate._hmac_sha1(result)
-		response.headers['Content-Type'] = 'application/json'
+		response.headers['Content-Type'] = 'text/plain'
 
 		response.status_code = 200
 		return response

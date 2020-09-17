@@ -1,6 +1,7 @@
 Login: sa
 Password: 1689
 ServerName:
+ImageUrl:
 DBName: xiaochuanyue
 StoreName: xiaochuanyue
 Debug: True
