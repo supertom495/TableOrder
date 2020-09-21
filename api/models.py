@@ -506,9 +506,10 @@ class Salesorder(Base):
     def insertSalesorder(cls, tableCode, guestNo, staffId, time, transaction, status):
 
         salesorderId = SaleID.updateSalesorderId()
-        if salesorderId is None:
-            max = cls.query.session.query(func.max(cls.salesorder_id).label("max_id")).one()
-            salesorderId = 1 if max.max_id is None else max.max_id + 1
+        # if salesorderId is None:
+        max = cls.query.session.query(func.max(cls.salesorder_id).label("max_id")).one()
+        salesorderId = 1 if max.max_id is None else max.max_id + 1
+
         if transaction == 'TA':
             tableCode = 'TA' + '-OL-' + str(SaleID.updateTakeawayId())
 
