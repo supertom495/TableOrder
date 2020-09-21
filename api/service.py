@@ -55,13 +55,10 @@ class SalesorderService():
 		salesorderId = None
 		tableCode = None
 		# insert a new salesorder
-		while salesorderId is None:
-			try:
-				salesorderId, tableCode = Salesorder.insertSalesorder(tableCode, guestNo, staffId,
-														   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
-														   transaction, status)
-			except exc.IntegrityError:
-				pass
+		salesorderId, tableCode = Salesorder.insertSalesorder(tableCode, guestNo, staffId,
+												   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
+												   transaction, status)
+
 
 		SalesorderOnline.insertSalesorderOnline(salesorderId, actualId, remark, status)
 
