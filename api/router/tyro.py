@@ -51,7 +51,6 @@ def getOpenSales():
         return ResponseUtil.error(ServiceUtil.errorWrongLogic('Table is using by POS'), 412)
 
 
-
     # find the Salesorder
     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
     if UtilValidate.isEmpty(salesorder):
@@ -66,7 +65,7 @@ def getOpenSales():
     # put Salesorder lines to data
     data = {}
     data['open-sales'] = []
-    data['always-return-outcome'] = 'true'
+    # data['always-return-outcome'] = 'true'
     salesorderJson = {
         'amount': str(salesorder.subtotal).replace('.', ''),
         'pos-reference': salesorder.salesorder_id,

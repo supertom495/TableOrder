@@ -2,7 +2,7 @@ from utils import ResponseUtil, ServiceUtil, UtilValidate
 from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, \
 	Salesorder, SalesorderLine, Site, StockPrint, CatPrint, KeyboardPrint, Kitchen, Docket, DocketLine, Payment, SalesorderOnline, SalesorderLineOnline, DocketOnline
 import json
-
+from sqlalchemy import exc
 
 class SalesorderService():
 
@@ -52,10 +52,16 @@ class SalesorderService():
 		else:
 			status = 1
 
+		salesorderId = None
+		tableCode = None
 		# insert a new salesorder
-		salesorderId, tableCode = Salesorder.insertSalesorder(tableCode, guestNo, staffId,
-												   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
-												   transaction, status)
+		while salesorderId is None:
+			try:
+				salesorderId, tableCode = Salesorder.insertSalesorder(tableCode, guestNo, staffId,
+														   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
+														   transaction, status)
+			except exc.IntegrityError:
+				pass
 
 		SalesorderOnline.insertSalesorderOnline(salesorderId, actualId, remark, status)
 
