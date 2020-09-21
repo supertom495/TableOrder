@@ -52,8 +52,6 @@ class SalesorderService():
 		else:
 			status = 1
 
-		salesorderId = None
-		tableCode = None
 		# insert a new salesorder
 		salesorderId, tableCode = Salesorder.insertSalesorder(tableCode, guestNo, staffId,
 												   UtilValidate.tsToTime(UtilValidate.getCurrentTs()),
