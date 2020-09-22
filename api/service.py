@@ -361,6 +361,7 @@ class DocketService():
 		guestNo = context.get('guestNo')
 		remark = context.get('remark')
 		actualId = context.get('actualId')
+		memberBarcode = context.get('memberBarcode')
 
 		if token is None:
 			return ServiceUtil.errorMissingParameter()
@@ -372,7 +373,7 @@ class DocketService():
 
 
 
-		docketId = Docket.insertDocket(UtilValidate.tsToTime(UtilValidate.getCurrentTs()), staffId, tableCode, subtotal, guestNo)
+		docketId = Docket.insertDocket(UtilValidate.tsToTime(UtilValidate.getCurrentTs()), staffId, tableCode, subtotal, guestNo, memberBarcode)
 		DocketOnline.insert(docketId, actualId, remark)
 
 		result = ServiceUtil.returnSuccess({"docketId": docketId})

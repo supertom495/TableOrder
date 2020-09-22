@@ -107,6 +107,7 @@ def getStock():
                     displayTaste = {}
                     stock = Stock.getByStockId(tasteId)
                     displayTaste["stockId"] = int(stock.stock_id)
+                    displayTaste["inactive"] = stock.inactive
                     displayTaste["custom1"] = stock.custom1
                     displayTaste["cat2"] = stock.cat2
                     displayTaste["barcode"] = stock.barcode
@@ -122,6 +123,7 @@ def getStock():
                     displayExtra = {}
                     stock = Stock.getByStockId(extraId)
                     displayExtra["stockId"] = int(stock.stock_id)
+                    displayExtra["inactive"] = stock.inactive
                     displayExtra["custom1"] = stock.custom1
                     displayExtra["cat2"] = stock.cat2
                     displayExtra["barcode"] = stock.barcode

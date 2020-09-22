@@ -975,7 +975,7 @@ class Docket(Base):
         return res
 
     @classmethod
-    def insertDocket(cls, time, staffId, tableCode, amount, guestNo):
+    def insertDocket(cls, time, staffId, tableCode, amount, guestNo, memberBarcode=None):
 
         max =  cls.query.session.query(func.max(cls.docket_id).label("max_id")).one()
         docket_id = 1 if max.max_id is None else max.max_id + 1
@@ -992,7 +992,8 @@ class Docket(Base):
                            total_inc = amount,
                            gp = amount/1.1,
                            actual_id = docket_id,
-                           guest_no = guestNo)
+                           guest_no = guestNo,
+                           member_barcode = memberBarcode)
 
         cls.query.session.add(newDocket)
         cls.query.session.flush()

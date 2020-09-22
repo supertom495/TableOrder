@@ -29,6 +29,7 @@ def apiNewPrepaidSalesorder():
     paymentDetail = flask.request.form.get('paymentDetail')
     remark = flask.request.form.get('remark')
     actualId = flask.request.form.get('actualId')
+    memberBarcode = flask.request.form.get('memberBarcode')
 
     if UtilValidate.isEmpty(isPaid):
         return ResponseUtil.error(ServiceUtil.errorMissingParameter("isPaid"))
@@ -81,7 +82,7 @@ def apiNewPrepaidSalesorder():
 
         # insert into docket
         docketResult = DocketService.newDocket({"token":token, "tableCode":tableCode,
-                                                        "subtotal":subtotal, "guestNo":guestNo, "remark":remark, "actualId":actualId})
+                                                        "subtotal":subtotal, "guestNo":guestNo, "remark":remark, "actualId":actualId, "memberBarcode":memberBarcode})
         if docketResult["code"] != "0":
             return ResponseUtil.error(docketResult)
 
