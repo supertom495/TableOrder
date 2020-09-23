@@ -318,7 +318,7 @@ class TasteStock(Base):
     @classmethod
     def getAll(cls):
         try:
-            res = cls.query.filter(cls.visible_type == 1).all()
+            res = cls.query.filter(cls.visible_type == 1).order_by(cls.stock_id.desc()).all()
             return res
         except ProgrammingError:
             return []
@@ -342,7 +342,7 @@ class ExtraStock(Base):
     @classmethod
     def getAll(cls):
         try:
-            res = cls.query.filter(cls.visible_type == 1).all()
+            res = cls.query.filter(cls.visible_type == 1).order_by(cls.stock_id.desc()).all()
             return res
         except ProgrammingError:
             return []
@@ -1085,3 +1085,33 @@ class DocketLine(Base):
         # cls.query.session.commit()
 
         return lineId
+
+
+class GlobalSetting(Base):
+    __tablename__ = 'GlobalSetting'
+
+    setting_key = Column(Unicode(50), primary_key=True)
+    setting_value = Column(Unicode(3000))
+    disable = Column(BIT)
+    exclude_terminals = Column(Unicode(100))
+    file_content = Column(LargeBinary)
+
+    @classmethod
+    def getMenuSizeLevelOptionDisallow(cls):
+        res = cls.query.filter(cls.disable == 0, cls.setting_key.like('MenuSizeLevelOptionDisallow%')).all()
+        return res
+
+    @classmethod
+    def getMenuOptionLimitation(cls):
+        res = cls.query.filter(cls.disable == 0, cls.setting_key.like('MenuOptionLimitation%')).all()
+        return res
+
+
+class GlobalSettingSub(Base):
+    __tablename__ = 'GlobalSettingSub'
+
+    setting_key = Column(ForeignKey('GlobalSetting.setting_key'), primary_key=True, nullable=False)
+    setting_subkey = Column(Unicode(50), primary_key=True, nullable=False)
+    setting_value = Column(Unicode(3000))
+
+    GlobalSetting = relationship('GlobalSetting')

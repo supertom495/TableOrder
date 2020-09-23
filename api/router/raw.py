@@ -1,6 +1,6 @@
 import flask
 from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, \
-    SalesorderLine, Site, Kitchen
+    SalesorderLine, Site, Kitchen, GlobalSetting
 from utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import storeName, serverName, flaskConfig
 from service import SalesorderService, SalesorderLineService
@@ -66,6 +66,10 @@ def getStock():
     cachedExtra = {}
     cachedTaste = {}
 
+    # Get Menu rule
+    sizeLevelOptionDisallowRules = GlobalSetting.getMenuSizeLevelOptionDisallow()
+    menuOptionLimitationRules = GlobalSetting.getMenuOptionLimitation()
+
     for kbItem in kbItems:
         if not kbItem.item_barcode.strip(): continue
         stock = Stock.getByBarcode(kbItem.item_barcode)
@@ -73,6 +77,8 @@ def getStock():
 
         displayStock = {}
         displayStock["stockId"] = int(stock.stock_id)
+        displayStock["sizeLevelOptionDisallowRules"] = loadMenuSizeLevelOptionDisallowRules(stock.stock_id, sizeLevelOptionDisallowRules)
+        displayStock["menuOptionLimitationRules"] = loadMenuOptionLimitationRules(stock.stock_id, menuOptionLimitationRules)
         displayStock["inactive"] = stock.inactive
         displayStock["show_extra"] = stock.show_extra
         displayStock["show_taste"] = stock.show_taste
@@ -132,12 +138,14 @@ def getStock():
                     displayExtra["description2"] = stock.description2
                     cachedExtra[extraId] = displayExtra
 
+        displayStock["extra"].sort()
+        displayStock["taste"].sort()
         stockMap[kbItem.cat_id]["stocks"].append(displayStock)
 
     data = {}
     data["stock"] = [v for v in stockMap.values()]
-    data["extra"] = [v for v in cachedExtra.values()]
-    data["taste"] = [v for v in cachedTaste.values()]
+    data["extra"] = [cachedExtra[v] for v in sorted(cachedExtra)]
+    data["taste"] = [cachedTaste[v] for v in sorted(cachedTaste)]
 
     # image url
     data["imageUrl"] = UtilValidate.getImageUrl(flask.request.host)
@@ -460,3 +468,20 @@ def fullfillStockMap(stock: Stock, quantity: int) -> dict:
 
     return stockMap
 
+def loadMenuSizeLevelOptionDisallowRules(stockId, rules):
+    results = []
+    for rule in rules:
+        ruleDetails = rule.setting_value.split(';')
+        if ruleDetails[0] == '' or ruleDetails[0] == str(stockId):
+            results.append(rule.setting_value.split(';', 1)[1])
+
+    return results
+
+
+def loadMenuOptionLimitationRules(stockId, rules):
+    results = []
+    for rule in rules:
+        ruleDetails = rule.setting_value.split(';')
+        if ruleDetails[0] == '' or ruleDetails[0] == str(stockId):
+            results.append(rule.setting_value.split(';', 1)[1])
+    return results

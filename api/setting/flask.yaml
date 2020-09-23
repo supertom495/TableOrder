@@ -2,7 +2,7 @@ Login: sa
 Password: 1689
 ServerName:
 ImageUrl:
-DBName: xiaochuanyue
+DBName: gcvic
 StoreName: xiaochuanyue
 Debug: True
 PiselUrl: https://etest.pisel.com.au
