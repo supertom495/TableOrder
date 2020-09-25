@@ -1,9 +1,8 @@
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Keyboard, Docket, Payment, Tables, DocketLine, Stock
+from models import Docket, Payment, Tables, DocketLine, Stock
 from decimal import Decimal
 from datetime import datetime
-from database import init_db, db_session, storeName
 
 report_blueprint = flask.Blueprint(
     'report',

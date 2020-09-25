@@ -1,11 +1,11 @@
+import time
 import flask
+from deprecated import deprecated
 from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, \
     SalesorderLine, Site, Kitchen, GlobalSetting
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from database import storeName, serverName, flaskConfig
+from database import flaskConfig
 from service import SalesorderService, SalesorderLineService
-import time
-from deprecated import deprecated
 
 raw_blueprint = flask.Blueprint(
     'raw',
@@ -15,7 +15,7 @@ raw_blueprint = flask.Blueprint(
 
 @raw_blueprint.route('/', methods=['GET'])
 def home():
-    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.28</h3><p>This site has API for self-ordering.</p>".format(flaskConfig.get('StoreName'))
+    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.30</h3><p>This site has API for self-ordering.</p>".format(flaskConfig.get('StoreName'))
 
 
 @raw_blueprint.route('/stock', methods=['GET'])

@@ -1,7 +1,6 @@
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
 from models import Staff
-from database import init_db, db_session, storeName
 import time
 
 staff_blueprint = flask.Blueprint(

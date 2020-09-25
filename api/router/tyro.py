@@ -1,9 +1,7 @@
+import json
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Staff, Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, \
-    SalesorderLine, Site, Kitchen
-from database import init_db, db_session, storeName
-import json
+from models import Tables, Staff, Salesorder
 
 tyro_blueprint = flask.Blueprint(
     'tyro',
@@ -11,16 +9,16 @@ tyro_blueprint = flask.Blueprint(
     url_prefix='/api/v1/tyro'
 )
 
+
 @tyro_blueprint.route('/diagnostic', methods=['GET'])
 def diagnostic():
     data = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 
-
     return ResponseUtil.tyro_success(data)
+
 
 @tyro_blueprint.route('/open-sales', methods=['GET'])
 def getOpenSales():
-
     operatorId = flask.request.args.get('operatorId')
     mid = flask.request.args.get('mid')
     tid = flask.request.args.get('tid')
@@ -50,17 +48,14 @@ def getOpenSales():
     if table.staff_id != 0 and table.staff_id is not None:
         return ResponseUtil.error(ServiceUtil.errorWrongLogic('Table is using by POS'), 412)
 
-
     # find the Salesorder
     salesorder = Salesorder.getSalesorderByTableCode(tableCode)
     if UtilValidate.isEmpty(salesorder):
         return ResponseUtil.error(ServiceUtil.errorWrongLogic('No order found', code=3001))
 
-
     # do not return invalid salesorder (when status is 10, 11)
     if salesorder.status == 10 or salesorder.status == 11:
         return ResponseUtil.error(ServiceUtil.errorWrongLogic('No order found', code=3001))
-
 
     # put Salesorder lines to data
     data = {}
@@ -78,7 +73,6 @@ def getOpenSales():
 
 @tyro_blueprint.route('/transaction-result', methods=['POST'])
 def transactionResult():
-
     transactionResult = json.loads(flask.request.data)
 
     result = transactionResult.get('result')
@@ -110,9 +104,6 @@ def transactionResult():
     exchangeRate = transactionResult.get('exchange-rate ')
     receiptBlock = transactionResult.get('receipt-block ')
 
-
-
     data = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-
 
     return ResponseUtil.tyro_success(data)
