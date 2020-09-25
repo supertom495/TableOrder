@@ -1,6 +1,6 @@
 import flask
 from flask_cors import *
-from database import init_db, db_session, getPort, debug, flaskConfig
+from database import init_db, db_session, getPort, debug
 from router import blueprint
 import time, json
 import traceback

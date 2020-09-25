@@ -1,8 +1,8 @@
-from utils import ResponseUtil, ServiceUtil, UtilValidate
-from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, \
-	Salesorder, SalesorderLine, Site, StockPrint, CatPrint, KeyboardPrint, Kitchen, Docket, DocketLine, Payment, SalesorderOnline, SalesorderLineOnline, DocketOnline
 import json
-from sqlalchemy import exc
+from utils import ServiceUtil, UtilValidate
+from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, Salesorder, SalesorderLine, StockPrint, \
+	CatPrint, KeyboardPrint, Kitchen, Docket, DocketLine, Payment, SalesorderOnline, SalesorderLineOnline, DocketOnline
+
 
 class SalesorderService():
 

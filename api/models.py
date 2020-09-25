@@ -1,14 +1,15 @@
 # coding: utf-8
+import decimal
+import uuid
 import sqlalchemy
-from sqlalchemy import Column, DateTime, Float, ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary, NCHAR, SmallInteger, String, Table, Unicode, UnicodeText, text, or_, and_
+from sqlalchemy import Column, DateTime, Float, ForeignKey, Index, Integer, LargeBinary, SmallInteger, Unicode, text, \
+    or_, and_
 from sqlalchemy.dialects.mssql import BIT, MONEY
 from sqlalchemy.orm import relationship
 from sqlalchemy.exc import ProgrammingError
-from sqlalchemy_pagination import paginate
 from sqlalchemy.sql import func
-from database import Base, db_session
-import decimal, uuid
-
+from sqlalchemy_pagination import paginate
+from database import Base
 
 
 class Tables(Base):

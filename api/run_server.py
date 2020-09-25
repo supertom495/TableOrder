@@ -3,7 +3,6 @@ from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from flask_api import app
-from flask_apscheduler import APScheduler
 from apscheduler.triggers import interval
 from apscheduler.schedulers.background import BackgroundScheduler
 from pytz import utc
@@ -16,9 +15,7 @@ if flaskConfig.get('PiselUrl') is not None:
         'coalesce': False,
         'max_instances': 3
     }
-    # scheduler = APScheduler(BackgroundScheduler(job_defaults=job_defaults, timezone=utc))
-    # scheduler.init_app(app)
-    # scheduler.start()
+
 
     scheduler = BackgroundScheduler(job_defaults=job_defaults, timezone=utc)
     trigger1 = interval.IntervalTrigger(seconds=7)

@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 import importlib
-
-from sqlalchemy import create_engine, MetaData
+import os
+import sys
+import socket
+from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import yaml
-import os, sys
-import pymssql
-import socket
 
 if not os.path.exists("./setting/flask.yaml"):
 	print("did not found setting file")
