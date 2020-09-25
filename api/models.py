@@ -331,6 +331,14 @@ class TasteStock(Base):
         except ProgrammingError:
             return []
 
+    @classmethod
+    def updateVisibleType(cls, stockId, tasteId, visibleType):
+        res = cls.query.filter(cls.stock_id == stockId, cls.taste_id == tasteId).first()
+        if res is not None:
+            res.visible_type = visibleType
+            cls.query.session.flush()
+            cls.query.session.commit()
+
 
 
 class ExtraStock(Base):
@@ -354,6 +362,14 @@ class ExtraStock(Base):
             return res
         except ProgrammingError:
             return []
+
+    @classmethod
+    def updateVisibleType(cls, stockId, extraId, visibleType):
+        res = cls.query.filter(cls.stock_id == stockId, cls.extra_id == extraId).first()
+        if res is not None:
+            res.visible_type = visibleType
+            cls.query.session.flush()
+            cls.query.session.commit()
 
 
 class Staff(Base):
@@ -1105,6 +1121,24 @@ class GlobalSetting(Base):
     def getMenuOptionLimitation(cls):
         res = cls.query.filter(cls.disable == 0, cls.setting_key.like('MenuOptionLimitation%')).all()
         return res
+
+    @classmethod
+    def deleteAllRules(cls):
+        cls.query.filter(or_(cls.setting_key.like('MenuOptionLimitation%'), cls.setting_key.like('MenuSizeLevelOptionDisallow%'))).delete(synchronize_session=False)
+        cls.query.session.commit()
+
+
+    @classmethod
+    def insertRules(cls, settingKey, settingValue, disable):
+
+        newRule = GlobalSetting(setting_key = settingKey,
+                                           setting_value = settingValue,
+                                           disable = disable)
+
+        cls.query.session.add(newRule)
+        cls.query.session.flush()
+        cls.query.session.commit()
+
 
 
 class GlobalSettingSub(Base):
