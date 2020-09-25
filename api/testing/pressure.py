@@ -5,6 +5,7 @@ from datetime import datetime
 
 baseURL = "http://172.16.11.251:5001"
 
+
 def getToken(staffCode):
     url = baseURL + "/api/v1/staff/stafftoken"
 
@@ -27,6 +28,7 @@ def createBody(token, guestNo, salesorderLines, paymentDetail):
     }
     return form
 
+
 def getStock():
     url = url = baseURL + "/stock"
 
@@ -34,7 +36,9 @@ def getStock():
 
     return json.loads(response.text)
 
+
 menu = getStock()
+
 
 def createOrder():
     token = getToken('1')
@@ -43,15 +47,15 @@ def createOrder():
     guestNo = int((dishNo + 2) / 3)
 
     salesorderLines = [
-      {
-        "stockId": 66,
-        "taste": [],
-        "extra": [],
-        "sizeLevel": 0,
-        "quantity": 1,
-        "comments": "",
-        "price": 4.2
-      }
+        {
+            "stockId": 66,
+            "taste": [],
+            "extra": [],
+            "sizeLevel": 0,
+            "quantity": 1,
+            "comments": "",
+            "price": 4.2
+        }
     ]
 
     total = 0
@@ -63,7 +67,7 @@ def createOrder():
         stockLen = len(menu['data']['stock'][catOrder]['stocks'])
         stockOrder = random.randint(0, stockLen - 1)
         dish = menu['data']['stock'][catOrder]['stocks'][stockOrder]
-        quantity = random.randint(1,3)
+        quantity = random.randint(1, 3)
         extra = []
         taste = []
 
@@ -71,12 +75,11 @@ def createOrder():
         price = dish['price']['0']
 
         if len(dish['price']) > 1:
-            sizeLevel = random.randint(1,2)
+            sizeLevel = random.randint(1, 2)
             v = random.choice(list(dish['price'].keys()))
             if v == '0':
                 v = '1'
             price = dish['price'][v][0]
-
 
         if len(dish['extra']) > 0:
             extra.append({
@@ -92,9 +95,7 @@ def createOrder():
                 "quantity": 1
             })
 
-
         order += str(i) + '\t' + str(dish) + '\n'
-
 
         salesorderLines.append({
             "stockId": dish['stockId'],
@@ -105,15 +106,14 @@ def createOrder():
             "comments": "",
             "price": price
         })
-        total += price*quantity
+        total += price * quantity
 
-
-    paymentDetail = [{"paymentType":"Cash","amount":total}]
+    paymentDetail = [{"paymentType": "Cash", "amount": total}]
     body = createBody(token, guestNo, salesorderLines, paymentDetail)
 
     url = url = baseURL + "/api/v1/order/salesorderprepay"
 
-    fileName = datetime.now().strftime("%Y %m %d   %H %M %S --- ") + str(random.randint(1,193928383))
+    fileName = datetime.now().strftime("%Y %m %d   %H %M %S --- ") + str(random.randint(1, 193928383))
 
     with open(fileName, "w") as text_file:
         print('writing')
@@ -121,12 +121,11 @@ def createOrder():
 
     response = requests.post(url, data=body)
 
-
     return json.loads(response.text)
 
 
-import time
 import threading
+
 
 def worker(num):
     print('work-{}'.format(num))
@@ -136,6 +135,5 @@ def worker(num):
 
 
 for i in range(2):
-    t = threading.Thread(target=worker, args=(i, )) # 启动了五个线程，要启动几个就循环几次
+    t = threading.Thread(target=worker, args=(i,))  # 启动了五个线程，要启动几个就循环几次
     t.start()
-

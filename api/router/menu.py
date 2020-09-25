@@ -199,8 +199,6 @@ def getOption():
 
     return ResponseUtil.success(result)
 
-
-
 # def return_img_stream(img_local_path):
 #   import base64
 #   img_stream = ''

@@ -3,7 +3,8 @@ from utils import ServiceUtil, ResponseUtil, UtilValidate
 from models import Tables, Docket, DocketOnline, RecordedDate
 from database import db_session, flaskConfig
 import json
-from service import SalesorderService, SalesorderLineService, PaymentService, DocketService, DocketLineService, SalesorderOnline, Salesorder, SalesorderLine, SalesorderLineOnline
+from service import SalesorderService, SalesorderLineService, PaymentService, DocketService, DocketLineService, \
+    SalesorderOnline, Salesorder, SalesorderLine, SalesorderLineOnline
 import requests
 
 order_blueprint = flask.Blueprint(
@@ -55,8 +56,8 @@ def apiNewPrepaidSalesorder():
             return ResponseUtil.error(ServiceUtil.errorMissingParameter("paymentDetail"))
 
     # if table code then dine in else takeaway
-    result = SalesorderService.newSalesorder({"token":token, "tableCode":tableCode, "guestNo":guestNo,
-                                              "isPaid":isPaid, "remark":remark, "actualId":actualId})
+    result = SalesorderService.newSalesorder({"token": token, "tableCode": tableCode, "guestNo": guestNo,
+                                              "isPaid": isPaid, "remark": remark, "actualId": actualId})
 
     if result["code"] != "0":
         return ResponseUtil.error(result)
@@ -65,12 +66,12 @@ def apiNewPrepaidSalesorder():
 
     # go to kitchen
     salesorderId = result.get('data')['salesorderId']
-    result = SalesorderLineService.insertSalesorderLine({"token":token, "tableCode":tableCode,
-                                                        "salesorderId":salesorderId, "salesorderLines":salesorderLines,
-                                                        "goToKitchen":gotoKitchen, "actualId":actualId})
+    result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
+                                                         "salesorderId": salesorderId,
+                                                         "salesorderLines": salesorderLines,
+                                                         "goToKitchen": gotoKitchen, "actualId": actualId})
     if result["code"] != "0":
         return ResponseUtil.error(result)
-
 
     if isPaid:
 
@@ -81,11 +82,11 @@ def apiNewPrepaidSalesorder():
             subtotal += float(payment["amount"])
 
         # insert into docket
-        docketResult = DocketService.newDocket({"token":token, "tableCode":tableCode,
-                                                        "subtotal":subtotal, "guestNo":guestNo, "remark":remark, "actualId":actualId, "memberBarcode":memberBarcode})
+        docketResult = DocketService.newDocket({"token": token, "tableCode": tableCode,
+                                                "subtotal": subtotal, "guestNo": guestNo, "remark": remark,
+                                                "actualId": actualId, "memberBarcode": memberBarcode})
         if docketResult["code"] != "0":
             return ResponseUtil.error(docketResult)
-
 
         docketId = docketResult['data']['docketId']
 
@@ -94,7 +95,6 @@ def apiNewPrepaidSalesorder():
 
         if docketLineResult["code"] != "0":
             return ResponseUtil.error(docketLineResult)
-
 
         # insert into payments
         paymentResult = PaymentService.insertPayment({"docketId": docketId, "paymentDetail": paymentDetail})
@@ -105,7 +105,7 @@ def apiNewPrepaidSalesorder():
         # shut the table down
         Tables.deactivateTable(tableCode)
 
-    result = ServiceUtil.returnSuccess({"salesorderId": salesorderId, "tableCode":tableCode})
+    result = ServiceUtil.returnSuccess({"salesorderId": salesorderId, "tableCode": tableCode})
 
     return ResponseUtil.success(result)
 
@@ -128,7 +128,6 @@ def apiInsertSalesorderLine():
     else:
         return ResponseUtil.error(ServiceUtil.errorInvalidParameter("gotoKitchen"))
 
-
     result = SalesorderLineService.insertSalesorderLine({"token": token,
                                                          "tableCode": tableCode,
                                                          "salesorderId": salesorderId,
@@ -143,11 +142,10 @@ def apiInsertSalesorderLine():
 
 @order_blueprint.route('/salesordertrial', methods=['POST'])
 def calculateSalesorderTotal():
-
     token = flask.request.form.get('token')
     salesorderLines = flask.request.form.get('salesorderLines')
 
-    result = SalesorderLineService.calculateSalesorderLine({"token":token, "salesorderLines":salesorderLines})
+    result = SalesorderLineService.calculateSalesorderLine({"token": token, "salesorderLines": salesorderLines})
 
     if result["code"] != "0":
         return ResponseUtil.error(result)
@@ -179,7 +177,6 @@ def scanDeletedDocket():
     return ResponseUtil.success()
 
 
-
 @order_blueprint.route('/salesorder', methods=['DELETE'])
 def scanDeletedSalesorder():
     """用于没有付款的订单删除"""
@@ -200,7 +197,6 @@ def scanDeletedSalesorder():
 
     db_session.commit()
     return ResponseUtil.success()
-
 
 
 def scanDeletedSalesorderLine(salesorderId, actualId):
@@ -256,5 +252,3 @@ def cancelOrderRequest(salesorderId, actualId):
     response = requests.post(url, data=form)
 
     return response
-
-

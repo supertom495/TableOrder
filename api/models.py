@@ -18,7 +18,7 @@ class Tables(Base):
     # column_not_exist_in_db = Column(Integer) # just add for sake of this error, dont add in db
     table_id = Column(Integer, nullable=False, primary_key=True)
     site_id = Column(Integer, nullable=False)
-    table_code= Column(Unicode(15), nullable=False)
+    table_code = Column(Unicode(15), nullable=False)
     table_status = Column(SmallInteger, nullable=False)
     seats = Column(SmallInteger, nullable=False)
     inactive = Column(BIT, nullable=False)
@@ -39,11 +39,13 @@ class Tables(Base):
 
     @classmethod
     def activateTable(cls, tableCode, time):
-        return cls.query.filter(cls.table_code == tableCode).update({"table_status": 2, "start_time": time, "staff_id": 0})
+        return cls.query.filter(cls.table_code == tableCode).update(
+            {"table_status": 2, "start_time": time, "staff_id": 0})
 
     @classmethod
     def deactivateTable(cls, tableCode):
         return cls.query.filter(cls.table_code == tableCode).update({"table_status": 0})
+
 
 class Site(Base):
     __tablename__ = 'Site'
@@ -58,7 +60,6 @@ class Site(Base):
     @classmethod
     def getSiteAll(cls):
         return cls.query.all()
-
 
 
 class Keyboard(Base):
@@ -84,7 +85,7 @@ class Keyboard(Base):
 
     @classmethod
     def getActivateKeyboard(cls):
-        return cls.query.filter(cls.kb_name2=='online').first()
+        return cls.query.filter(cls.kb_name2 == 'online').first()
 
     @classmethod
     def getAll(cls):
@@ -92,7 +93,7 @@ class Keyboard(Base):
 
     @classmethod
     def getById(cls, kbId):
-        return cls.query.filter(cls.kb_id==kbId).first()
+        return cls.query.filter(cls.kb_id == kbId).first()
 
 
 class KeyboardCat(Base):
@@ -119,7 +120,8 @@ class KeyboardCat(Base):
     @classmethod
     def getActivateKeyboardCat(cls):
         try:
-            res = cls.query.join(Keyboard, Keyboard.kb_id == cls.kb_id).filter(Keyboard.kb_name2 == 'online').order_by(cls.cat_id.asc()).all()
+            res = cls.query.join(Keyboard, Keyboard.kb_id == cls.kb_id).filter(Keyboard.kb_name2 == 'online').order_by(
+                cls.cat_id.asc()).all()
             return res
         except ProgrammingError:
             return None
@@ -287,6 +289,7 @@ class Stock(Base):
     longdesc2 = Column(Unicode(255))
     longdesc3 = Column(Unicode(255))
     longdesc4 = Column(Unicode(255))
+
     # sell5 = Column(MONEY)
     # sell6 = Column(MONEY)
     # sell7 = Column(MONEY)
@@ -305,7 +308,7 @@ class Stock(Base):
     @staticmethod
     def getPrice(stock, price):
         if stock.goods_tax == 'GST':
-            return float(round(price*decimal.Decimal(1.1), 1))
+            return float(round(price * decimal.Decimal(1.1), 1))
         else:
             return float(round(price, 1))
 
@@ -341,7 +344,6 @@ class TasteStock(Base):
             cls.query.session.commit()
 
 
-
 class ExtraStock(Base):
     __tablename__ = 'ExtraStock'
     stock_id = Column(Integer, nullable=False, primary_key=True)
@@ -359,7 +361,7 @@ class ExtraStock(Base):
     @classmethod
     def getByStockId(cls, stockId):
         try:
-            res = cls.query.filter(cls.stock_id  == stockId).filter(cls.visible_type == 1).all()
+            res = cls.query.filter(cls.stock_id == stockId).filter(cls.visible_type == 1).all()
             return res
         except ProgrammingError:
             return []
@@ -422,6 +424,7 @@ class Staff(Base):
     def getPiselSecret(cls):
         return cls.query.filter(cls.surname == 'Pisel').first()
 
+
 class RecordedDate(Base):
     __tablename__ = 'RecordedDate'
     date_type = Column(Integer, nullable=False, primary_key=True)
@@ -442,9 +445,9 @@ class RecordedDate(Base):
         if dateType == 1:
             remark = 'DocketOnline polling datetime'
 
-        recordedDate = RecordedDate(date_type = dateType,
-                                   date_modified = dateModified,
-                                   remark = remark)
+        recordedDate = RecordedDate(date_type=dateType,
+                                    date_modified=dateModified,
+                                    remark=remark)
 
         cls.query.session.add(recordedDate)
         cls.query.session.flush()
@@ -458,9 +461,6 @@ class RecordedDate(Base):
         recordedDate.date_modified = dateModified
         cls.query.session.flush()
         return recordedDate.date_modified
-
-
-
 
 
 class SaleID(Base):
@@ -491,7 +491,6 @@ class SaleID(Base):
         # cls.query.session.commit()
 
         return sale.sale_id
-
 
 
 class Salesorder(Base):
@@ -530,15 +529,15 @@ class Salesorder(Base):
         if transaction == 'TA':
             tableCode = 'TA' + '-OL-' + str(SaleID.updateTakeawayId())
 
-        newSalesorder = Salesorder(salesorder_id = salesorderId,
-                                   salesorder_date = time,
-                                   expiry_date = time,
-                                   staff_id = staffId,
-                                   custom = tableCode,
-                                   transaction = transaction,
-                                   guest_no = guestNo,
-                                   status = status,
-                                   comments = '')
+        newSalesorder = Salesorder(salesorder_id=salesorderId,
+                                   salesorder_date=time,
+                                   expiry_date=time,
+                                   staff_id=staffId,
+                                   custom=tableCode,
+                                   transaction=transaction,
+                                   guest_no=guestNo,
+                                   status=status,
+                                   comments='')
         cls.query.session.add(newSalesorder)
         cls.query.session.flush()
         # cls.query.session.commit()
@@ -552,7 +551,6 @@ class Salesorder(Base):
             return salesorder
         except sqlalchemy.orm.exc.NoResultFound:
             return None
-
 
     @classmethod
     def getSalesorderByTableCode(cls, tableCode):
@@ -569,8 +567,8 @@ class Salesorder(Base):
         if len(salesOrderLines) == 0:
             return
 
-        salesorder.total_ex  = decimal.Decimal(0)
-        salesorder.total_inc =  decimal.Decimal(0)
+        salesorder.total_ex = decimal.Decimal(0)
+        salesorder.total_inc = decimal.Decimal(0)
 
         for line in salesOrderLines:
             salesorder.total_ex += line.print_ex
@@ -580,6 +578,7 @@ class Salesorder(Base):
 
         return
 
+
 class SalesorderOnline(Base):
     __tablename__ = 'SalesOrderOnline'
 
@@ -588,7 +587,6 @@ class SalesorderOnline(Base):
     actual_id = Column(Unicode(40))
     remark = Column(Unicode(40))
     status = Column(SmallInteger, nullable=False, server_default=text("(0)"))
-
 
     @classmethod
     def getActivateOrder(cls):
@@ -600,23 +598,24 @@ class SalesorderOnline(Base):
 
     @classmethod
     def insertSalesorderOnline(cls, salesorderId, actualId, remark, status):
-
-        newSalesorderOnline = SalesorderOnline(uuid = uuid.uuid1().hex,
-                                               salesorder_id = salesorderId,
-                                   actual_id = actualId,
-                                   remark = remark,
-                                   status = status)
+        newSalesorderOnline = SalesorderOnline(uuid=uuid.uuid1().hex,
+                                               salesorder_id=salesorderId,
+                                               actual_id=actualId,
+                                               remark=remark,
+                                               status=status)
         cls.query.session.add(newSalesorderOnline)
         cls.query.session.flush()
         # cls.query.session.commit()
 
         return salesorderId
 
+
 class SalesorderLine(Base):
     __tablename__ = 'SalesOrderLine'
 
     line_id = Column(Integer, primary_key=True, server_default=text("(0)"))
-    salesorder_id = Column(ForeignKey('SalesOrder.salesorder_id'), nullable=False, index=True, server_default=text("(0)"))
+    salesorder_id = Column(ForeignKey('SalesOrder.salesorder_id'), nullable=False, index=True,
+                           server_default=text("(0)"))
     stock_id = Column(ForeignKey('Stock.stock_id'), nullable=False, index=True, server_default=text("(0)"))
     cost_ex = Column(MONEY, nullable=False, server_default=text("(0)"))
     cost_inc = Column(MONEY, nullable=False, server_default=text("(0)"))
@@ -642,7 +641,6 @@ class SalesorderLine(Base):
     salesorder = relationship('Salesorder')
     stock = relationship('Stock')
 
-
     @classmethod
     def get(cls, lineId):
         try:
@@ -662,31 +660,30 @@ class SalesorderLine(Base):
     @classmethod
     def insertSalesorderLine(cls, salesorderId, stockId, sizeLevel, price, quantity, staffId, time, parentlineId,
                              status, orderlineId=None):
-        max =  cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
+        max = cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
         salesorderLineId = 1 if max.max_id is None else max.max_id + 1
         if orderlineId is None:
             orderlineId = salesorderLineId
 
-        newSalesorderLine = SalesorderLine(line_id = salesorderLineId,
-                                   salesorder_id = salesorderId,
-                                   stock_id = stockId,
-                                   sales_tax = 'GST',
-                                   sell_ex = price / 1.1,
-                                   sell_inc = price,
-                                   rrp = price,
-                                   print_ex = price/1.1,
-                                   print_inc = price,
-                                   quantity = quantity,
-                                   parentline_id = parentlineId,
-                                   status = status,
-                                   orderline_id = orderlineId,
-                                   size_level = sizeLevel,
-                                   staff_id = staffId,
-                                   time_ordered = time)
+        newSalesorderLine = SalesorderLine(line_id=salesorderLineId,
+                                           salesorder_id=salesorderId,
+                                           stock_id=stockId,
+                                           sales_tax='GST',
+                                           sell_ex=price / 1.1,
+                                           sell_inc=price,
+                                           rrp=price,
+                                           print_ex=price / 1.1,
+                                           print_inc=price,
+                                           quantity=quantity,
+                                           parentline_id=parentlineId,
+                                           status=status,
+                                           orderline_id=orderlineId,
+                                           size_level=sizeLevel,
+                                           staff_id=staffId,
+                                           time_ordered=time)
         cls.query.session.add(newSalesorderLine)
         cls.query.session.flush()
         return salesorderLineId
-
 
 
 class SalesorderLineOnline(Base):
@@ -712,18 +709,18 @@ class SalesorderLineOnline(Base):
         return cls.query.filter(and_(cls.line_id == lineId, cls.status != -1, cls.salesorder_id == salesorderId)).all()
 
     @classmethod
-    def insertSalesorderLineOnline(cls, lineId, salesorderId, actualId, actualLineId, stockId, quantity, sizeLevel, status, type):
-
-        newSalesorderLineOnline = SalesorderLineOnline(uuid = uuid.uuid1().hex,
-                                                    line_id = lineId,
-                                                    salesorder_id = salesorderId,
-                                                    actual_id = actualId,
-                                                    actual_line_id = actualLineId,
-                                                    stock_id = stockId,
-                                                    quantity = quantity,
-                                                    size_level = sizeLevel,
-                                                    status = status,
-                                                    type = type)
+    def insertSalesorderLineOnline(cls, lineId, salesorderId, actualId, actualLineId, stockId, quantity, sizeLevel,
+                                   status, type):
+        newSalesorderLineOnline = SalesorderLineOnline(uuid=uuid.uuid1().hex,
+                                                       line_id=lineId,
+                                                       salesorder_id=salesorderId,
+                                                       actual_id=actualId,
+                                                       actual_line_id=actualLineId,
+                                                       stock_id=stockId,
+                                                       quantity=quantity,
+                                                       size_level=sizeLevel,
+                                                       status=status,
+                                                       type=type)
         cls.query.session.add(newSalesorderLineOnline)
         cls.query.session.flush()
         return lineId
@@ -760,25 +757,24 @@ class Kitchen(Base):
     @classmethod
     def insertKitchen(cls, lineId, orderlineId, tableCode, staffName, cat1, description, description2, unit, quantity,
                       printerName, orderTime, comments, stockType, cat2, salesorderId):
-
-        newKitchen = Kitchen(line_id = lineId,
-                             orderline_id = orderlineId,
-                             table_code = tableCode,
-                             staff_name = staffName,
-                             cat1 = cat1,
-                             description = description,
-                             description2 = description2,
-                             unit = unit,
-                             quantity = quantity,
-                             printer = printerName,
-                             printer2 = printerName,
-                             order_time = orderTime,
-                             handwritting = 0,
-                             comments = comments,
-                             stock_type = stockType,
-                             customer_name = tableCode,
-                             cat2 = cat2,
-                             salesorder_id = salesorderId)
+        newKitchen = Kitchen(line_id=lineId,
+                             orderline_id=orderlineId,
+                             table_code=tableCode,
+                             staff_name=staffName,
+                             cat1=cat1,
+                             description=description,
+                             description2=description2,
+                             unit=unit,
+                             quantity=quantity,
+                             printer=printerName,
+                             printer2=printerName,
+                             order_time=orderTime,
+                             handwritting=0,
+                             comments=comments,
+                             stock_type=stockType,
+                             customer_name=tableCode,
+                             cat2=cat2,
+                             salesorder_id=salesorderId)
 
         cls.query.session.add(newKitchen)
         cls.query.session.flush()
@@ -816,10 +812,10 @@ class CatPrint(Base):
 class KeyboardPrint(Base):
     __tablename__ = 'KeyboardPrint'
     kb_id = Column(Integer, nullable=False, primary_key=True)
-    site_id =  Column(Integer, nullable=False)
+    site_id = Column(Integer, nullable=False)
     printer = Column(Unicode(60), nullable=False)
     printer2 = Column(Unicode(60), nullable=False)
-    delivery_docket =  Column(BIT)
+    delivery_docket = Column(BIT)
 
     @classmethod
     def getPrinter(cls, kbId, siteId):
@@ -912,26 +908,23 @@ class Payment(Base):
         res = query.all()
         return res
 
-
     @classmethod
     def insertPayment(cls, docketId, docketDate, paymentType, amount):
-
-        max =  cls.query.session.query(func.max(cls.payment_id).label("max_id")).one()
+        max = cls.query.session.query(func.max(cls.payment_id).label("max_id")).one()
         payment_id = 1 if max.max_id is None else max.max_id + 1
 
-        newPayment = Payment(payment_id = payment_id,
-                           docket_id = docketId,
-                           docket_date = docketDate,
-                           paymenttype = paymentType,
-                           amount = amount,
-                           drawer = 'O')
+        newPayment = Payment(payment_id=payment_id,
+                             docket_id=docketId,
+                             docket_date=docketDate,
+                             paymenttype=paymentType,
+                             amount=amount,
+                             drawer='O')
 
         cls.query.session.add(newPayment)
         cls.query.session.flush()
         # cls.query.session.commit()
 
         return payment_id
-
 
 
 class Docket(Base):
@@ -994,23 +987,23 @@ class Docket(Base):
     @classmethod
     def insertDocket(cls, time, staffId, tableCode, amount, guestNo, memberBarcode=None):
 
-        max =  cls.query.session.query(func.max(cls.docket_id).label("max_id")).one()
+        max = cls.query.session.query(func.max(cls.docket_id).label("max_id")).one()
         docket_id = 1 if max.max_id is None else max.max_id + 1
 
-        newDocket = Docket(docket_id = docket_id,
-                           docket_date = time,
-                           staff_id = staffId,
-                           transaction = "SA",
-                           custom = tableCode,
-                           drawer = 'O',
-                           comments = '',
-                           subtotal = amount,
-                           total_ex = amount/1.1,
-                           total_inc = amount,
-                           gp = amount/1.1,
-                           actual_id = docket_id,
-                           guest_no = guestNo,
-                           member_barcode = memberBarcode)
+        newDocket = Docket(docket_id=docket_id,
+                           docket_date=time,
+                           staff_id=staffId,
+                           transaction="SA",
+                           custom=tableCode,
+                           drawer='O',
+                           comments='',
+                           subtotal=amount,
+                           total_ex=amount / 1.1,
+                           total_inc=amount,
+                           gp=amount / 1.1,
+                           actual_id=docket_id,
+                           guest_no=guestNo,
+                           member_barcode=memberBarcode)
 
         cls.query.session.add(newDocket)
         cls.query.session.flush()
@@ -1033,11 +1026,10 @@ class DocketOnline(Base):
 
     @classmethod
     def insert(cls, docketId, actualId, remark):
-
-        newSalesorderOnline = DocketOnline(uuid = uuid.uuid1().hex,
-                                           docket_id = docketId,
-                                   actual_id = actualId,
-                                   remark = remark)
+        newSalesorderOnline = DocketOnline(uuid=uuid.uuid1().hex,
+                                           docket_id=docketId,
+                                           actual_id=actualId,
+                                           remark=remark)
         cls.query.session.add(newSalesorderOnline)
         cls.query.session.flush()
 
@@ -1071,7 +1063,6 @@ class DocketLine(Base):
 
     @classmethod
     def getByDocketId(cls, docketId):
-
         query = cls.query.order_by(cls.docket_id.asc())
         query = query.filter(cls.docket_id.in_(docketId))
         res = query.all()
@@ -1080,22 +1071,22 @@ class DocketLine(Base):
 
     @classmethod
     def insertDocketLine(cls, docketId, stockId, sizeLevel, price, quantity):
-        max =  cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
+        max = cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
         lineId = 1 if max.max_id is None else max.max_id + 1
 
-        newDocketLine = DocketLine(line_id = lineId,
-                                           docket_id = docketId,
-                                           stock_id = stockId,
-                                           sales_tax='GST',
-                                           sell_ex= price/1.1,
-                                           sell_inc= price,
-                                           rrp= price,
-                                           print_ex= price/1.1,
-                                           print_inc= price,
-                                           quantity=quantity,
-                                           serial_no = 0,
-                                           gp= price/1.1,
-                                           size_level=sizeLevel)
+        newDocketLine = DocketLine(line_id=lineId,
+                                   docket_id=docketId,
+                                   stock_id=stockId,
+                                   sales_tax='GST',
+                                   sell_ex=price / 1.1,
+                                   sell_inc=price,
+                                   rrp=price,
+                                   print_ex=price / 1.1,
+                                   print_inc=price,
+                                   quantity=quantity,
+                                   serial_no=0,
+                                   gp=price / 1.1,
+                                   size_level=sizeLevel)
 
         cls.query.session.add(newDocketLine)
         cls.query.session.flush()
@@ -1125,21 +1116,19 @@ class GlobalSetting(Base):
 
     @classmethod
     def deleteAllRules(cls):
-        cls.query.filter(or_(cls.setting_key.like('MenuOptionLimitation%'), cls.setting_key.like('MenuSizeLevelOptionDisallow%'))).delete(synchronize_session=False)
+        cls.query.filter(or_(cls.setting_key.like('MenuOptionLimitation%'),
+                             cls.setting_key.like('MenuSizeLevelOptionDisallow%'))).delete(synchronize_session=False)
         cls.query.session.commit()
-
 
     @classmethod
     def insertRules(cls, settingKey, settingValue, disable):
-
-        newRule = GlobalSetting(setting_key = settingKey,
-                                           setting_value = settingValue,
-                                           disable = disable)
+        newRule = GlobalSetting(setting_key=settingKey,
+                                setting_value=settingValue,
+                                disable=disable)
 
         cls.query.session.add(newRule)
         cls.query.session.flush()
         cls.query.session.commit()
-
 
 
 class GlobalSettingSub(Base):

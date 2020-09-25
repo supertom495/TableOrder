@@ -10,9 +10,9 @@ report_blueprint = flask.Blueprint(
     url_prefix='/api/v1/report'
 )
 
+
 @report_blueprint.route('/report', methods=['GET'])
 def getReport():
-
     date = flask.request.args.get('date')
 
     try:
@@ -22,7 +22,6 @@ def getReport():
 
     if UtilValidate.isEmpty(docketList):
         return ResponseUtil.success(ServiceUtil.returnSuccess("no data"))
-
 
     data = {}
     data['summary'] = {}
@@ -46,7 +45,6 @@ def getReport():
             data['summary']['dineInInc'] += item.total_inc
             data['summary']['dineInEx'] += item.total_ex
 
-
     # -----------Payment-----------
     try:
         paymentList = Payment.getAll(date)
@@ -60,7 +58,6 @@ def getReport():
             data["payment"][item.paymenttype] = 0
 
         data["payment"][item.paymenttype] += item.amount
-
 
     # -----------Table-----------
     try:
@@ -76,9 +73,9 @@ def getReport():
     data['table']['takeAway'] = 0
     data['table']['coversBefore5'] = 0
     data['table']['coversAfter5'] = 0
-    data['table']['averageCheckPerPerson'] = round(float(data['summary']['totalInc']/data['summary']['guest']), 2)
-    data['table']['averageCoverPerTable'] = round(float(data['table']['totalNumberOfCovers']/data["table"]['totalNumberOfTable']), 2)
-
+    data['table']['averageCheckPerPerson'] = round(float(data['summary']['totalInc'] / data['summary']['guest']), 2)
+    data['table']['averageCoverPerTable'] = round(
+        float(data['table']['totalNumberOfCovers'] / data["table"]['totalNumberOfTable']), 2)
 
     for item in docketList:
         if item.custom[0:2] == 'TA':
@@ -89,7 +86,8 @@ def getReport():
         else:
             data['table']['coversAfter5'] += 1
 
-    data['table']['averageCheckPerTakeAway'] = 0 if data['table']['takeAway']==0 else round(float(data['summary']['takeAwayInc']/data['table']['takeAway']), 2)
+    data['table']['averageCheckPerTakeAway'] = 0 if data['table']['takeAway'] == 0 else round(
+        float(data['summary']['takeAwayInc'] / data['table']['takeAway']), 2)
 
     # -----------discount-----------
 
@@ -105,7 +103,7 @@ def getReport():
         if line.rrp != line.sell_inc:
             discountDetail['originalPrice'] = float(line.rrp)
             discountDetail['discountPrice'] = float(line.sell_inc)
-            discountDetail['discountPercentage'] = round(1 - float(line.sell_inc/line.rrp), 2)
+            discountDetail['discountPercentage'] = round(1 - float(line.sell_inc / line.rrp), 2)
             discountDetail['discountProduct'] = Stock.getByStockId(line.stock_id).description
             discountDetail['discountQuantity'] = line.quantity
             discountDetail['discountTableCode'] = Docket.getByDocketId(line.docket_id).custom

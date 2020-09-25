@@ -9,6 +9,7 @@ staff_blueprint = flask.Blueprint(
     url_prefix='/api/v1/staff'
 )
 
+
 @staff_blueprint.route('/stafftoken', methods=['PUT'])
 def getStaffToken():
     # result = ServiceUtil.returnSuccess()
@@ -18,7 +19,7 @@ def getStaffToken():
     if staff == None:
         return ResponseUtil.error(ServiceUtil.errorDataNotFound('no such a staff'))
 
-    toBeEncrypted = barcode+str(int(time.time())+3600)
+    toBeEncrypted = barcode + str(int(time.time()) + 3600)
 
     cipherText = UtilValidate.encryption(toBeEncrypted).decode('UTF-8')
 

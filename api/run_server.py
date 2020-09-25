@@ -16,15 +16,12 @@ if flaskConfig.get('PiselUrl') is not None:
         'max_instances': 3
     }
 
-
     scheduler = BackgroundScheduler(job_defaults=job_defaults, timezone=utc)
     trigger1 = interval.IntervalTrigger(seconds=7)
     trigger2 = interval.IntervalTrigger(seconds=8)
     scheduler.add_job(scanDeletedSalesorder, trigger=trigger1, id='scanDeletedSalesorder', replace_existing=True)
     scheduler.add_job(scanDeletedDocket, trigger=trigger2, id='scanDeletedDocket', replace_existing=True)
     scheduler.start()
-
-
 
 http_server = HTTPServer(WSGIContainer(app))
 http_server.listen(getPort())

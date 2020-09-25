@@ -13,14 +13,15 @@ raw_blueprint = flask.Blueprint(
     url_prefix=''
 )
 
+
 @raw_blueprint.route('/', methods=['GET'])
 def home():
-    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.30</h3><p>This site has API for self-ordering.</p>".format(flaskConfig.get('StoreName'))
+    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.30</h3><p>This site has API for self-ordering.</p>".format(
+        flaskConfig.get('StoreName'))
 
 
 @raw_blueprint.route('/stock', methods=['GET'])
 def getStock():
-
     # find activate keyboard categories
     kbCat = KeyboardCat.getActivateKeyboardCat()
 
@@ -34,7 +35,6 @@ def getStock():
     kbItems = KeyboardItem.getAvtiveKeyboardItem(tuple(kbCatIds), kbId)
     if len(kbItems) == 0:
         return ResponseUtil.error(ServiceUtil.errorDataNotFound("未找到激活的keyboard item"))
-
 
     stockMap = {}
     # fill category information
@@ -77,8 +77,10 @@ def getStock():
 
         displayStock = {}
         displayStock["stockId"] = int(stock.stock_id)
-        displayStock["sizeLevelOptionDisallowRules"] = loadMenuSizeLevelOptionDisallowRules(stock.stock_id, sizeLevelOptionDisallowRules)
-        displayStock["menuOptionLimitationRules"] = loadMenuOptionLimitationRules(stock.stock_id, menuOptionLimitationRules)
+        displayStock["sizeLevelOptionDisallowRules"] = loadMenuSizeLevelOptionDisallowRules(stock.stock_id,
+                                                                                            sizeLevelOptionDisallowRules)
+        displayStock["menuOptionLimitationRules"] = loadMenuOptionLimitationRules(stock.stock_id,
+                                                                                  menuOptionLimitationRules)
         displayStock["inactive"] = stock.inactive
         displayStock["show_extra"] = stock.show_extra
         displayStock["show_taste"] = stock.show_taste
@@ -150,11 +152,9 @@ def getStock():
     # image url
     data["imageUrl"] = UtilValidate.getImageUrl(flask.request.host)
 
-
     result = ServiceUtil.returnSuccess(data)
 
     return ResponseUtil.success(result)
-
 
 
 @raw_blueprint.route('/stafftoken', methods=['PUT'])
@@ -198,8 +198,9 @@ def resetTable():
     table.staff_id = 0
     table.table_status = 0
     salesorder.status = 11
-    result = ServiceUtil.returnSuccess({"status" : "salesoder {} closed".format(salesorder.salesorder_id)})
+    result = ServiceUtil.returnSuccess({"status": "salesoder {} closed".format(salesorder.salesorder_id)})
     return ResponseUtil.success(result)
+
 
 @deprecated()
 @raw_blueprint.route('/salesorderline', methods=['POST'])
@@ -208,7 +209,6 @@ def apiInsertSalesorderLine():
     tableCode = flask.request.form.get('tableCode')
     salesorderId = flask.request.form.get('salesorderId')
     salesorderLines = flask.request.form.get('salesorderLines')
-
 
     result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
                                                          "salesorderId": salesorderId,
@@ -241,11 +241,9 @@ def getSalesorder():
     if UtilValidate.isEmpty(salesorder):
         return ResponseUtil.error(ServiceUtil.errorWrongLogic('No order found', code=3001))
 
-
     # do not return invalid salesorder (when status is 10, 11)
     if salesorder.status == 10 or salesorder.status == 11:
         return ResponseUtil.error(ServiceUtil.errorWrongLogic('No order found', code=3001))
-
 
     # put Salesorder lines to data
     data = {}
@@ -302,9 +300,11 @@ def testing():
             raise Exception('keyboardItem does not have matched item. (NO item_barcode matched)')
     return 'ok'
 
+
 @raw_blueprint.route('/testing2', methods=['GET'])
 def testing2():
     raise Exception('testing exc')
+
 
 # TODO delete this method, this is for test only
 @raw_blueprint.route('/salesorderById', methods=['GET'])
@@ -399,10 +399,10 @@ def getTable():
     return ResponseUtil.success(result)
 
 
-
 @raw_blueprint.route('/favicon.ico')
 def favicon():
     return ""
+
 
 @raw_blueprint.route('/table', methods=['PUT'])
 def swapTable():
@@ -433,14 +433,13 @@ def swapTable():
 
     # only approve the table have people to table without people
     if fromTable.table_status == 0 or toTable.table_status != 0:
-        return ResponseUtil.error(ServiceUtil.errorWrongLogic('Not allowed, only approve the occupied table to vacant table',
-                                            code=3001))
-
+        return ResponseUtil.error(
+            ServiceUtil.errorWrongLogic('Not allowed, only approve the occupied table to vacant table',
+                                        code=3001))
 
     fromSalesorder = Salesorder.getSalesorderByTableCode(fromTable.table_code)
     if UtilValidate.isEmpty(fromSalesorder) or fromSalesorder.status == 11:
         return ResponseUtil.error(ServiceUtil.errorDataAccess('Order is paid or not exist'))
-
 
     # swap the table contents
     tempTableStatus = fromTable.table_status
@@ -467,6 +466,7 @@ def fullfillStockMap(stock: Stock, quantity: int) -> dict:
     stockMap["quantity"] = quantity
 
     return stockMap
+
 
 def loadMenuSizeLevelOptionDisallowRules(stockId, rules):
     results = []

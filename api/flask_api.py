@@ -5,6 +5,7 @@ from router import blueprint
 import time, json
 import traceback
 
+
 class Config(object):  # 创建配置，用类
     # 任务列表
     JOBS = [
@@ -17,9 +18,9 @@ class Config(object):  # 创建配置，用类
         },
         {  # 第二个任务，每隔7S执行一次
             'id': 'job2',
-            'func': 'router.order:scanDeletedDocket', # 方法名
-            'args': (), # 入参
-            'trigger': 'interval', # interval表示循环任务
+            'func': 'router.order:scanDeletedDocket',  # 方法名
+            'args': (),  # 入参
+            'trigger': 'interval',  # interval表示循环任务
             'seconds': 7,
         }
     ]
@@ -53,14 +54,12 @@ def commit_session(response):
 
 @app.errorhandler(Exception)
 def errorHandler(e):
-
     if app.config['DEBUG']:
         raise e
     else:
         error = '[{}] \n{} \n'.format(time.asctime(time.localtime()), traceback.format_exc())
         app.logger.error(error)
         return 'error', 500
-
 
 
 if __name__ == '__main__':
@@ -70,11 +69,10 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=port)
 
     import logging, logging.config, yaml
+
     logging.config.dictConfig(yaml.load(open('./setting/logging.yaml'), Loader=yaml.FullLoader))
 
     logfile = logging.getLogger('file')
     logconsole = logging.getLogger('console')
     logfile.debug("Debug FILE")
     logconsole.debug("Debug CONSOLE")
-
-
