@@ -37,7 +37,7 @@ def getOpenSales():
 
     # if no such staff
     staff = Staff.getStaffByBarcode(barcode)
-    if staff == None:
+    if staff is None:
         return ResponseUtil.error(ServiceUtil.errorDataNotFound('No such a staff'), 401)
 
     # test if table is closed

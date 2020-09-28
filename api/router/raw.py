@@ -108,37 +108,39 @@ def getStock():
         if UtilValidate.isNotEmpty(stock.custom4):
             displayStock["price"][4] = [Stock.getPrice(stock, stock.sell4), stock.custom4]
 
-        if stock.stock_id in sortedTaste:
-            for tasteId in sortedTaste[stock.stock_id]:
-                displayStock["taste"].append(tasteId)
-                if tasteId not in cachedTaste:
-                    displayTaste = {}
-                    stock = Stock.getByStockId(tasteId)
-                    displayTaste["stockId"] = int(stock.stock_id)
-                    displayTaste["inactive"] = stock.inactive
-                    displayTaste["custom1"] = stock.custom1
-                    displayTaste["cat2"] = stock.cat2
-                    displayTaste["barcode"] = stock.barcode
-                    displayTaste["price"] = Stock.getPrice(stock, stock.sell)
-                    displayTaste["description"] = stock.description
-                    displayTaste["description2"] = stock.description2
-                    cachedTaste[tasteId] = displayTaste
-
         if stock.stock_id in sortedExtra:
             for extraId in sortedExtra[stock.stock_id]:
                 displayStock["extra"].append(extraId)
                 if extraId not in cachedExtra:
                     displayExtra = {}
-                    stock = Stock.getByStockId(extraId)
-                    displayExtra["stockId"] = int(stock.stock_id)
-                    displayExtra["inactive"] = stock.inactive
-                    displayExtra["custom1"] = stock.custom1
-                    displayExtra["cat2"] = stock.cat2
-                    displayExtra["barcode"] = stock.barcode
-                    displayExtra["price"] = Stock.getPrice(stock, stock.sell)
-                    displayExtra["description"] = stock.description
-                    displayExtra["description2"] = stock.description2
+                    extraStock = Stock.getByStockId(extraId)
+                    displayExtra["stockId"] = int(extraStock.stock_id)
+                    displayExtra["inactive"] = extraStock.inactive
+                    displayExtra["custom1"] = extraStock.custom1
+                    displayExtra["cat2"] = extraStock.cat2
+                    displayExtra["barcode"] = extraStock.barcode
+                    displayExtra["price"] = Stock.getPrice(extraStock, extraStock.sell)
+                    displayExtra["description"] = extraStock.description
+                    displayExtra["description2"] = extraStock.description2
                     cachedExtra[extraId] = displayExtra
+
+        if stock.stock_id in sortedTaste:
+            for tasteId in sortedTaste[stock.stock_id]:
+                displayStock["taste"].append(tasteId)
+                if tasteId not in cachedTaste:
+                    displayTaste = {}
+                    tasteStock = Stock.getByStockId(tasteId)
+                    displayTaste["stockId"] = int(tasteStock.stock_id)
+                    displayTaste["inactive"] = tasteStock.inactive
+                    displayTaste["custom1"] = tasteStock.custom1
+                    displayTaste["cat2"] = tasteStock.cat2
+                    displayTaste["barcode"] = tasteStock.barcode
+                    displayTaste["price"] = Stock.getPrice(tasteStock, tasteStock.sell)
+                    displayTaste["description"] = tasteStock.description
+                    displayTaste["description2"] = tasteStock.description2
+                    cachedTaste[tasteId] = displayTaste
+
+
 
         displayStock["extra"].sort()
         displayStock["taste"].sort()

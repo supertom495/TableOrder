@@ -16,6 +16,7 @@ if flaskConfig.get('PiselUrl') is not None:
         'max_instances': 3
     }
 
+
     scheduler = BackgroundScheduler(job_defaults=job_defaults, timezone=utc)
     trigger1 = interval.IntervalTrigger(seconds=7)
     trigger2 = interval.IntervalTrigger(seconds=8)
