@@ -9,6 +9,8 @@ from pytz import utc
 from router.order import scanDeletedSalesorder, scanDeletedDocket
 
 from database import getPort, init_db, flaskConfig
+import pymssql
+var = pymssql.__version__
 
 if flaskConfig.get('PiselUrl') is not None:
     job_defaults = {
