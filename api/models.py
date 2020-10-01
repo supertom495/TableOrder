@@ -909,7 +909,7 @@ class Payment(Base):
         return res
 
     @classmethod
-    def insertPayment(cls, docketId, docketDate, paymentType, amount):
+    def insertPayment(cls, docketId, docketDate, paymentType, amount, drawer):
         max = cls.query.session.query(func.max(cls.payment_id).label("max_id")).one()
         payment_id = 1 if max.max_id is None else max.max_id + 1
 
@@ -918,13 +918,51 @@ class Payment(Base):
                              docket_date=docketDate,
                              paymenttype=paymentType,
                              amount=amount,
-                             drawer='O')
+                             drawer=drawer)
 
         cls.query.session.add(newPayment)
         cls.query.session.flush()
         # cls.query.session.commit()
 
         return payment_id
+
+
+class SplitPayment(Base):
+    __tablename__ = 'SplitPayment'
+
+    uuid = Column(Unicode(40), primary_key=True)
+    rrn = Column(Unicode(40))
+    salesorder_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
+    date = Column(DateTime, nullable=False, index=True, server_default=text("('9/24/2003 1:47:12')"))
+    paymenttype = Column(Unicode(15), nullable=False, index=True)
+    amount = Column(MONEY, nullable=False, server_default=text("(0)"))
+    drawer = Column(Unicode(1), nullable=False, index=True)
+    eft_method = Column(SmallInteger, nullable=False, server_default=text("(0)"))
+
+    @classmethod
+    def getBySalesorderId(cls, salesorderId):
+        res = cls.query.filter(cls.salesorder_id == salesorderId).all()
+        return res
+
+    @classmethod
+    def checkDuplicate(cls, salesorderId, rrn):
+        res = cls.query.filter(cls.salesorder_id == salesorderId, cls.rrn == rrn).first()
+        return res
+
+    @classmethod
+    def insertSplitPayments(cls, rrn, salesorderId, date, paymentType, amount, drawer, eftMethod):
+        splitPayment = SplitPayment(uuid=uuid.uuid1().hex,
+                                    rrn=rrn,
+                                    salesorder_id=salesorderId,
+                                    date=date,
+                                    paymenttype=paymentType,
+                                    amount=amount,
+                                    drawer=drawer,
+                                    eft_method=eftMethod)
+        cls.query.session.add(splitPayment)
+        cls.query.session.flush()
+        # cls.query.session.commit()
+
 
 
 class Docket(Base):

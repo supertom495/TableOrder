@@ -1,7 +1,8 @@
 import json
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Tables, Staff, Salesorder
+from models import Tables, Staff, Salesorder, SplitPayment
+from service import PaymentService
 
 tyro_blueprint = flask.Blueprint(
     'tyro',
@@ -61,8 +62,14 @@ def getOpenSales():
     data = {}
     data['open-sales'] = []
     # data['always-return-outcome'] = 'true'
+
+    # 计算剩余要交的钱
+    payments = SplitPayment.getBySalesorderId(salesorder.salesorder_id)
+    amount = salesorder.subtotal
+    for payment in payments:
+        amount -= payment.amount
     salesorderJson = {
-        'amount': str(salesorder.subtotal).replace('.', ''),
+        'amount': str(amount).replace('.', ''),
         'pos-reference': salesorder.salesorder_id,
         'table': table.table_code
     }
@@ -86,24 +93,58 @@ def transactionResult():
     responseMessage = transactionResult.get('response-message')
     tipAmount = transactionResult.get('tip-amount')
     baseAmount = transactionResult.get('base-amount')
-    baseCurrency = transactionResult.get('base-currency ')
-    cardCurrency = transactionResult.get('card-currency ')
-    cardType = transactionResult.get('card-type ')
-    elidedPan = transactionResult.get('elided-pan ')
+    baseCurrency = transactionResult.get('base-currency')
+    cardCurrency = transactionResult.get('card-currency')
+    cardType = transactionResult.get('card-type')
+    elidedPan = transactionResult.get('elided-pan')
     gstPercentage = transactionResult.get('gst-percentage')
-    operatorId = transactionResult.get('operator-id ')
-    panLength = transactionResult.get('pan-length ')
-    rrn = transactionResult.get('rrn ')
-    surchargeAmount = transactionResult.get('surcharge-amount ')
-    terminalTransactionLocalDateTime = transactionResult.get('terminal-transaction-local-date-time ')
-    transactionReference = transactionResult.get('transaction-reference ')
-    transactionType = transactionResult.get('transaction-type ')
-    transmissionDateTime = transactionResult.get('transmission-date-time ')
-    transactionAmount = transactionResult.get('transaction-amount ')
-    transactionCurrency = transactionResult.get('transaction-currency ')
-    exchangeRate = transactionResult.get('exchange-rate ')
-    receiptBlock = transactionResult.get('receipt-block ')
+    operatorId = transactionResult.get('operator-id')
+    panLength = transactionResult.get('pan-length')
+    rrn = transactionResult.get('rrn')
+    surchargeAmount = transactionResult.get('surcharge-amount')
+    terminalTransactionLocalDateTime = transactionResult.get('terminal-transaction-local-date-time')
+    transactionReference = transactionResult.get('transaction-reference')
+    transactionType = transactionResult.get('transaction-type')
+    transmissionDateTime = transactionResult.get('transmission-date-time')  # 20160923060940+0000
+    transactionAmount = transactionResult.get('transaction-amount')
+    transactionCurrency = transactionResult.get('transaction-currency')
+    exchangeRate = transactionResult.get('exchange-rate')
+    receiptBlock = transactionResult.get('receipt-block')
 
-    data = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    if result == 'APPROVED':
+        # if UtilValidate.isEmpty(SplitPayment.checkDuplicate(posReference, rrn)):
+            date = '{}-{}-{} {}:{}:{}.{}'.format(transmissionDateTime[0:4], transmissionDateTime[4:6],
+                                                 transmissionDateTime[6:8], transmissionDateTime[8:10],
+                                                 transmissionDateTime[10:12], transmissionDateTime[12:14],
+                                                 transmissionDateTime[15:18])
+            SplitPayment.insertSplitPayments(rrn, posReference, date, 'EFTPOS', baseAmount, 'T', 0)
 
-    return ResponseUtil.tyro_success(data)
+            salesorder = Salesorder.getSalesorderById(posReference)
+            payments = SplitPayment.getBySalesorderId(posReference)
+            # Check if the order is completed
+            totalPaid = 0
+            for payment in payments:
+                totalPaid += payment.amount
+            # if order is completed, close the transaction
+            if totalPaid >= salesorder.subtotal:
+                print('close')
+                paymentDetail = []
+                for payment in payments:
+                    paymentDetail.append({
+                        'paymentType': 'EFTPOS',
+                        'amount': float(payment.amount)
+                        })
+                salesorder.status = 11
+                completeOrderResult = PaymentService.completeOrder({
+                    "paymentDetail": json.dumps(paymentDetail),
+                    "token": '16891689',
+                    "tableCode": table,
+                    "guestNo": salesorder.guest_no,
+                    "remark": 'tyro',
+                    "salesorderId": posReference,
+                    "drawer": 'T'
+                })
+                if completeOrderResult["code"] != "0":
+                    return ResponseUtil.error(completeOrderResult)
+
+    return ResponseUtil.tyro_success('')

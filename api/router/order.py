@@ -74,36 +74,49 @@ def apiNewPrepaidSalesorder():
         return ResponseUtil.error(result)
 
     if isPaid:
+        completeOrderResult = PaymentService.completeOrder({
+            "paymentDetail": paymentDetail,
+            "token": token,
+            "tableCode": tableCode,
+            "guestNo": guestNo,
+            "remark": remark,
+            "actualId": actualId,
+            "memberBarcode": memberBarcode,
+            "salesorderId": salesorderId,
+            "drawer": 'O'
+        })
+        if completeOrderResult["code"] != "0":
+            return ResponseUtil.error(completeOrderResult)
 
-        paymentDetail = json.loads(paymentDetail)
-
-        subtotal = 0
-        for payment in paymentDetail:
-            subtotal += float(payment["amount"])
-
-        # insert into docket
-        docketResult = DocketService.newDocket({"token": token, "tableCode": tableCode,
-                                                "subtotal": subtotal, "guestNo": guestNo, "remark": remark,
-                                                "actualId": actualId, "memberBarcode": memberBarcode})
-        if docketResult["code"] != "0":
-            return ResponseUtil.error(docketResult)
-
-        docketId = docketResult['data']['docketId']
-
-        # insert into docket line
-        docketLineResult = DocketLineService.insertDocketLine({"docketId": docketId, "salesorderId": salesorderId})
-
-        if docketLineResult["code"] != "0":
-            return ResponseUtil.error(docketLineResult)
-
-        # insert into payments
-        paymentResult = PaymentService.insertPayment({"docketId": docketId, "paymentDetail": paymentDetail})
-
-        if paymentResult["code"] != "0":
-            return ResponseUtil.error(paymentResult)
-
-        # shut the table down
-        Tables.deactivateTable(tableCode)
+        # paymentDetail = json.loads(paymentDetail)
+        #
+        # subtotal = 0
+        # for payment in paymentDetail:
+        #     subtotal += float(payment["amount"])
+        #
+        # # insert into docket
+        # docketResult = DocketService.newDocket({"token": token, "tableCode": tableCode,
+        #                                         "subtotal": subtotal, "guestNo": guestNo, "remark": remark,
+        #                                         "actualId": actualId, "memberBarcode": memberBarcode})
+        # if docketResult["code"] != "0":
+        #     return ResponseUtil.error(docketResult)
+        #
+        # docketId = docketResult['data']['docketId']
+        #
+        # # insert into docket line
+        # docketLineResult = DocketLineService.insertDocketLine({"docketId": docketId, "salesorderId": salesorderId})
+        #
+        # if docketLineResult["code"] != "0":
+        #     return ResponseUtil.error(docketLineResult)
+        #
+        # # insert into payments
+        # paymentResult = PaymentService.insertPayment({"docketId": docketId, "paymentDetail": paymentDetail})
+        #
+        # if paymentResult["code"] != "0":
+        #     return ResponseUtil.error(paymentResult)
+        #
+        # # shut the table down
+        # Tables.deactivateTable(tableCode)
 
     result = ServiceUtil.returnSuccess({"salesorderId": salesorderId, "tableCode": tableCode})
 

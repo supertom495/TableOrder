@@ -50,16 +50,15 @@ def init_db():
     在 metadata 中注册。否则，您将不得不在第一次执行 init_db() 时
     先导入他们。
  	"""
+
     # Added to models.tables the new table I needed ( format Table as written above )
     table_models = importlib.import_module('models')
 
     if not engine.dialect.has_table(engine, 'SalesOrderOnline', schema='dbo'):
         # Grab the class that represents the new table
         ORMTable = getattr(table_models, 'SalesorderOnline')
-
         # checkfirst=True to make sure it doesn't exists
         ORMTable.__table__.create(bind=engine, checkfirst=True)
-
     if not engine.dialect.has_table(engine, 'SalesOrderLineOnline', schema='dbo'):
         ORMTable = getattr(table_models, 'SalesorderLineOnline')
         ORMTable.__table__.create(bind=engine, checkfirst=True)
@@ -68,6 +67,9 @@ def init_db():
         ORMTable.__table__.create(bind=engine, checkfirst=True)
     if not engine.dialect.has_table(engine, 'RecordedDate', schema='dbo'):
         ORMTable = getattr(table_models, 'RecordedDate')
+        ORMTable.__table__.create(bind=engine, checkfirst=True)
+    if not engine.dialect.has_table(engine, 'SplitPayment', schema='dbo'):
+        ORMTable = getattr(table_models, 'SplitPayment')
         ORMTable.__table__.create(bind=engine, checkfirst=True)
 
     Base.metadata.create_all(bind=engine)
