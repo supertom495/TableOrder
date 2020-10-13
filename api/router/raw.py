@@ -120,8 +120,8 @@ def getStock():
                     displayExtra["cat2"] = extraStock.cat2
                     displayExtra["barcode"] = extraStock.barcode
                     displayExtra["price"] = Stock.getPrice(extraStock, extraStock.sell)
-                    displayExtra["description"] = extraStock.description
-                    displayExtra["description2"] = extraStock.description2
+                    displayExtra["description"] = extraStock.description3
+                    displayExtra["description2"] = extraStock.description4
                     cachedExtra[extraId] = displayExtra
 
         if stock.stock_id in sortedTaste:
@@ -136,8 +136,8 @@ def getStock():
                     displayTaste["cat2"] = tasteStock.cat2
                     displayTaste["barcode"] = tasteStock.barcode
                     displayTaste["price"] = Stock.getPrice(tasteStock, tasteStock.sell)
-                    displayTaste["description"] = tasteStock.description
-                    displayTaste["description2"] = tasteStock.description2
+                    displayTaste["description"] = tasteStock.description3
+                    displayTaste["description2"] = tasteStock.description4
                     cachedTaste[tasteId] = displayTaste
 
 
