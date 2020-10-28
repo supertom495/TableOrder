@@ -4,6 +4,7 @@ from router.order import order_blueprint
 from router.raw import raw_blueprint
 from router.report import report_blueprint
 from router.tyro import tyro_blueprint
+from router.general import general_blueprint
 
 blueprint = [
     menu_blueprint,
@@ -11,5 +12,6 @@ blueprint = [
     order_blueprint,
     raw_blueprint,
     report_blueprint,
-    tyro_blueprint
+    tyro_blueprint,
+    general_blueprint
 ]

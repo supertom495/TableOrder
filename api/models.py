@@ -1153,6 +1153,11 @@ class GlobalSetting(Base):
         return res
 
     @classmethod
+    def getOnlineSetting(cls):
+        res = cls.query.filter(cls.disable == 0, cls.setting_key.like('Online_%')).all()
+        return res
+
+    @classmethod
     def deleteAllRules(cls):
         cls.query.filter(or_(cls.setting_key.like('MenuOptionLimitation%'),
                              cls.setting_key.like('MenuSizeLevelOptionDisallow%'))).delete(synchronize_session=False)
