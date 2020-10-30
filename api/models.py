@@ -9,8 +9,72 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.sql import func
 from sqlalchemy_pagination import paginate
-from database import Base
+from database import Base, flaskConfig
 
+
+class AutoIdDocket(Base):
+    __tablename__ = 'AutoIdDocket'
+    id = Column(Integer, nullable=False, primary_key=True)
+    id2 = Column(Integer)
+
+    @classmethod
+    def getId(cls):
+        newAutoIdDocket = AutoIdDocket(id2=0)
+        cls.query.session.add(newAutoIdDocket)
+        cls.query.session.flush()
+        return newAutoIdDocket.id
+
+
+class AutoIdDocketLine(Base):
+    __tablename__ = 'AutoIdDocketLine'
+    id = Column(Integer, nullable=False, primary_key=True)
+    id2 = Column(Integer)
+
+    @classmethod
+    def getId(cls):
+        newAutoIdDocketLine = AutoIdDocketLine(id2=0)
+        cls.query.session.add(newAutoIdDocketLine)
+        cls.query.session.flush()
+        return newAutoIdDocketLine.id
+
+
+class AutoIdPayments(Base):
+    __tablename__ = 'AutoIdPayments'
+    id = Column(Integer, nullable=False, primary_key=True)
+    id2 = Column(Integer)
+
+    @classmethod
+    def getId(cls):
+        newAutoIdPayments = AutoIdPayments(id2=0)
+        cls.query.session.add(newAutoIdPayments)
+        cls.query.session.flush()
+        return newAutoIdPayments.id
+
+
+class AutoIdSalesOrder(Base):
+    __tablename__ = 'AutoIdSalesOrder'
+    id = Column(Integer, nullable=False, primary_key=True)
+    id2 = Column(Integer)
+
+    @classmethod
+    def getId(cls):
+        newAutoIdSalesOrder = AutoIdSalesOrder(id2=0)
+        cls.query.session.add(newAutoIdSalesOrder)
+        cls.query.session.flush()
+        return newAutoIdSalesOrder.id
+
+
+class AutoIdSalesOrderLine(Base):
+    __tablename__ = 'AutoIdSalesOrderLine'
+    id = Column(Integer, nullable=False, primary_key=True)
+    id2 = Column(Integer)
+
+    @classmethod
+    def getId(cls):
+        newAutoIdSalesOrderLine = AutoIdSalesOrderLine(id2=0)
+        cls.query.session.add(newAutoIdSalesOrderLine)
+        cls.query.session.flush()
+        return newAutoIdSalesOrderLine.id
 
 class Tables(Base):
     __tablename__ = 'Tables'
@@ -522,9 +586,11 @@ class Salesorder(Base):
     def insertSalesorder(cls, tableCode, guestNo, staffId, time, transaction, status):
 
         salesorderId = SaleID.updateSalesorderId()
-        # if salesorderId is None:
-        max = cls.query.session.query(func.max(cls.salesorder_id).label("max_id")).one()
-        salesorderId = 1 if max.max_id is None else max.max_id + 1
+        if flaskConfig.get('AId') >= 1:
+            salesorderId = AutoIdSalesOrder.getId()
+        else:
+            max = cls.query.session.query(func.max(cls.salesorder_id).label("max_id")).one()
+            salesorderId = 1 if max.max_id is None else max.max_id + 1
 
         if transaction == 'TA':
             tableCode = 'TA' + '-OL-' + str(SaleID.updateTakeawayId())
@@ -660,8 +726,14 @@ class SalesorderLine(Base):
     @classmethod
     def insertSalesorderLine(cls, salesorderId, stockId, sizeLevel, price, quantity, staffId, time, parentlineId,
                              status, orderlineId=None):
-        max = cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
-        salesorderLineId = 1 if max.max_id is None else max.max_id + 1
+
+        salesorderLineId = 0
+        if flaskConfig.get('AId') >= 2:
+            salesorderLineId = AutoIdSalesOrderLine.getId()
+        else:
+            max = cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
+            salesorderLineId = 1 if max.max_id is None else max.max_id + 1
+
         if orderlineId is None:
             orderlineId = salesorderLineId
 
@@ -910,10 +982,15 @@ class Payment(Base):
 
     @classmethod
     def insertPayment(cls, docketId, docketDate, paymentType, amount, drawer):
-        max = cls.query.session.query(func.max(cls.payment_id).label("max_id")).one()
-        payment_id = 1 if max.max_id is None else max.max_id + 1
 
-        newPayment = Payment(payment_id=payment_id,
+        paymentId = 0
+        if flaskConfig.get('AId') >= 2:
+            paymentId = AutoIdPayments.getId()
+        else:
+            max = cls.query.session.query(func.max(cls.payment_id).label("max_id")).one()
+            paymentId = 1 if max.max_id is None else max.max_id + 1
+
+        newPayment = Payment(payment_id=paymentId,
                              docket_id=docketId,
                              docket_date=docketDate,
                              paymenttype=paymentType,
@@ -924,7 +1001,7 @@ class Payment(Base):
         cls.query.session.flush()
         # cls.query.session.commit()
 
-        return payment_id
+        return paymentId
 
 
 class SplitPayment(Base):
@@ -1025,10 +1102,14 @@ class Docket(Base):
     @classmethod
     def insertDocket(cls, time, staffId, tableCode, amount, guestNo, memberBarcode=None):
 
-        max = cls.query.session.query(func.max(cls.docket_id).label("max_id")).one()
-        docket_id = 1 if max.max_id is None else max.max_id + 1
+        docketId = 0
+        if flaskConfig.get('AId') >= 1:
+            docketId = AutoIdDocket.getId()
+        else:
+            max = cls.query.session.query(func.max(cls.docket_id).label("max_id")).one()
+            docketId = 1 if max.max_id is None else max.max_id + 1
 
-        newDocket = Docket(docket_id=docket_id,
+        newDocket = Docket(docket_id=docketId,
                            docket_date=time,
                            staff_id=staffId,
                            transaction="SA",
@@ -1039,7 +1120,7 @@ class Docket(Base):
                            total_ex=amount / 1.1,
                            total_inc=amount,
                            gp=amount / 1.1,
-                           actual_id=docket_id,
+                           actual_id=docketId,
                            guest_no=guestNo,
                            member_barcode=memberBarcode)
 
@@ -1047,7 +1128,7 @@ class Docket(Base):
         cls.query.session.flush()
         # cls.query.session.commit()
 
-        return docket_id
+        return docketId
 
 
 class DocketOnline(Base):
@@ -1109,8 +1190,13 @@ class DocketLine(Base):
 
     @classmethod
     def insertDocketLine(cls, docketId, stockId, sizeLevel, price, quantity):
-        max = cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
-        lineId = 1 if max.max_id is None else max.max_id + 1
+
+        lineId = 0
+        if flaskConfig.get('AId') >= 2:
+            lineId = AutoIdDocketLine.getId()
+        else:
+            max = cls.query.session.query(func.max(cls.line_id).label("max_id")).one()
+            lineId = 1 if max.max_id is None else max.max_id + 1
 
         newDocketLine = DocketLine(line_id=lineId,
                                    docket_id=docketId,
@@ -1173,6 +1259,13 @@ class GlobalSetting(Base):
         cls.query.session.flush()
         cls.query.session.commit()
 
+    @classmethod
+    def getAId(cls):
+        try:
+            res = cls.query.filter(cls.disable == 0, cls.setting_key == 'AId').one()
+            return int(res.setting_value)
+        except sqlalchemy.orm.exc.NoResultFound:
+            return 0
 
 class GlobalSettingSub(Base):
     __tablename__ = 'GlobalSettingSub'
