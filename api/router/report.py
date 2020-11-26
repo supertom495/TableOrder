@@ -10,6 +10,18 @@ report_blueprint = flask.Blueprint(
     url_prefix='/api/v1/report'
 )
 
+@report_blueprint.route('/topselling', methods=['GET'])
+def getTopSelling():
+    items = DocketLine.getTopSelling()
+    data = {}
+    data['top10'] = []
+    for item in items:
+        data['top10'].append({'stockId': int(item[1]), 'sold': item[0]})
+
+    result = ServiceUtil.returnSuccess(data)
+
+    return ResponseUtil.success(result)
+
 
 @report_blueprint.route('/report', methods=['GET'])
 def getReport():

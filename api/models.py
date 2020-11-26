@@ -3,7 +3,7 @@ import decimal
 import uuid
 import sqlalchemy
 from sqlalchemy import Column, DateTime, Float, ForeignKey, Index, Integer, LargeBinary, SmallInteger, Unicode, text, \
-    or_, and_
+    or_, and_, desc
 from sqlalchemy.dialects.mssql import BIT, MONEY
 from sqlalchemy.orm import relationship
 from sqlalchemy.exc import ProgrammingError
@@ -530,7 +530,7 @@ class RecordedDate(Base):
 class SaleID(Base):
     __tablename__ = 'SaleID'
     sale_type = Column(Integer, nullable=False, primary_key=True)
-    sale_id = Column(Integer, nullable=False)
+    sale_id = Column(Integer, nullable=False, primary_key=True)
     date_modified = Column(DateTime, nullable=False)
 
     @classmethod
@@ -549,7 +549,14 @@ class SaleID(Base):
 
     @classmethod
     def updateTakeawayId(cls):
-        sale = cls.query.filter(cls.sale_type == 2).one()
+        try:
+            sale = cls.query.filter(cls.sale_type == 2).one()
+        except sqlalchemy.orm.exc.NoResultFound:
+            sale = SaleID(sale_type=2,
+                          sale_id=0,
+                          date_modified='')
+            cls.query.session.add(sale)
+
         sale.sale_id = sale.sale_id + 1
         cls.query.session.flush()
         # cls.query.session.commit()
@@ -1179,6 +1186,31 @@ class DocketLine(Base):
     customer = relationship('Customer')
     docket = relationship('Docket')
     stock = relationship('Stock')
+
+    @classmethod
+    def getTopSelling(cls):
+
+        docket_table = cls.query.session.query(cls.docket_id).order_by(cls.docket_id.desc()).limit(3000)
+
+        stock_table = cls.query.session.query(Stock.stock_id).filter(or_(Stock.cat1 =='(N/A)', Stock.cat1 == 'EXTRA', Stock.cat1 == 'TASTE'))
+        query = cls.query.session.query(func.count(cls.stock_id).label('num'), cls.stock_id).filter(and_(cls.docket_id.in_(docket_table), cls.stock_id.notin_(stock_table))).group_by(cls.stock_id).order_by(desc('num')).limit(10)
+        res = query.all()
+
+        return res
+
+        # result = s.execute(
+        #     'select top 10 COUNT(*) as num, stock_id '
+        #     'from DocketLine '
+        #     'where docket_id in (select top 3000 docket_id from DocketLine order by docket_id desc)  '
+        #     'and stock_id not in (select stock_id from Stock where cat1 = \'(N/A)\' or cat1 = \'EXTRA\' or cat1 = \'TASTE\') '
+        #     'group by stock_id order by num desc '
+        # )
+        #
+        # with engine.connect() as con:
+        #     rs = con.execute(            'select top 10 COUNT(*) as num, stock_id '
+        #     'from DocketLine group by stock_id order by num desc ')
+        #     return rs
+
 
     @classmethod
     def getByDocketId(cls, docketId):
