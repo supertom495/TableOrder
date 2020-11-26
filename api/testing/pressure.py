@@ -3,7 +3,7 @@ import json
 import random
 from datetime import datetime
 
-baseURL = "http://172.16.11.251:5001"
+baseURL = "http://192.168.1.110:5001"
 
 
 def getToken(staffCode):
@@ -129,7 +129,7 @@ import threading
 
 def worker(num):
     print('work-{}'.format(num))
-    for i in range(2):
+    for i in range(20):
         a = createOrder()
         print(a)
 

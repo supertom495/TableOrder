@@ -43,7 +43,7 @@ def getOpenSales():
 
     # test if table is closed
     if table.table_status == 0:
-        return ResponseUtil.error(ServiceUtil.errorWrongLogic('Inactive table'), 400)
+        return ResponseUtil.error(ServiceUtil.errorWrongLogic('Inactive table'), 412)
 
     # test if table occupied by POS
     if table.staff_id != 0 and table.staff_id is not None:
@@ -81,6 +81,12 @@ def getOpenSales():
 @tyro_blueprint.route('/transaction-result', methods=['POST'])
 def transactionResult():
     transactionResult = json.loads(flask.request.data)
+    data = flask.request.data
+    mac = flask.request.headers.get('x-tyro-mac').encode('ISO-8859-1')
+    macCalculated = UtilValidate._hmac_sha1(data)
+    if mac != macCalculated:
+        return ResponseUtil.error(ServiceUtil.errorSecurityNotLogin(''), 403)
+
 
     result = transactionResult.get('result')
     mid = transactionResult.get('mid')
