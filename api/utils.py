@@ -12,7 +12,7 @@ class UtilValidate:
     @staticmethod
     def getImageUrl(host):
         hostRange = host.split('.')[0]
-        if hostRange == '10' or hostRange == '172' or hostRange == '192' or hostRange == '127':
+        if hostRange == '10' or hostRange == '172' or hostRange == '192' or hostRange == '127' or hostRange == 'localhost:5001':
             if flaskConfig.get('ImageUrl'):
                 return 'http://{}/img/'.format(flaskConfig.get('ImageUrl'))
             else:
