@@ -7,6 +7,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import yaml
+from tools import AESCipher
 
 if not os.path.exists("./setting/flask.yaml"):
     print("did not found setting file")
@@ -43,6 +44,7 @@ Base.query = db_session.query_property()
 
 from models import GlobalSetting
 flaskConfig['AId'] = GlobalSetting.getAId()
+aesCipher = AESCipher('16891689')
 
 
 # metadata = None

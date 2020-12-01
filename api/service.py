@@ -119,13 +119,17 @@ class SalesorderLineService():
         else:
             tableSiteId = -1
 
+        inactiveStockIds = []
+
         for line in salesorderLines:
             if len(line) < 7:
                 return ServiceUtil.errorWrongLogic('Incorrect content', code=3003)
 
-            stockId = line["stockId"]
+            stockId = line['stockId']
             actualLineId = line.get('actualLineId')
             stock = Stock.getByStockId(stockId)
+            if stock.inactive == 1 and stock.barcode != 'KIOSKDELIVERY':
+                inactiveStockIds.append(stockId)
             sizeLevel = line["sizeLevel"]
             quantity = line["quantity"]
             purchaseQuantity = int(quantity)
@@ -167,12 +171,9 @@ class SalesorderLineService():
 
             comments = line["comments"]
 
-            # TODO TEST
             if goToKitchen:
-                # try:
                 printers = SalesorderLineService.findPrinter(stockId, tableSiteId)
-                # except Exception as inst:
-                # 	return ServiceUtil.errorDataNotFound(inst.args[0])
+
                 if printers is None:
                     continue
 
@@ -183,6 +184,9 @@ class SalesorderLineService():
                 else:
                     unit = 1
                 SalesorderLineService.insertKitchen(printers, originalSalesorderLineId, comments, tableCode, unit)
+
+        if len(inactiveStockIds) != 0:
+            return ServiceUtil.errorInvalidParameter('Inactive stockId', data=inactiveStockIds)
 
         Salesorder.updatePrice(salesorderId)
 

@@ -2,8 +2,8 @@ Login: sa
 Password: 1689
 ServerName: 192.168.1.135
 ImageUrl:
-DBName: gcvic
+DBName: jackpot
 StoreName: jackpot
 Debug: True
 #PiselUrl: https://etest.pisel.com.au
-Version: 1.33.0
+Version: 1.35.0

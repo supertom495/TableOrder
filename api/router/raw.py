@@ -4,7 +4,7 @@ from deprecated import deprecated
 from models import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, \
     SalesorderLine, Site, Kitchen, GlobalSetting
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from database import flaskConfig
+from database import flaskConfig, aesCipher
 from service import SalesorderService, SalesorderLineService
 
 raw_blueprint = flask.Blueprint(
@@ -16,7 +16,7 @@ raw_blueprint = flask.Blueprint(
 
 @raw_blueprint.route('/', methods=['GET'])
 def home():
-    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.34.2" \
+    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.35.0" \
            "</h3><p>This site has API for self-ordering.</p>".format(
         flaskConfig.get('StoreName'))
 
@@ -171,7 +171,7 @@ def getStaffToken():
 
     toBeEncrypted = barcode + str(int(time.time()) + 3600)
 
-    cipherText = UtilValidate.encryption(toBeEncrypted).decode('UTF-8')
+    cipherText = aesCipher.encrypt(toBeEncrypted).decode('UTF-8')
 
     result = ServiceUtil.returnSuccess(cipherText)
     return ResponseUtil.success(result)
