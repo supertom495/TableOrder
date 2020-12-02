@@ -143,7 +143,7 @@ def transactionResult():
                 salesorder.status = 11
                 completeOrderResult = PaymentService.completeOrder({
                     "paymentDetail": json.dumps(paymentDetail),
-                    "token": '16891689',
+                    "staffId": '-2',
                     "tableCode": table,
                     "guestNo": salesorder.guest_no,
                     "remark": 'tyro',

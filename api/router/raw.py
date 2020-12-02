@@ -16,7 +16,7 @@ raw_blueprint = flask.Blueprint(
 
 @raw_blueprint.route('/', methods=['GET'])
 def home():
-    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.35.0" \
+    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.35.1" \
            "</h3><p>This site has API for self-ordering.</p>".format(
         flaskConfig.get('StoreName'))
 
@@ -179,11 +179,11 @@ def getStaffToken():
 
 @raw_blueprint.route('/salesorder', methods=['POST'])
 def apiNewSalesorder():
-    token = flask.request.form.get('token')
+    staffId = flask.request.staffId
     tableCode = flask.request.form.get('tableCode')
     guestNo = flask.request.form.get('guestNo')
 
-    result = SalesorderService.newSalesorder({"token": token, "tableCode": tableCode, "guestNo": guestNo})
+    result = SalesorderService.newSalesorder({"staffId": staffId, "tableCode": tableCode, "guestNo": guestNo})
 
     if result["code"] != "0":
         return ResponseUtil.error(result)
@@ -191,6 +191,7 @@ def apiNewSalesorder():
     return ResponseUtil.success(result)
 
 
+@deprecated()
 @raw_blueprint.route('/salesorder', methods=['PUT'])
 def resetTable():
     result = ServiceUtil.returnSuccess()
@@ -208,12 +209,12 @@ def resetTable():
 @deprecated()
 @raw_blueprint.route('/salesorderline', methods=['POST'])
 def apiInsertSalesorderLine():
-    token = flask.request.form.get('token')
+    staffId = flask.request.staffId
     tableCode = flask.request.form.get('tableCode')
     salesorderId = flask.request.form.get('salesorderId')
     salesorderLines = flask.request.form.get('salesorderLines')
 
-    result = SalesorderLineService.insertSalesorderLine({"token": token, "tableCode": tableCode,
+    result = SalesorderLineService.insertSalesorderLine({"staffId": staffId, "tableCode": tableCode,
                                                          "salesorderId": salesorderId,
                                                          "salesorderLines": salesorderLines,
                                                          "goToKitchen": True})
@@ -409,18 +410,12 @@ def favicon():
 
 @raw_blueprint.route('/table', methods=['PUT'])
 def swapTable():
-    #
-
+    staffId = flask.request.form.get('staffId')
     fromTableCode = flask.request.form.get('fromTableCode')
     toTableCode = flask.request.form.get('toTableCode')
-    token = flask.request.form.get('token')
 
-    if token is None or toTableCode is None or toTableCode is None:
+    if toTableCode is None or toTableCode is None:
         return ResponseUtil.error(ServiceUtil.errorMissingParameter())
-
-    tokenValid, staffId = UtilValidate.tokenValidation(token)
-    if not tokenValid:
-        return ResponseUtil.error(ServiceUtil.errorSecurityNotLogin('Invalid token'))
 
     fromTable = Tables.getTableByTableCode(fromTableCode)
     toTable = Tables.getTableByTableCode(toTableCode)

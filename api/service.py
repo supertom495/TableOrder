@@ -10,20 +10,13 @@ class SalesorderService():
     def newSalesorder(context: dict) -> dict:
         # result = ServiceUtil.returnSuccess()
 
-        token = context.get('token')
+        staffId = context.get('staffId')
         tableCode = context.get('tableCode')
         guestNo = context.get('guestNo')
         isPaid = context.get('isPaid')
         remark = context.get('remark')
         actualId = context.get('actualId')
 
-        if token is None:
-            return ServiceUtil.errorMissingParameter()
-
-        # verifying token
-        tokenValid, staffId = UtilValidate.tokenValidation(token)
-        if not tokenValid:
-            return ServiceUtil.errorSecurityNotLogin('Invalid token')
 
         if tableCode:
             table = Tables.getTableByTableCode(tableCode)
@@ -69,19 +62,15 @@ class SalesorderLineService():
     def insertSalesorderLine(context: dict) -> dict:
         # result = ServiceUtil.returnSuccess()
 
-        token = context.get('token')
+        staffId = context.get('staffId')
         tableCode = context.get('tableCode')
         salesorderId = context.get('salesorderId')
         salesorderLines = context.get('salesorderLines')
         goToKitchen = context.get('goToKitchen')
         actualId = context.get('actualId')
 
-        if token is None or salesorderId is None or salesorderLines is None:
+        if salesorderId is None or salesorderLines is None:
             return ServiceUtil.errorMissingParameter()
-
-        tokenValid, staffId = UtilValidate.tokenValidation(token)
-        if not tokenValid:
-            return ServiceUtil.errorSecurityNotLogin('Invalid token')
 
         if UtilValidate.isEmpty(salesorderId):
             return ServiceUtil.errorMissingParameter('salesorderId')
@@ -198,15 +187,11 @@ class SalesorderLineService():
     def calculateSalesorderLine(context: dict) -> dict:
         # result = ServiceUtil.returnSuccess()
 
-        token = context.get('token')
+        staffId = context.get('staffId')
         salesorderLines = context.get('salesorderLines')
 
-        if token is None or salesorderLines is None:
+        if salesorderLines is None:
             return ServiceUtil.errorMissingParameter()
-
-        tokenValid, staffId = UtilValidate.tokenValidation(token)
-        if not tokenValid:
-            return ServiceUtil.errorSecurityNotLogin('Invalid token')
 
         salesorderLines = json.loads(salesorderLines)
 
@@ -352,21 +337,13 @@ class DocketService():
     def newDocket(context: dict) -> dict:
         # result = ServiceUtil.returnSuccess()
 
-        token = context.get('token')
+        staffId = context.get('staffId')
         tableCode = context.get('tableCode')
         subtotal = context.get('subtotal')
         guestNo = context.get('guestNo')
         remark = context.get('remark')
         actualId = context.get('actualId')
         memberBarcode = context.get('memberBarcode')
-
-        if token is None:
-            return ServiceUtil.errorMissingParameter()
-
-        # verifying token
-        tokenValid, staffId = UtilValidate.tokenValidation(token)
-        if not tokenValid:
-            return ServiceUtil.errorSecurityNotLogin('Invalid token')
 
         docketId = Docket.insertDocket(UtilValidate.tsToTime(UtilValidate.getCurrentTs()), staffId, tableCode, subtotal,
                                        guestNo, memberBarcode)
@@ -410,7 +387,7 @@ class PaymentService():
 
     @staticmethod
     def completeOrder(context: dict) -> dict:
-        token = context.get('token')
+        staffId = context.get('staffId')
         paymentDetail = context.get('paymentDetail')
         tableCode = context.get('tableCode')
         guestNo = context.get('guestNo')
@@ -427,7 +404,7 @@ class PaymentService():
             subtotal += float(payment["amount"])
 
         # insert into docket
-        docketResult = DocketService.newDocket({"token": token, "tableCode": tableCode,
+        docketResult = DocketService.newDocket({"staffId": staffId, "tableCode": tableCode,
                                                 "subtotal": subtotal, "guestNo": guestNo, "remark": remark,
                                                 "actualId": actualId, "memberBarcode": memberBarcode})
         if docketResult["code"] != "0":

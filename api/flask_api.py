@@ -4,6 +4,8 @@ from database import init_db, db_session, getPort, debug
 from router import blueprint
 import time, json
 import traceback
+from utils import ServiceUtil, UtilValidate, ResponseUtil
+
 
 
 class Config(object):  # 创建配置，用类
@@ -27,6 +29,7 @@ class Config(object):  # 创建配置，用类
 
 
 app = flask.Flask(__name__)
+app.secret_key = 'SuperSecretKey'
 for item in blueprint: app.register_blueprint(item)
 CORS(app, supports_credentials=True, resource=r'/*')
 
@@ -34,6 +37,7 @@ CORS(app, supports_credentials=True, resource=r'/*')
 @app.teardown_request
 def shutdown_session(exception=None):
     db_session.remove()
+
 
 
 @app.after_request
@@ -50,6 +54,28 @@ def commit_session(response):
         app.logger.error(body)
 
     return response
+
+@app.before_request
+def validateToken():
+    path = flask.request.path
+    method = flask.request.method
+
+    if (method == 'POST' or method == 'PUT') \
+            and (path ==  '/api/v1/order/salesorderprepay' or
+                 path == '/api/v1/order/salesorderline' or
+                 path == '/api/v1/order/salesordertrial' or
+                 path == '/salesorder' or
+                 path == '/salesorderline' or
+                 path == '/table'):
+
+            token = flask.request.form.get('token')
+            tokenValid, staffId = UtilValidate.tokenValidation(token)
+            setattr(flask.request, 'staffId', staffId)
+
+        # verifying token
+        # tokenValid, staffId = UtilValidate.tokenValidation(token)
+        # if not tokenValid:
+        #     return ResponseUtil.error(ServiceUtil.errorSecurityNotLogin('Invalid token'))
 
 
 @app.errorhandler(Exception)

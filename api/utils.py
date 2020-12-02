@@ -61,62 +61,22 @@ class UtilValidate:
         timestamp2 = time.mktime(date.timetuple())  # DO NOT USE IT WITH UTC DATE
         return timestamp2
 
-    # @staticmethod
-    # def encryption(privateInfo):
-    #     # return privateInfo.encode('UTF-8')
-    #     # 32 bytes = 256 bits # 16 = 128 bits
-    #     # the block size for cipher obj, can be 16 24 or 32. 16 matches 128 bit.
-    #     BLOCK_SIZE = 16
-    #     # the character used for padding
-    #     # used to ensure that your value is always a multiple of BLOCK_SIZE
-    #     PADDING = '{'
-    #     # function to pad the functions. Lambda
-    #     # is used for abstraction of functions.
-    #     # basically, its a function, and you define it, followed by the param
-    #     # followed by a colon,  ex = lambda x: x+5
-    #     pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
-    #     # encrypt with AES, encode with base64
-    #     EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
-    #     # generate a randomized secret key with urandom
-    #     secret = b'\xdb\xb1?\xe2\xeb7\x9b\xa5b\x9erA\xfcP\xbb='
-    #     # creates the cipher obj using the key
-    #     cipher = AES.new(secret, AES.MODE_CBC)
-    #     # encodes you private info!
-    #     encoded = EncodeAES(cipher, privateInfo.encode('UTF-8'))
-    #     return encoded
-    #
-    # @staticmethod
-    # def decryption(encryptedString):
-    #     # return encryptedString
-    #     PADDING = b'{'
-    #     DecodeAES = lambda c, e: c.decrypt(base64.b64decode(e)).rstrip(PADDING)
-    #     # Key is FROM the printout of 'secret' in encryption
-    #     # below is the encryption.
-    #     encryption = encryptedString.encode('UTF-8')
-    #     key = b'\xdb\xb1?\xe2\xeb7\x9b\xa5b\x9erA\xfcP\xbb='
-    #     cipher = AES.new(key, AES.MODE_CBC)
-    #     decoded = DecodeAES(cipher, encryption)
-    #     # print(decoded)
-    #     return decoded
-
     @staticmethod
     def tokenValidation(token):
-        try:
-            if token == '16891689':
-                return True, -2
-            plainText = aesCipher.decrypt(token)
-            timestamp = plainText[-10:]
-            staffBarcode = plainText[:-10]
-            if timestamp < str(int(time.time())):
-                return False, None
-            staff = Staff.getStaffByBarcode(staffBarcode)
-            if staff == None:
-                return False, None
-
-        except Exception:
+        # if 'token' in flask.session:
+            # realToken = flask.session.get('token')
+        plainText = aesCipher.decrypt(token)
+        timestamp = plainText[-10:]
+        staffBarcode = plainText[:-10]
+        if timestamp < str(int(time.time())):
+            return False, None
+        staff = Staff.getStaffByBarcode(staffBarcode)
+        if staff == None:
             return False, None
 
         return True, staff.staff_id
+        # else:
+        #     return False, None
 
     @staticmethod
     def addSign(data: dict) -> dict:
