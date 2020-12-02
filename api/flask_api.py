@@ -69,13 +69,14 @@ def validateToken():
                  path == '/table'):
 
             token = flask.request.form.get('token')
+            # verifying token
             tokenValid, staffId = UtilValidate.tokenValidation(token)
+            if not tokenValid:
+                return ResponseUtil.error(ServiceUtil.errorSecurityNotLogin('Invalid token'))
+
             setattr(flask.request, 'staffId', staffId)
 
-        # verifying token
-        # tokenValid, staffId = UtilValidate.tokenValidation(token)
-        # if not tokenValid:
-        #     return ResponseUtil.error(ServiceUtil.errorSecurityNotLogin('Invalid token'))
+
 
 
 @app.errorhandler(Exception)
