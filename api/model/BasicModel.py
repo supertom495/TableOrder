@@ -644,8 +644,8 @@ class Salesorder(Base):
         salesorder.total_inc = decimal.Decimal(0)
 
         for line in salesOrderLines:
-            salesorder.total_ex += line.print_ex
-            salesorder.total_inc += line.print_inc
+            salesorder.total_ex += line.print_ex * decimal.Decimal(line.quantity)
+            salesorder.total_inc += line.print_inc * decimal.Decimal(line.quantity)
 
         salesorder.subtotal = salesorder.total_inc
 
@@ -1009,43 +1009,6 @@ class Payment(Base):
         # cls.query.session.commit()
 
         return paymentId
-
-
-class SplitPayment(Base):
-    __tablename__ = 'SplitPayment'
-
-    uuid = Column(Unicode(40), primary_key=True)
-    rrn = Column(Unicode(40))
-    salesorder_id = Column(Integer, nullable=False, index=True, server_default=text("(0)"))
-    date = Column(DateTime, nullable=False, index=True, server_default=text("('9/24/2003 1:47:12')"))
-    paymenttype = Column(Unicode(15), nullable=False, index=True)
-    amount = Column(MONEY, nullable=False, server_default=text("(0)"))
-    drawer = Column(Unicode(1), nullable=False, index=True)
-    eft_method = Column(SmallInteger, nullable=False, server_default=text("(0)"))
-
-    @classmethod
-    def getBySalesorderId(cls, salesorderId):
-        res = cls.query.filter(cls.salesorder_id == salesorderId).all()
-        return res
-
-    @classmethod
-    def checkDuplicate(cls, salesorderId, rrn):
-        res = cls.query.filter(cls.salesorder_id == salesorderId, cls.rrn == rrn).first()
-        return res
-
-    @classmethod
-    def insertSplitPayments(cls, rrn, salesorderId, date, paymentType, amount, drawer, eftMethod):
-        splitPayment = SplitPayment(uuid=uuid.uuid1().hex,
-                                    rrn=rrn,
-                                    salesorder_id=salesorderId,
-                                    date=date,
-                                    paymenttype=paymentType,
-                                    amount=amount,
-                                    drawer=drawer,
-                                    eft_method=eftMethod)
-        cls.query.session.add(splitPayment)
-        cls.query.session.flush()
-        # cls.query.session.commit()
 
 
 

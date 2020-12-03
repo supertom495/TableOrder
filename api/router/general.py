@@ -1,8 +1,6 @@
 import flask
-from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Staff, GlobalSetting
-import time
-from database import flaskConfig
+from utils import ServiceUtil, ResponseUtil
+from model.BasicModel import GlobalSetting
 
 general_blueprint = flask.Blueprint(
     'general',

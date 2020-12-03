@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import yaml
-from tools import AESCipher
+from tool import AESCipher
 
 if not os.path.exists("./setting/flask.yaml"):
     print("did not found setting file")
@@ -18,11 +18,8 @@ with open('./setting/flask.yaml') as f:
 
 
 def getPort():
-    if os.path.exists("./setting/port.yaml"):
-        with open('./setting/port.yaml') as f:
-            file = yaml.load(f, Loader=yaml.FullLoader)
-            port = file.get("port")
-            return port
+    if flaskConfig.get('Port'):
+        return flaskConfig.get('Port')
     else:
         return 5001
 
@@ -42,7 +39,7 @@ db_session = scoped_session(sessionmaker(autocommit=False,
 Base = declarative_base()
 Base.query = db_session.query_property()
 
-from models import GlobalSetting
+from model.BasicModel import GlobalSetting
 flaskConfig['AId'] = GlobalSetting.getAId()
 aesCipher = AESCipher('16891689')
 
@@ -54,28 +51,37 @@ def init_db():
     在这里导入所有的可能与定义模型有关的模块，这样他们才会合适地
     在 metadata 中注册。否则，您将不得不在第一次执行 init_db() 时
     先导入他们。
+    For general remote order recording:
+        SalesOrderOnline
+        SalesOrderLineOnline
+        DockerOnline
+    For MT order to callback the void dishes:
+        RecordedDate
+    For Tyro pay@table integration:
+        SplitPayment
  	"""
 
     # Added to models.tables the new table I needed ( format Table as written above )
-    table_models = importlib.import_module('models')
+    basicModels = importlib.import_module('model.BasicModel')
 
     if not engine.dialect.has_table(engine, 'SalesOrderOnline', schema='dbo'):
         # Grab the class that represents the new table
-        ORMTable = getattr(table_models, 'SalesorderOnline')
+        ORMTable = getattr(basicModels, 'SalesorderOnline')
         # checkfirst=True to make sure it doesn't exists
         ORMTable.__table__.create(bind=engine, checkfirst=True)
     if not engine.dialect.has_table(engine, 'SalesOrderLineOnline', schema='dbo'):
-        ORMTable = getattr(table_models, 'SalesorderLineOnline')
+        ORMTable = getattr(basicModels, 'SalesorderLineOnline')
         ORMTable.__table__.create(bind=engine, checkfirst=True)
     if not engine.dialect.has_table(engine, 'DocketOnline', schema='dbo'):
-        ORMTable = getattr(table_models, 'DocketOnline')
+        ORMTable = getattr(basicModels, 'DocketOnline')
         ORMTable.__table__.create(bind=engine, checkfirst=True)
     if not engine.dialect.has_table(engine, 'RecordedDate', schema='dbo'):
-        ORMTable = getattr(table_models, 'RecordedDate')
+        ORMTable = getattr(basicModels, 'RecordedDate')
         ORMTable.__table__.create(bind=engine, checkfirst=True)
-    if not engine.dialect.has_table(engine, 'SplitPayment', schema='dbo'):
-        ORMTable = getattr(table_models, 'SplitPayment')
+
+    if not engine.dialect.has_table(engine, 'SplitPayment', schema='dbo') and flaskConfig.get('Pay@table'):
+        tyroModels = importlib.import_module('model.TyroModel')
+        ORMTable = getattr(tyroModels, 'SplitPayment')
         ORMTable.__table__.create(bind=engine, checkfirst=True)
 
     Base.metadata.create_all(bind=engine)
-# metadata = MetaData(engine)

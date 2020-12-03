@@ -1,6 +1,6 @@
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Keyboard, KeyboardCat, KeyboardItem, Category, Stock, TasteStock, ExtraStock
+from model.BasicModel import Keyboard, KeyboardCat, KeyboardItem, Category, Stock, TasteStock, ExtraStock
 from database import storeName
 
 menu_blueprint = flask.Blueprint(

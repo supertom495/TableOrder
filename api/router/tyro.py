@@ -1,8 +1,9 @@
 import json
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Tables, Staff, Salesorder, SplitPayment
 from service import PaymentService
+from model.BasicModel import Tables, Staff, Salesorder
+from model.TyroModel import SplitPayment
 
 tyro_blueprint = flask.Blueprint(
     'tyro',
@@ -84,9 +85,8 @@ def transactionResult():
     data = flask.request.data
     mac = flask.request.headers.get('x-tyro-mac').encode('ISO-8859-1')
     macCalculated = UtilValidate._hmac_sha1(data)
-    if mac != macCalculated:
+    if mac.lower() != macCalculated.lower():
         return ResponseUtil.error(ServiceUtil.errorSecurityNotLogin(''), 403)
-
 
     result = transactionResult.get('result')
     mid = transactionResult.get('mid')
@@ -118,12 +118,17 @@ def transactionResult():
     receiptBlock = transactionResult.get('receipt-block')
 
     if result == 'APPROVED':
-        # if UtilValidate.isEmpty(SplitPayment.checkDuplicate(posReference, rrn)):
+        #FIXME
+        if UtilValidate.isEmpty(SplitPayment.checkDuplicate(posReference, rrn)):
             date = '{}-{}-{} {}:{}:{}.{}'.format(transmissionDateTime[0:4], transmissionDateTime[4:6],
                                                  transmissionDateTime[6:8], transmissionDateTime[8:10],
                                                  transmissionDateTime[10:12], transmissionDateTime[12:14],
                                                  transmissionDateTime[15:18])
-            SplitPayment.insertSplitPayments(rrn, posReference, date, 'EFTPOS', baseAmount, 'T', 0)
+            staffId = operatorId
+            drawer = 'T'
+            SplitPayment.insertSplitPayments(int(posReference), rrn, mid, tid, transactionReference, table,
+                                             staffId, baseAmount, surchargeAmount, tipAmount, transactionAmount,
+                                             cardCurrency, cardType, date, drawer)
 
             salesorder = Salesorder.getSalesorderById(posReference)
             payments = SplitPayment.getBySalesorderId(posReference)

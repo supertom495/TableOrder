@@ -1,6 +1,6 @@
 import flask
-from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Staff
+from utils import ServiceUtil, ResponseUtil
+from model.BasicModel import Staff
 import time
 from database import aesCipher
 

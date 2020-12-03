@@ -1,7 +1,6 @@
-import base64, hashlib, hmac, binascii, time, json
-from Crypto.Cipher import AES
+import hashlib, hmac, binascii, time, json
 import flask
-from models import Staff
+from model.BasicModel import Staff
 from database import flaskConfig, serverName, aesCipher
 
 

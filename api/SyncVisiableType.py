@@ -7,7 +7,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import yaml
 
-import models
+from model import models
 
 if not os.path.exists("./setting/flask.yaml"):
 	print("did not found setting file")

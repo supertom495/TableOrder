@@ -1,6 +1,6 @@
 import json
-from utils import ServiceUtil, UtilValidate, ResponseUtil
-from models import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, Salesorder, SalesorderLine, StockPrint, \
+from utils import ServiceUtil, UtilValidate
+from model.BasicModel import Tables, Keyboard, KeyboardCat, KeyboardItem, Stock, Category, Salesorder, SalesorderLine, StockPrint, \
     CatPrint, KeyboardPrint, Kitchen, Docket, DocketLine, Payment, SalesorderOnline, SalesorderLineOnline, DocketOnline
 
 

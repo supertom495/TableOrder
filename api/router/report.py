@@ -1,6 +1,6 @@
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
-from models import Docket, Payment, Tables, DocketLine, Stock
+from model.BasicModel import Docket, Payment, Tables, DocketLine, Stock
 from decimal import Decimal
 from datetime import datetime
 
