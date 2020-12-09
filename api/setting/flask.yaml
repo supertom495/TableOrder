@@ -1,11 +1,11 @@
 Login: sa
 Password: 1689
-ServerName: 192.168.1.135
+ServerName: 172.16.11.241
 ImageUrl:
-DBName: takasushi
+DBName: Jackpot
 StoreName: jackpot
 Debug: True
 #PiselUrl: https://etest.pisel.com.au
-Version: 1.36.0
+Version: 1.36.2
 Pay@table: False
 Port:

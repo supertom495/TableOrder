@@ -240,17 +240,7 @@ class SalesorderLineService():
         keyboard = Keyboard.getActivateKeyboard()
         kbId = keyboard.kb_id
         stock = Stock.getByStockId(stockId)
-
-        # find keyboard item
-        keyboardItem = KeyboardItem.getByBarcodeAndKbId(stock.barcode, kbId)
-        if UtilValidate.isEmpty(keyboardItem):
-            raise Exception('keyboardItem does not have matched item. (NO item_barcode matched)')
-        kbCatId = keyboardItem.cat_id
-
-        # get keyboard Cat
-        # keyboardCat = KeyboardCat.getByCatIdAndKbId(kbCatId, kbId)
-        # catName = keyboardCat.cat_name
-        catName = Stock.cat1
+        catName = stock.cat1
 
         # get cat name from keyboard cat and find it from category's cat id
         category = Category.getByCatName(catName)
