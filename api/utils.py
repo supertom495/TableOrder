@@ -64,16 +64,19 @@ class UtilValidate:
     def tokenValidation(token):
         # if 'token' in flask.session:
             # realToken = flask.session.get('token')
-        plainText = aesCipher.decrypt(token)
-        timestamp = plainText[-10:]
-        staffBarcode = plainText[:-10]
-        if timestamp < str(int(time.time())):
-            return False, None
-        staff = Staff.getStaffByBarcode(staffBarcode)
-        if staff == None:
-            return False, None
+        try:
+            plainText = aesCipher.decrypt(token)
+            timestamp = plainText[-10:]
+            staffBarcode = plainText[:-10]
+            if timestamp < str(int(time.time())):
+                return False, None
+            staff = Staff.getStaffByBarcode(staffBarcode)
+            if staff == None:
+                return False, None
 
-        return True, staff.staff_id
+            return True, staff.staff_id
+        except:
+            return False, None
         # else:
         #     return False, None
 

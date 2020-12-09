@@ -6,6 +6,6 @@ DBName: Jackpot
 StoreName: jackpot
 Debug: True
 #PiselUrl: https://etest.pisel.com.au
-Version: 1.36.2
+Version: 1.36.3
 Pay@table: False
 Port:
