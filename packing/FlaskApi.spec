@@ -3,10 +3,10 @@
 block_cipher = None
 
 
-a = Analysis(['..\\api\\run_server.py'],
-             pathex=['C:\\Users\\PC-BURWOOD\\Documents\\TableOrder\\packing'],
+a = Analysis(['../api/run_server.py'],
+             pathex=['./'],
              binaries=[('./api-ms-win-crt-runtime-l1-1-0.dll', '.')],
-             datas=[('C:\\Users\\PC-BURWOOD\\Documents\\TableOrder\\api\\templates\\', 'templates')],
+             datas=[('../api/templates/', 'templates')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
