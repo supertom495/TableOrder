@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Tips and surcharge report</h1>
+
+<form action="{{url_for('report.getTipReport')}}" method="get">
+    <label for="start">Choose date:</label>
+    <input type="date" id="start" name="date-input"
+           value=""
+           min="2020-01-01" max="2038-12-31">
+    <input type="submit">
+    &lt&lt&lt&lt
+</form>
+
+<br/> <br/>
+
+<style>
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+</style>
+
+<table style="margin-left: 20px;">
+
+<!-- Table headers -->
+    <th>
+        <tr style="color: green; ">
+        <td>Salesorder Id</td>
+        <td>Amount</td>
+        <td>Surcharge Amount</td>
+        <td>Tip Amount</td>
+        <td>Staff Id</td>
+        <td>Date</td>
+        </tr>
+    </th>
+
+<!-- For loop logic of jinja template -->
+    {%for i in data%}
+
+<!-- table rows -->
+    <tr>
+        <td>{{i.salesorder_id}}</td>
+        <td>{{i.amount}}</td>
+        <td>{{i.surcharge_amount}}</td>
+        <td>{{i.tip_amount}}</td>
+        <td>{{i.staff_id}}</td>
+        <td>{{i.date}}</td>
+    {%endfor%}
+    <tr>
+        <td>Total</td>
+        <td></td>
+        <td>{{surchargeTotal}}</td>
+        <td>{{tipTotal}}</td>
+        <td></td>
+    </tr>
+
+</table>
+
+</body>
+</html>

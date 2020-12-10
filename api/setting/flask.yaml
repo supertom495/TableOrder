@@ -1,11 +1,11 @@
 Login: sa
 Password: 1689
-ServerName: 172.16.11.241
+ServerName: 192.168.1.135
 ImageUrl:
-DBName: Jackpot
+DBName: jackpot
 StoreName: jackpot
 Debug: True
 #PiselUrl: https://etest.pisel.com.au
-Version: 1.36.3
-Pay@table: False
+Version: 1.37.0
+Pay@table: True
 Port:

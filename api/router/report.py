@@ -1,6 +1,7 @@
 import flask
 from utils import ServiceUtil, ResponseUtil, UtilValidate
 from model.BasicModel import Docket, Payment, Tables, DocketLine, Stock
+from model.TyroModel import SplitPayment
 from decimal import Decimal
 from datetime import datetime
 
@@ -22,6 +23,21 @@ def getTopSelling():
 
     return ResponseUtil.success(result)
 
+@report_blueprint.route('/tipreport', methods=['GET'])
+def getTipReport():
+    date = flask.request.args.get('date-input')
+
+    if date == None:
+        date = UtilValidate.tsToToday(UtilValidate.getCurrentTs())
+
+    data = SplitPayment.getAll(date)
+    surchargeTotal = 0
+    tipTotal = 0
+    for item in data:
+        surchargeTotal += item.surcharge_amount
+        tipTotal += item.tip_amount
+
+    return flask.render_template('report/tip_report.html', data=data, surchargeTotal=surchargeTotal, tipTotal=tipTotal)
 
 @report_blueprint.route('/report', methods=['GET'])
 def getReport():

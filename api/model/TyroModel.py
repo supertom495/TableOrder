@@ -32,6 +32,16 @@ class SplitPayment(Base):
     drawer = Column(Unicode(1), nullable=False, index=True)
 
     @classmethod
+    def getAll(cls, date):
+        query = cls.query.order_by(cls.date.asc())
+        if date:
+            # query = query.filter(and_(cls.docket_date >= date, cls.docket_date <= '2012-10-26'))
+            query = query.filter(cls.date.between(date + ' 00:00:00', date + ' 23:59:59'))
+
+        res = query.all()
+        return res
+
+    @classmethod
     def getBySalesorderId(cls, salesorderId):
         res = cls.query.filter(cls.salesorder_id == salesorderId).all()
         return res
