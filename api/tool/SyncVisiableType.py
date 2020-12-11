@@ -9,10 +9,10 @@ import yaml
 
 from model import models
 
-if not os.path.exists("./setting/flask.yaml"):
+if not os.path.exists("../setting/flask.yaml"):
 	print("did not found setting file")
 	sys.exit()
-with open('./setting/flask.yaml') as f:
+with open('../setting/flask.yaml') as f:
 	flaskConfig = yaml.load(f, Loader=yaml.FullLoader)
 	if (len(flaskConfig) < 5): sys.exit()
 serverName = flaskConfig.get("ServerName")

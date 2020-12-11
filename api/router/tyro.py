@@ -1,7 +1,7 @@
 import json
 import flask
-from utils import ServiceUtil, ResponseUtil, UtilValidate
-from service import PaymentService
+from tool.utils import ServiceUtil, ResponseUtil, UtilValidate
+from service.service import PaymentService
 from model.BasicModel import Tables, Staff, Salesorder
 from model.TyroModel import SplitPayment
 

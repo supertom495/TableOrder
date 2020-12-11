@@ -1,5 +1,5 @@
 import flask
-from utils import ServiceUtil, ResponseUtil
+from tool.utils import ServiceUtil, ResponseUtil
 from model.BasicModel import GlobalSetting
 
 general_blueprint = flask.Blueprint(

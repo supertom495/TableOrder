@@ -8,7 +8,6 @@ from sqlalchemy.dialects.mssql import BIT, MONEY
 from sqlalchemy.orm import relationship
 from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.sql import func
-from sqlalchemy_pagination import paginate
 from database import Base, flaskConfig
 
 class SplitPayment(Base):

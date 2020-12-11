@@ -3,9 +3,9 @@ import flask
 from deprecated import deprecated
 from model.BasicModel import Tables, KeyboardCat, KeyboardItem, Stock, Category, ExtraStock, TasteStock, Staff, Salesorder, \
     SalesorderLine, Site, Kitchen, GlobalSetting
-from utils import ServiceUtil, ResponseUtil, UtilValidate
+from tool.utils import ServiceUtil, ResponseUtil, UtilValidate
 from database import flaskConfig, aesCipher
-from service import SalesorderService, SalesorderLineService
+from service.service import SalesorderService, SalesorderLineService
 
 raw_blueprint = flask.Blueprint(
     'raw',
