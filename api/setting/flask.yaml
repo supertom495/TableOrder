@@ -2,10 +2,10 @@ Login: sa
 Password: 1689
 ServerName: 192.168.1.135
 ImageUrl:
-DBName: dumplingco
+DBName: gcvic
 StoreName: jackpot
 Debug: True
 #PiselUrl: https://etest.pisel.com.au
-Version: 1.37.0
+Version: 1.37.1
 Pay@table: False
 Port:

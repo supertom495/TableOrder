@@ -16,7 +16,7 @@ raw_blueprint = flask.Blueprint(
 
 @raw_blueprint.route('/', methods=['GET'])
 def home():
-    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.37.0" \
+    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.37.1" \
            "</h3><p>This site has API for self-ordering.</p>".format(
         flaskConfig.get('StoreName'))
 
@@ -108,6 +108,10 @@ def getStock():
 
         if UtilValidate.isNotEmpty(stock.custom4):
             displayStock["price"][4] = [Stock.getPrice(stock, stock.sell4), stock.custom4]
+
+        if UtilValidate.isNotEmpty(stock.kitchen_desc):
+            if stock.kitchen_desc == 'Warm':
+                displayStock["price"][5] = [Stock.getPrice(stock, stock.sell3), stock.kitchen_desc]
 
         if stock.stock_id in sortedExtra:
             for extraId in sortedExtra[stock.stock_id]:
