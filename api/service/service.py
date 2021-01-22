@@ -125,11 +125,29 @@ class SalesorderLineService():
             price = line["price"]
 
             parentlineId = 0
-            originalSalesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, stockId, sizeLevel, price,
-                                                                           quantity, staffId,
-                                                                           UtilValidate.tsToTime(
-                                                                               UtilValidate.getCurrentTs()),
-                                                                           parentlineId, status)
+            if sizeLevel == 5:
+                originalSalesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, stockId, 3, price,
+                                                                               quantity, staffId,
+                                                                               UtilValidate.tsToTime(
+                                                                                   UtilValidate.getCurrentTs()),
+                                                                               parentlineId, status)
+                parentlineId = 1
+                sizeLevel = 0
+                quantity =  purchaseQuantity
+                price = 0
+                tasteId = 102
+                salesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, tasteId, sizeLevel, price,
+                                                                       quantity,
+                                                                       staffId, UtilValidate.tsToTime(
+                        UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
+
+
+            else:
+                originalSalesorderLineId = SalesorderLine.insertSalesorderLine(salesorderId, stockId, sizeLevel, price,
+                                                                               quantity, staffId,
+                                                                               UtilValidate.tsToTime(
+                                                                                   UtilValidate.getCurrentTs()),
+                                                                               parentlineId, status)
             # 线上记录
             SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId,
                                                             actualLineId, stockId, quantity, sizeLevel, status, 'main')
@@ -156,7 +174,6 @@ class SalesorderLineService():
                                                                        quantity,
                                                                        staffId, UtilValidate.tsToTime(
                         UtilValidate.getCurrentTs()), parentlineId, status, orderlineId=originalSalesorderLineId)
-            # SalesorderLineOnline.insertSalesorderLineOnline(originalSalesorderLineId, salesorderId, actualId, tasteId, quantity, sizeLevel, status, 'taste')
 
             comments = line["comments"]
 

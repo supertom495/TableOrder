@@ -44,6 +44,8 @@ def shutdown_session(exception=None):
 def commit_session(response):
     if response.status_code == 200:
         db_session.commit()
+        header = response.headers
+        header['Access-Control-Allow-Origin'] = '*'
     else:
         db_session.rollback()
 
