@@ -16,7 +16,7 @@ raw_blueprint = flask.Blueprint(
 
 @raw_blueprint.route('/', methods=['GET'])
 def home():
-    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.37.2" \
+    return "<h1>RPOS online order</h1><h3>Store name: {}  V:1.37.3" \
            "</h3><p>This site has API for self-ordering.</p>".format(
         flaskConfig.get('StoreName'))
 

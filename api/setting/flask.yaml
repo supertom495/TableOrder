@@ -6,6 +6,6 @@ DBName: gcvic
 StoreName: jackpot
 Debug: True
 #PiselUrl: https://etest.pisel.com.au
-Version: 1.37.2
+Version: 1.37.3
 Pay@table: False
 Port:

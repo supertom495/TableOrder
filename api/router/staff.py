@@ -26,7 +26,6 @@ def delete_visits():
 
 @staff_blueprint.route('/stafftoken', methods=['PUT'])
 def getStaffToken():
-    # result = ServiceUtil.returnSuccess()
 
     barcode = flask.request.form.get('barcode')
     staff = Staff.getStaffByBarcode(barcode)
@@ -34,8 +33,6 @@ def getStaffToken():
         return ResponseUtil.error(ServiceUtil.errorDataNotFound('no such a staff'))
 
     toBeEncrypted = barcode + str(int(time.time()) + 3600)
-
-    # cipherText = UtilValidate.encryption(toBeEncrypted).decode('UTF-8')
 
     cipherText = aesCipher.encrypt(toBeEncrypted).decode('UTF-8')
 
